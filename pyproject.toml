@@ -2,6 +2,7 @@
 name = "DoTLMViz"
 version = "0.1"
 dependencies = [
+    "jaxtyping",
     "mkdocs",
     "mkdocstrings-python",
     "mkdocs-material",
