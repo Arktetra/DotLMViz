@@ -1,3 +1,4 @@
-**.ruff_cache
-**.egg-info
-**notebooks
+**/*.ruff_cache
+**/*__pycache__
+**/*.egg-info
+**/*notebooks
