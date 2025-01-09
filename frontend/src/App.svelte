@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import ThemeButton from "./components/ThemeButton.svelte";
 
   let rand: string = $state("-1");
 
@@ -12,6 +13,8 @@
   onMount(getRand)
 </script>
 
-<h1>Your number is {rand}!</h1>
+<section class="min-w-full min-h-screen flex flex-col justify-evenly items-center">
+  <h1 class="font-bold uppercase text-theme">Your number is {rand}!</h1>
 
-<button onclick={getRand}>Get a random number</button>
+  <ThemeButton label="Click" clickEvent={getRand} />
+</section>
