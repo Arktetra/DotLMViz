@@ -1,5 +1,6 @@
 **/*.ruff_cache
 **/*__pycache__
 **/*egg-info
+**/*instance
 **/*notebooks
 **/*pytest_cache
