@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { CloseOutline } from "flowbite-svelte-icons";
     import FullScreenOverlay from "./FullScreenOverlay.svelte";
 

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { fade } from "svelte/transition";
 
     const { clickEvent = null, children = null } = $props();
