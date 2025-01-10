@@ -3,7 +3,7 @@
 **/*egg-info
 **/*instance
 **/*notebooks
+**/*pretrained_models
 **/*pytest_cache
-
 **/.vscode
 **/.DS_Store
