@@ -11,7 +11,8 @@ from .mlp import MLP
 
 
 class TransformerBlock(nn.Module):
-    """Implmentation of Transformer block for transformer."""
+    """The Transformer block which consists of the residual stream, MLP, attention
+    layer, and normalization layer (LayerNorm)."""
 
     def __init__(self, config):
         super().__init__()
@@ -33,7 +34,7 @@ class TransformerBlock(nn.Module):
 
 
 class Transformer(nn.Module):
-    """Implementation of Transformer."""
+    """A Transformer model that will be created as according to the config passed."""
 
     def __init__(self, config):
         super().__init__()

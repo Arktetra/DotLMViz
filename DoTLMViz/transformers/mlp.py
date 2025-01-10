@@ -6,8 +6,10 @@ from jaxtyping import Float
 
 from DoTLMViz.activations import gelu_new
 
+
 class MLP(nn.Module):
-    """Implementation of MLP for transformer."""
+    """A standard neural network, with a singular hidden layer and a non-linear
+    activation function."""
 
     def __init__(self, config):
         super().__init__()
@@ -23,13 +25,13 @@ class MLP(nn.Module):
         self, residual: Float[torch.Tensor, "batch seq_len d_model"]
     ) -> Float[torch.Tensor, "batch seq_len d_model"]:
         """Forward pass for MLP"""
-        residual = einops.einsum(
-            residual, self.W_in,
-            "batch seq_len d_model, d_model d_mlp -> batch seq_len d_mlp"
-        ) + self.b_in
+        residual = (
+            einops.einsum(residual, self.W_in, "batch seq_len d_model, d_model d_mlp -> batch seq_len d_mlp")
+            + self.b_in
+        )
         residual = gelu_new(residual)
-        residual = einops.einsum(
-            residual, self.W_out,
-            "batch seq_len d_mlp, d_mlp d_model -> batch seq_len d_model"
-        ) + self.b_out
+        residual = (
+            einops.einsum(residual, self.W_out, "batch seq_len d_mlp, d_mlp d_model -> batch seq_len d_model")
+            + self.b_out
+        )
         return residual
