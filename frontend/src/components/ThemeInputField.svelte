@@ -1,9 +1,11 @@
 <script lang="ts">
-    const { label = "Label", type = "text", placeholder = "Enter text here..", inputEvent = null } = $props()
+    const { label = null, type = "text", placeholder = "Enter text here..", inputEvent = null } = $props()
 </script>
 
 
-<label class="text-theme">{label}:</label>
+{#if label}
+    <label class="text-theme">{label}:</label>
+{/if}
 <input 
     type={type}
     placeholder={placeholder}
