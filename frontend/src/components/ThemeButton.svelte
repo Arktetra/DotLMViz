@@ -11,6 +11,6 @@
 >
     {label ? label : ""}
     {#if children}
-        <svelte:component this={children} />
+        {@render children()}
     {/if}
 </button>
