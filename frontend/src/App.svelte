@@ -5,6 +5,7 @@
   import ThemeInputField from "./components/ThemeInputField.svelte";
   import Popup from "./components/Popup.svelte";
   import SideDrawer from "./components/SideDrawer.svelte";
+  import ThemeInputSlider from "./components/ThemeInputSlider.svelte";
 
   let rand: string = $state("-1");
   let popupOpen: boolean = $state(false);
@@ -46,6 +47,8 @@
         <span class="">This is Side Drawer Content</span>
         <span>It will contain the output probability stuffs and others...</span>
       </div>
+      <ThemeInputSlider label={"Temperature"} min={-2} max={2} step={0.1}/>
+      <ThemeInputSlider label={"Top K"} min={-10} max={10} step={1} />
     </div>
   </SideDrawer>
   
