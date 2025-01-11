@@ -13,7 +13,8 @@ from .transformers import Config, Embedding, GPT2SmallConfig, LayerNorm, PosEmbe
 
 
 class HookedTransformer(nn.Module):
-    """Hook a Transformer model to cache the intermediate outputs of each layer in the model."""
+    """
+    Hook a Transformer model to cache the intermediate outputs of each layer in the model."""
 
     def __init__(self, config: Config):
         super().__init__()
@@ -33,7 +34,8 @@ class HookedTransformer(nn.Module):
 
     @classmethod
     def from_pretrained(cls, model_name: str, config: Config = None, device=None) -> "HookedTransformer":
-        """Create a hooked transformer from a pretrained model.
+        """
+        Create a hooked transformer from a pretrained model.
 
         Model names that are currently supported:
 
@@ -63,7 +65,8 @@ class HookedTransformer(nn.Module):
     def run_with_cache(
         self, tokens: Int[Tensor, "batch seq_len"]
     ) -> Tuple[Float[Tensor, "batch seq_len d_vocab"], Dict[str, Tensor]]:
-        """Runs the model and returns the output of the model along with the cache of the
+        """
+        Runs the model and returns the output of the model along with the cache of the
         output of each layer in the model.
         """
         modules, module_name_pairs = self.get_all_sub_modules()
