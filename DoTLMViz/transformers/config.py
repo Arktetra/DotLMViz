@@ -2,7 +2,14 @@ from dataclasses import dataclass
 
 
 @dataclass
-class GPT2SmallConfig:
+class Config:
+    """Base class for model config."""
+
+    pass
+
+
+@dataclass
+class GPT2SmallConfig(Config):
     d_model: int = 768
     debug: bool = True
     layer_norm_eps: float = 1e-5
