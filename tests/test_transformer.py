@@ -8,8 +8,14 @@ from DoTLMViz.transformers.embedding import Embedding, PosEmbedding, Unembedding
 from DoTLMViz.transformers.attention import Attention
 from DoTLMViz.transformers.mlp import MLP
 from DoTLMViz.transformers.transformer import TransformerBlock, Transformer
+from DoTLMViz import HookedTransformer as CustomHookedTransformer
 
 device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+
+
+def compare(a, b):
+    comparison = torch.isclose(a, b, atol=1e-4, rtol=1e-3)
+    print(f"{comparison.sum() / comparison.numel():.2%} of the values are correct.\n")
 
 
 def load_gpt2_test(cls, gpt2_layer, input):
@@ -66,3 +72,7 @@ class TestTransformer:
 
     def test_transformer(self):
         assert load_gpt2_test(Transformer, self.reference_gpt2, self.tokens)
+
+    def test_hooked_transformer(self):
+        model = CustomHookedTransformer.from_pretrained("gpt2-small")
+        compare(model(self.tokens), self.logits)

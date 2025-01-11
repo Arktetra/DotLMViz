@@ -15,8 +15,8 @@ class MLP(nn.Module):
         super().__init__()
         self.config = config
         self.W_in = nn.Parameter(torch.empty((config.d_model, config.d_mlp)))
-        self.W_out = nn.Parameter(torch.empty((config.d_mlp, config.d_model)))
         self.b_in = nn.Parameter(torch.zeros((config.d_mlp)))
+        self.W_out = nn.Parameter(torch.empty((config.d_mlp, config.d_model)))
         self.b_out = nn.Parameter(torch.zeros((config.d_model)))
         nn.init.normal_(self.W_in, std=config.init_range)
         nn.init.normal_(self.W_out, std=config.init_range)
