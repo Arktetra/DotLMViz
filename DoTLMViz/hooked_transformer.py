@@ -5,92 +5,60 @@ from functools import partial
 from jaxtyping import Float, Int
 from typing import Dict, List, Tuple
 from torch import Tensor
-from transformers import GPT2Model
+
+from .converter import Converter
 
 from .core.hook import Hooks
-from .transformers import Transformer, TransformerBlock, GPT2SmallConfig
+from .transformers import Config, Embedding, GPT2SmallConfig, LayerNorm, PosEmbedding, TransformerBlock, Unembedding
 
 
-class HookedTransformer:
+class HookedTransformer(nn.Module):
     """Hook a Transformer model to cache the intermediate outputs of each layer in the model."""
 
-    def __init__(self, module: Transformer):
-        self.module = module
-        self.cache = {}
+    def __init__(self, config: Config):
+        super().__init__()
+        self.config = config
+        self.embed = Embedding(config)
+        self.pos_embed = PosEmbedding(config)
+        self.blocks = nn.ModuleList([TransformerBlock(config) for _ in range(config.n_layers)])
+        self.ln_final = LayerNorm(config)
+        self.unembed = Unembedding(config)
 
-    @staticmethod
-    def from_pretrained(model_name: str):
+    def forward(self, tokens: Int[Tensor, "batch seq_len"]) -> Float[Tensor, "batch seq_len d_vocab"]:
+        residual = self.embed(tokens) + self.pos_embed(tokens)
+        for block in self.blocks:
+            residual = block(residual)
+        residual = self.ln_final(residual)
+        return self.unembed(residual)
+
+    @classmethod
+    def from_pretrained(cls, model_name: str, config: Config = None, device=None) -> "HookedTransformer":
+        """Create a hooked transformer from a pretrained model.
+
+        Model names that are currently supported:
+
+        - "gpt2-small"
+
+        Args:
+            model_name (str): name of the model.
+            config (Config, optional): configuration of the transformer. Defaults to None.
+
+        Returns:
+            HookedTransformer: An instance of the `HookedTransformer` created from the pretrained model.
+        """
         if model_name == "gpt2-small":
-            return HookedTransformer.__load_gpt2_small()
+            config = GPT2SmallConfig
 
-    @staticmethod
-    def __load_gpt2_small():
-        def __split_states(x, n):
-            *start, m = x.shape
-            return x.reshape(start + [n, m // n])
+        state_dict = Converter(model_name, config).convert()
 
-        def __split_heads(x, n_heads):
-            return torch.transpose(__split_states(x, n_heads), dim0=-1, dim1=-2)
+        model = cls(config)
 
-        new_model = Transformer(GPT2SmallConfig)
-        pretrained_model = GPT2Model.from_pretrained("gpt2")
+        model.load_state_dict(state_dict, strict=False)
 
-        new_state_dict = new_model.state_dict()
-        new_state_keys = list(new_state_dict.keys())
-        pre_state_dict = pretrained_model.state_dict()
-        pre_state_keys = list(pre_state_dict.keys())
+        if device is None:
+            device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
-        new_iter = 0
-        pre_iter = 0
-
-        for i in range(len(new_state_dict)):
-            if pre_iter == len(pre_state_keys):
-                break
-
-            new_key = new_state_keys[new_iter]
-            pre_key = pre_state_keys[pre_iter]
-
-            if "attn" in new_key:
-                c_attn_weight = pre_state_dict[pre_state_keys[pre_iter]]
-                c_attn_bias = pre_state_dict[pre_state_keys[pre_iter + 1]]
-                c_proj_weight = pre_state_dict[pre_state_keys[pre_iter + 2]]
-                c_proj_bias = pre_state_dict[pre_state_keys[pre_iter + 3]]
-
-                W_Q, W_K, W_V = map(
-                    partial(__split_heads, n_heads=new_model.config.n_heads),
-                    torch.split(c_attn_weight, 2304 // 3, dim=-1),
-                )
-                W_Q, W_K, W_V = map(partial(torch.permute, dims=(2, 0, 1)), [W_Q, W_K, W_V])
-                b_Q, b_K, b_V = map(
-                    partial(__split_heads, n_heads=new_model.config.n_heads),
-                    torch.split(c_attn_bias, 2304 // 3, dim=-1),
-                )
-                b_Q, b_K, b_V = map(partial(torch.permute, dims=(1, 0)), [b_Q, b_K, b_V])
-                W_O = __split_states(c_proj_weight.permute(1, 0), 12).permute(1, 2, 0)
-                b_O = c_proj_bias
-
-                new_state_dict[new_state_keys[new_iter]] = W_Q
-                new_state_dict[new_state_keys[new_iter + 1]] = W_K
-                new_state_dict[new_state_keys[new_iter + 2]] = W_V
-                new_state_dict[new_state_keys[new_iter + 3]] = W_O
-                new_state_dict[new_state_keys[new_iter + 4]] = b_Q
-                new_state_dict[new_state_keys[new_iter + 5]] = b_K
-                new_state_dict[new_state_keys[new_iter + 6]] = b_V
-                new_state_dict[new_state_keys[new_iter + 7]] = b_O
-                new_iter += 9  # 8 ( + 1 for skipping IGNORE)
-                pre_iter += 4
-            elif "unembed" in new_key:
-                new_state_dict[new_key] = pre_state_dict[pre_key].permute(1, 0)
-                new_iter += 2
-            else:
-                new_state_dict[new_key] = pre_state_dict[pre_key]
-                new_iter += 1
-                pre_iter += 1
-        new_state_dict["unembed.W_U"] = pre_state_dict["wte.weight"].permute(1, 0)
-
-        new_model.load_state_dict(new_state_dict, strict=True)
-
-        return HookedTransformer(new_model)
+        return model.to(device)
 
     def run_with_cache(
         self, tokens: Int[Tensor, "batch seq_len"]
@@ -100,9 +68,10 @@ class HookedTransformer:
         """
         modules, module_name_pairs = self.get_all_sub_modules()
 
+        self.cache = {}
         self.hooks = Hooks(modules, partial(self._hookfunc, module_name_pairs=module_name_pairs))
 
-        output = self.module(tokens)
+        output = self(tokens)
 
         self.hooks.remove()
 
@@ -126,7 +95,7 @@ class HookedTransformer:
         modules = []
         module_name_pairs = {}
 
-        stack = [(self.module, "")]
+        stack = [(self, "")]
 
         while stack:
             current_module, parent_name = stack.pop()
