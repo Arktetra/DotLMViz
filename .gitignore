@@ -1,6 +1,10 @@
 **/*.ruff_cache
+**/*.vscode
+**/*.DS_Store
 **/*__pycache__
+**/*data
 **/*egg-info
 **/*instance
 **/*notebooks
+**/*pretrained_models
 **/*pytest_cache
