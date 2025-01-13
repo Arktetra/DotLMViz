@@ -4,6 +4,8 @@ import torch.nn as nn
 from jaxtyping import Float, Int
 from torch import Tensor
 
+from DoTLMViz.core.ckpt import Ckpt
+
 from .embedding import Embedding, PosEmbedding, Unembedding
 from .attention import Attention
 from .layernorm import LayerNorm
@@ -17,10 +19,13 @@ class TransformerBlock(nn.Module):
     def __init__(self, config):
         super().__init__()
         self.config = config
+        self.resid_pre = Ckpt()
         self.ln1 = LayerNorm(config)
         self.attn = Attention(config)
+        self.resid_mid = Ckpt()
         self.ln2 = LayerNorm(config)
         self.mlp = MLP(config)
+        self.resid_post = Ckpt()
 
     def forward(
         self, resid_pre: Float[torch.Tensor, "batch seq_len d_model"]
@@ -28,8 +33,11 @@ class TransformerBlock(nn.Module):
         """
         Forward pass for transformer block.
         """
+        self.resid_pre(resid_pre)
         resid_mid = self.attn(self.ln1(resid_pre)) + resid_pre
+        self.resid_mid(resid_mid)
         resid_post = self.mlp(self.ln2(resid_mid)) + resid_mid
+        self.resid_post(resid_post)
         return resid_post
 
 
