@@ -1,59 +1,93 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import ThemeButton from "./components/ThemeButton.svelte";
-  import { HeartSolid } from 'flowbite-svelte-icons';
   import ThemeInputField from "./components/ThemeInputField.svelte";
-  import Popup from "./components/Popup.svelte";
   import SideDrawer from "./components/SideDrawer.svelte";
   import ThemeInputSlider from "./components/ThemeInputSlider.svelte";
-
-  let rand: string = $state("-1");
-  let popupOpen: boolean = $state(false);
+  import BlockBase from "./components/BlockBase.svelte";
+  import DottedBlockBase from "./components/DottedBlockBase.svelte";
 
   function getRand() {
     fetch("/api/rand")
-      .then(d => d.text())
-      .then(d => (rand = d));
+      .then((d) => {  d.text()  })
+      .then((d) => {  d })
+      .catch((err) => { err;  });
   }
 
   onMount(getRand)
 
-  function setPopupState(state : boolean)
-  {
-    popupOpen = state;
-  }
+  const _embeddings = [
+    {
+      label: "Token Embedding",
+      redirect: "/readings/tokenembedding"
+    },
+    {
+      label: "Positional Embedding",
+      redirect: "/readings/positionalembedding"
+    }
+  ]
+
+  const _transformerBlock = [
+    {
+      label: "Attention Head",
+      redirect: "/readings/attentionhead"
+    },
+    {
+      label: "MLP",
+      redirect: "/readings/mlp"
+    }
+  ]
 </script>
 
 <section class="min-w-full min-h-screen flex flex-col justify-evenly items-center">
-  <h1 class="font-bold uppercase text-theme">Your number is {rand}!</h1>
+  <div class="flex flex-row justify-evenly items-center min-w-[90vw]">
+    <DottedBlockBase label="Embeddings">
+      {#each _embeddings as item}
+        <BlockBase label={item.label} >
+          <h1 class="bg-theme p-4 ">{item.label}</h1>
+        </BlockBase>
+      {/each}
+    </DottedBlockBase>
 
-  <ThemeButton label="Click" clickEvent={() => setPopupState(!popupOpen)} >
-    <HeartSolid fill="red" class="inline-block" />
-  </ThemeButton>
-
-  {#if popupOpen}
-      <Popup onClose={() => setPopupState(false)} >
-        <div class="text-center min-h-[10rem] min-w-[20rem]">
-          <h1 class="text-xl font-bold uppercase underline my-2">This is popup</h1>
-          <span>These are children house by popup</span>
-        </div>
-      </Popup>
-  {/if}
+    <DottedBlockBase label="Transformer Blocks" style="flex flex-row justify-between items-center w-[30rem] h-[20rem]">
+      {#each _transformerBlock as item}
+        <BlockBase label={item.label} >
+          <h1 class="bg-theme p-4 ">{item.label}</h1>
+        </BlockBase>
+      {/each}
+    </DottedBlockBase>
+    
+    <DottedBlockBase label="Unembedding">
+      <BlockBase label="Unembedding" width={"20rem"} height={"20rem"} >
+        <h1 class="bg-theme p-4 "></h1>
+      </BlockBase>
+    </DottedBlockBase>
+  </div>
 
   <SideDrawer width={"25rem"} >
-    <div class="flex flex-col justify-evenly items-center h-[50vh] border border-dashed border-theme p-2">
-      <h1 class="font-bold uppercase underline text-xl my-2">Output</h1>
-      <div class="p-4 rounded-md bg-theme text-white leading-7 tracking-widest">
-        <span class="">This is Side Drawer Content</span>
-        <span>It will contain the output probability stuffs and others...</span>
+    <div class="w-full flex flex-col justify-evenly items-center p-2 h-full">
+      <h1 class="font-bold uppercase text-xl my-2 text-center text-theme">Output</h1>
+      <div class="w-full bg-[#ccc] p-2 rounded-sm shadow-inner">
+        <span class="text-theme text-center block text-lg font-bold underline">Control Parameters</span>
+        <ThemeInputSlider label={"Temperature"} min={-2} max={2} step={0.1}/>
+        <hr class="border border-theme-w" />
+        <ThemeInputSlider label={"Top K"} min={1} max={10} step={1} />
+        <hr class="border border-theme-w" />
+        <ThemeInputSlider label={"Top P"} min={0} max={1} step={0.05} />
       </div>
-      <ThemeInputSlider label={"Temperature"} min={-2} max={2} step={0.1}/>
-      <ThemeInputSlider label={"Top K"} min={-10} max={10} step={1} />
+      <hr class="border border-theme w-full" />
+      <div class="w-full min-h-[10rem] flex flex-col justify-evenly items-center">
+        <h1 class="text-xl text-theme font-bold">Probability Distribution</h1>
+        <div class=" w-[100%] p-[5rem] py-[10rem] bg-[#999] rounded-md my-5 text-theme-w">
+          bar chart here...
+        </div>
+        <span>Prediction : <span class="bg-theme rounded-md p-2 px-3 text-theme-w">test</span></span>
+      </div>
     </div>
   </SideDrawer>
   
   <div>
-    <ThemeInputField inputEvent={()=>getRand} />
+    <ThemeInputField />
     <ThemeButton label="Generate" />
   </div>
 </section>
