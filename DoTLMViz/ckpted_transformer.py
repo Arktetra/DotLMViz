@@ -9,13 +9,14 @@ from torch import Tensor
 from .converter import Converter
 
 from .core.hook import Hooks
-from .core import Ckpt
+from .core import Ckpt, ActivationCkpts
 from .transformers import Config, Embedding, GPT2SmallConfig, LayerNorm, PosEmbedding, TransformerBlock, Unembedding
 
 
-class HookedTransformer(nn.Module):
+class CkptedTransformer(nn.Module):
     """
-    Hook a Transformer model to cache the intermediate outputs of each layer in the model."""
+    Hook a Transformer model to add checkpoints for the intermediate outputs of
+    each layer in the model."""
 
     def __init__(self, config: Config):
         super().__init__()
@@ -42,7 +43,7 @@ class HookedTransformer(nn.Module):
         return self.unembed(residual)
 
     @classmethod
-    def from_pretrained(cls, model_name: str, config: Config = None, device=None) -> "HookedTransformer":
+    def from_pretrained(cls, model_name: str, config: Config = None, device=None) -> "CkptedTransformer":
         """
         Create a hooked transformer from a pretrained model.
 
@@ -55,7 +56,7 @@ class HookedTransformer(nn.Module):
             config (Config, optional): configuration of the transformer. Defaults to None.
 
         Returns:
-            HookedTransformer: An instance of the `HookedTransformer` created from the pretrained model.
+            CkptedTransformer: An instance of the `CkptedTransformer` created from the pretrained model.
         """
         if model_name == "gpt2-small":
             config = GPT2SmallConfig
@@ -71,37 +72,37 @@ class HookedTransformer(nn.Module):
 
         return model.to(device)
 
-    def run_with_cache(
+    def run_with_ckpts(
         self, tokens: Int[Tensor, "batch seq_len"]
     ) -> Tuple[Float[Tensor, "batch seq_len d_vocab"], Dict[str, Tensor]]:
         """
-        Runs the model and returns the output of the model along with the cache of the
+        Runs the model and returns the output of the model along with the checkpoints of the
         output of each layer in the model.
         """
-        modules, module_name_pairs = self.get_all_sub_modules()
+        modules, module_name_pairs = self.get_all_checkpoints()
 
-        self.cache = {}
+        self.ckpts = ActivationCkpts()
         self.hooks = Hooks(modules, partial(self._hookfunc, module_name_pairs=module_name_pairs))
 
         output = self(tokens)
 
         self.hooks.remove()
 
-        return output, self.cache
+        return output, self.ckpts
 
     def _hookfunc(self, *args, **kwargs):
-        self.cache_module(*args, **kwargs)
+        self.ckpt_module(*args, **kwargs)
 
-    def cache_module(self, hook, module, input, output, module_name_pairs):
+    def ckpt_module(self, hook, module, input, output, module_name_pairs):
         """
-        The hook function that is used to cache the output of each layer in the model.
+        The hook function that is used to checkpoint the output of each layer in the model.
         """
         name = module_name_pairs[module]
-        self.cache[name] = output
+        self.ckpts[name] = output
 
-    def get_all_sub_modules(self) -> Tuple[List[nn.Module], Dict[nn.Module, str]]:
+    def get_all_checkpoints(self) -> Tuple[List[nn.Module], Dict[nn.Module, str]]:
         """
-        Returns a tuple of list of all sub modules and their mapping to their names in the
+        Returns a tuple of list of all checkpoints and their mapping to their names in the
         model.
         """
         modules = []
