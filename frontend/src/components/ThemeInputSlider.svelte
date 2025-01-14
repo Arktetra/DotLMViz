@@ -12,9 +12,9 @@
 </script>
 
 
-<div class="w-full flex flex-col p-2">
+<div class="w-full flex flex-col p-2 my-2 mb-5">
     {#if label}
-        <label class="text-theme font-bold font-mono mb-2">{label}</label>
+        <label class="text-theme text-sm font-bold font-mono mb-1">{label}</label>
     {/if}
     <div class="w-full relative flex flex-row justify-between items-center text-gray-500">
         <span class="absolute text-[0.75rem] font-bold -bottom-5 -start-1">{min}</span>
