@@ -7,6 +7,12 @@ export default defineConfig({
   server: {
     proxy: {
       "/api/rand": "http://127.0.0.1:5000",
+      "/ckpt/act": "http://127.0.0.1:5000",
+      "/model/load":  {
+        target: "http://127.0.0.1:5000",
+        timeout: 10000
+      },
+      "/model/run": "http://127.0.0.1:5000",
     }
   }
 })
