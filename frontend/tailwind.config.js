@@ -11,6 +11,8 @@ export default {
         "theme-alt" : "#554080",
         "theme-w" : "#efefef",
         "theme-w-alt" : "#eaeaea",
+        "theme-g" : "#dddddd",
+        "theme-g-alt" : "#cdcdcd",
       }
     },
   },
