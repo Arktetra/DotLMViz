@@ -11,3 +11,12 @@ def standardize(X: torch.Tensor) -> torch.Tensor:
         torch.Tensor: the standardized tensor.
     """
     return (X - X.mean()) / X.std()
+
+
+def compare(a: torch.Tensor, b: torch.Tensor) -> float:
+    """
+    Compares two tensors, and returns the number of elements that are correct in
+    the range of 0 to 1.
+    """
+    comparison = torch.isclose(a, b, atol=1e-4, rtol=1e-3)
+    return comparison.sum() / comparison.numel()

@@ -1,4 +1,4 @@
 from .core import DataModule
-from .hooked_transformer import HookedTransformer
+from .ckpted_transformer import CkptedTransformer
 
-__all__ = ["DataModule", "HookedTransformer"]
+__all__ = ["DataModule", "CkptedTransformer"]
