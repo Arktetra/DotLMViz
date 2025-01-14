@@ -5,6 +5,8 @@ import torch.nn as nn
 from jaxtyping import Float
 from torch import Tensor
 
+from DoTLMViz.core import Ckpt
+
 
 class Attention(nn.Module):
     """Multi-head attention layer for transforming the embedding vectors to build
@@ -28,6 +30,15 @@ class Attention(nn.Module):
         nn.init.normal_(self.W_V, std=config.init_range)
         nn.init.normal_(self.W_O, std=config.init_range)
         self.register_buffer("IGNORE", torch.tensor(float("-inf"), device=device, dtype=torch.float32))
+
+        # for checkpointing
+        self.ckpt_q = Ckpt()
+        self.ckpt_k = Ckpt()
+        self.ckpt_v = Ckpt()
+        self.ckpt_scores = Ckpt()
+        self.ckpt_pattern = Ckpt()
+        self.ckpt_z = Ckpt()
+        self.ckpt_attn_out = Ckpt()
 
     def forward(
         self, normalized_resid_pre: Float[Tensor, "batch seq_len d_model"]
@@ -78,6 +89,14 @@ class Attention(nn.Module):
             )
             + self.b_O
         )
+
+        self.ckpt_q(query)
+        self.ckpt_k(key)
+        self.ckpt_v(value)
+        self.ckpt_scores(attn_scores_masked)
+        self.ckpt_pattern(attn_pattern)
+        self.ckpt_z(z)
+        self.ckpt_attn_out(attn_out)
 
         return attn_out
 

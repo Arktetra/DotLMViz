@@ -9,6 +9,7 @@ from torch import Tensor
 from .converter import Converter
 
 from .core.hook import Hooks
+from .core import Ckpt
 from .transformers import Config, Embedding, GPT2SmallConfig, LayerNorm, PosEmbedding, TransformerBlock, Unembedding
 
 
@@ -25,8 +26,16 @@ class HookedTransformer(nn.Module):
         self.ln_final = LayerNorm(config)
         self.unembed = Unembedding(config)
 
+        # for checkpointing
+        self.ckpt_embed = Ckpt()
+        self.ckpt_pos_embed = Ckpt()
+
     def forward(self, tokens: Int[Tensor, "batch seq_len"]) -> Float[Tensor, "batch seq_len d_vocab"]:
-        residual = self.embed(tokens) + self.pos_embed(tokens)
+        embed = self.embed(tokens)
+        self.ckpt_embed(embed)  # checkpoint token embed
+        pos_embed = self.pos_embed(tokens)
+        self.ckpt_pos_embed(pos_embed)  # checkpoint position embed
+        residual = self.embed(tokens) + self.pos_embed(tokens)  # this will be checkpointed inside the transformer block
         for block in self.blocks:
             residual = block(residual)
         residual = self.ln_final(residual)
@@ -106,7 +115,7 @@ class HookedTransformer(nn.Module):
             for name, sub_module in current_module._modules.items():
                 full_name = f"{parent_name}.{name}" if parent_name else name
 
-                if isinstance(sub_module, (nn.ModuleList, TransformerBlock)):
+                if not isinstance(sub_module, Ckpt):
                     stack.append((sub_module, full_name))
                 else:
                     modules.append(sub_module)
