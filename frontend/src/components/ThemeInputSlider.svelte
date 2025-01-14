@@ -12,12 +12,12 @@
 </script>
 
 
-<div class="w-full flex flex-col p-2 my-2 mb-5">
+<div class="w-full flex flex-col mb-5">
     {#if label}
-        <label class="text-theme text-sm font-bold font-mono mb-1">{label}</label>
+        <label class="text-theme text-[0.75rem] font-bold font-main">{label}</label>
     {/if}
     <div class="w-full relative flex flex-row justify-between items-center text-gray-500">
-        <span class="absolute text-[0.75rem] font-bold -bottom-5 -start-1">{min}</span>
+        <span class="absolute text-[0.75rem] font-bold -bottom-4 -start-1">{min}</span>
         <input 
             type="range"
             min={min}
@@ -27,10 +27,10 @@
             value={inpVal}
             class={"w-full accent-theme " + style}
         />
-        <span class="absolute text-[0.75rem] font-bold -bottom-5 -end-1">{max}</span>
+        <span class="absolute text-[0.75rem] font-bold -bottom-4 -end-1">{max}</span>
         <span 
             style="left: {((inpVal - min)/(max - min))*100}%;"
-            class={"absolute translate-x-[-50%] -bottom-5 text-sm text-center bg-theme text-theme-w rounded-md min-w-[1.8rem] "}
+            class={"absolute translate-x-[-50%] -bottom-4 text-[0.70rem] text-center bg-theme text-theme-w rounded-md min-w-[1.8rem] "}
         >
             {inpVal}
         </span>
