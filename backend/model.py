@@ -2,6 +2,7 @@ from flask import Blueprint, current_app, request, Response, jsonify
 from transformers import GPT2TokenizerFast
 
 from DoTLMViz import CkptedTransformer
+from DoTLMViz.utils import predict_next_token
 
 import torch
 
@@ -28,6 +29,9 @@ def load_model():
 
 @bp.route("/run", methods=["GET", "POST"])
 def run_model():
+    """
+    Runs a model on the input text that is in the POST request.
+    """
     try:
         if request.method == "POST":
             # print("run model clicked.")
@@ -40,6 +44,19 @@ def run_model():
             current_app.ckpts = ckpts
             print("Successfully ran the model on the input text.")
             return Response(None, status=201)
+    except Exception as e:
+        print("Error: ", str(e))
+        return jsonify({"Error": str(e)}), 500
+
+
+@bp.route("/predict", methods=["GET"])
+def predict():
+    """
+    Predicts the next token by using the logits obtained by running the
+    model.
+    """
+    try:
+        return predict_next_token(current_app.logits).tolist()
     except Exception as e:
         print("Error: ", str(e))
         return jsonify({"Error": str(e)}), 500

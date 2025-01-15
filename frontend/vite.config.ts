@@ -12,6 +12,7 @@ export default defineConfig({
         target: "http://127.0.0.1:5000",
         timeout: 10000
       },
+      "/model/predict": "http://127.0.0.1:5000",
       "/model/run": "http://127.0.0.1:5000",
     }
   }
