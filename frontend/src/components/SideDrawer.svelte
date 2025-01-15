@@ -1,15 +1,15 @@
 <script lang="ts">
     import { ChevronDoubleRightOutline, ChevronDoubleLeftOutline } from "flowbite-svelte-icons";
-  import FullScreenOverlay from "./FullScreenOverlay.svelte";
+    import FullScreenOverlay from "./FullScreenOverlay.svelte";
 
     const { side = "right", width = "", children = null } = $props();
 
     let isOpen: boolean = $state(true);
 </script>
 
-{#if isOpen}
+<!-- {#if isOpen}
     <FullScreenOverlay clickEvent={() => isOpen = false} />
-{/if}
+{/if} -->
 
 <section 
     style="width: {width ? width : "10rem"};"
