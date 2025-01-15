@@ -5,7 +5,7 @@
 **/*data
 **/*egg-info
 **/*instance
-**/*notebooks
+**/*notebooks_rough
 **/*pretrained_models
 **/*pytest_cache
 **/*.netlify
