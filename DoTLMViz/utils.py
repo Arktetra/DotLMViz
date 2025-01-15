@@ -20,3 +20,11 @@ def compare(a: torch.Tensor, b: torch.Tensor) -> float:
     """
     comparison = torch.isclose(a, b, atol=1e-4, rtol=1e-3)
     return comparison.sum() / comparison.numel()
+
+
+def predict_next_token(logits: torch.Tensor) -> torch.Tensor:
+    """
+    Returns a probability distribution for the likelihood of each token in
+    the vocabulary for the next token given the input sequence.
+    """
+    return torch.softmax(logits[-1], dim=-1)  # the last logits gives the evidence of each token for the next token.
