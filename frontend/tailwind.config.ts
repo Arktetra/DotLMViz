@@ -1,11 +1,26 @@
 import type { Config } from 'tailwindcss';
 
 export default {
-  content: ['./src/**/*.{html,js,svelte,ts}'],
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
+    './node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}'
+	],
+	theme: {
+		extend: {
+			colors: {
+				theme: '#665191',
+				'theme-alt': '#554080',
+				'theme-w': '#efefef',
+				'theme-w-alt': '#eaeaea',
+				'theme-g': '#dddddd',
+				'theme-g-alt': '#cdcdcd'
+			},
+			fontSize: {
+				ti: '0.75rem',
+				'ti-s': '0.7rem'
+			}
+		}
+	},
 
-  theme: {
-    extend: {}
-  },
-
-  plugins: []
+	plugins: []
 } satisfies Config;
