@@ -8,6 +8,9 @@
   import InputBlock from "./modules/InputBlock.svelte";
   import TokensBlock from "./modules/TokensBlock.svelte";
 
+  import Navbar from "./lib/Navbar.svelte";
+  import DottedBlockBase from "./components/DottedBlockBase.svelte";
+
   function getRand() {
     fetch("/api/rand")
       .then((d) => {  d.text()  })
@@ -18,12 +21,19 @@
   onMount(getRand)
 </script>
 
+<Navbar />
 <section class="min-w-full min-h-screen flex flex-col justify-evenly items-center">
   <div class="flex flex-row justify-evenly items-center min-w-[90vw]">
     <TokensBlock />
-    <EmbeddingBlock />
-    <TransformerBlocks />
-    <UnembeddingBlock />
+    <DottedBlockBase label="GPT-2 Small" style="min-w-[50vw] flex flex-row justify-evenly items-center bg-none">
+      <EmbeddingBlock />
+      <TransformerBlocks />
+      <UnembeddingBlock />
+    </DottedBlockBase>
+    <div class="flex flex-col justify-evenly items-center">
+      <span class="text-2xl text-theme font-bold my-2 block">Prediction :</span>
+      <span class="bg-theme rounded-md p-1 px-2 text-theme-w font-light">E</span>
+    </div>
   </div>
 
   <OutputBlock />

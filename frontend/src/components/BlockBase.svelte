@@ -18,7 +18,7 @@
 
 <section
     style="width:{width};height:{height};"
-    class={"p-2 m-2 flex flex-col justify-center items-center rounded-xl bg-theme hover:scale-[102%] relative text-theme-w cursor-pointer " + (style ? style : "")}
+    class={"p-2 m-2 flex flex-col justify-center items-center rounded-xl bg-theme hover:bg-theme-alt hover:scale-[102%] relative text-theme-w cursor-pointer transition-all duration-200 " + (style ? style : "")}
     on:click={() => blockTrigger(true)}
 >
     <a

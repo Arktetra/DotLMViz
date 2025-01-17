@@ -4,6 +4,6 @@
 </script>
 
 <DottedBlockBase label="Unembedding">
-    <BlockBase label="Unembedding" width={"20rem"} height={"20rem"} >
+    <BlockBase label="Unembedding" width={"12rem"} height={"20rem"} >
     </BlockBase>
 </DottedBlockBase>

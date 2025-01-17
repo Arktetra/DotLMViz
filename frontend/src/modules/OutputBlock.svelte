@@ -111,7 +111,6 @@
       </div>
     </div>
     <span class="text-theme font-bold my-2">Prediction : <span class="bg-theme rounded-md p-1 px-2 text-theme-w font-light">E</span></span>
-    <p>This is just for testing....</p>
   </div>
 </SideDrawer>
   
