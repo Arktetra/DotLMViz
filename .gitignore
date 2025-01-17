@@ -8,4 +8,5 @@
 **/*notebooks_rough
 **/*pretrained_models
 **/*pytest_cache
-**/*.netlify
+**/*.env
+**/node_modules

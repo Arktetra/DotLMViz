@@ -11,16 +11,27 @@ pre-commit install
 pre-commit autoupdate
 ```
 
-## Run
-
-Run the frontend:
+### Frontend
 
 ```bash
 cd frontend
+npm i
 npm run dev
 ```
 
 Open the web browser and go to `http://localhost:5173/`
+
+**Prettier (Frontend)**
+To write
+```bash
+npm run format
+```
+To check
+```bash
+npm run lint
+```
+
+<hr />
 
 Open a new terminal, go the root directory and run the backend:
 
