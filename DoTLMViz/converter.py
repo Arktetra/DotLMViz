@@ -10,6 +10,14 @@ class Converter:
     """
     Converter for converting the state dict containing merged weights to the ones
     needed by our transformer models.
+
+    Example:
+    -------
+
+    >>> from DoTLMViz.transformers import GPT2SmallConfig
+    >>> from DoTLMViz.converter import Converter
+    >>>
+    >>> state_dict = Converter(model_name = "gpt2-small", config = GPT2SmallConfig).convert()
     """
 
     def __init__(self, model_name: str, config: Config):
