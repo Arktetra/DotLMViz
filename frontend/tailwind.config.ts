@@ -3,7 +3,7 @@ import type { Config } from 'tailwindcss';
 export default {
 	content: [
 		'./src/**/*.{html,js,svelte,ts}',
-    './node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}'
+		'./node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}'
 	],
 	theme: {
 		extend: {
@@ -14,11 +14,11 @@ export default {
 				'theme-w-alt': '#eaeaea',
 				'theme-g': '#dddddd',
 				'theme-g-alt': '#cdcdcd',
-				'theme-r': "#ec2315",
-				'theme-r-alt': "#db1204",
+				'theme-r': '#ec2315',
+				'theme-r-alt': '#db1204'
 			},
 			fontSize: {
-				'ti': '0.75rem',
+				ti: '0.75rem',
 				'ti-s': '0.7rem'
 			}
 		}

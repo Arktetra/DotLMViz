@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { fade } from "svelte/transition";
+	import { fade } from 'svelte/transition';
 
-    const { clickEvent = null, children = null } = $props();
+	const { clickEvent = null, children = null } = $props();
 </script>
 
-<div 
-    transition:fade={{duration:200}} 
-    class="fixed w-screen h-screen top-0 left-0 z-10 bg-[#0004] flex flex-col justify-center items-center"
-    onclick={() => clickEvent ? clickEvent() : () => {}}
+<div
+	transition:fade={{ duration: 200 }}
+	class="fixed left-0 top-0 z-10 flex h-screen w-screen flex-col items-center justify-center bg-[#0004]"
+	onclick={() => (clickEvent ? clickEvent() : () => {})}
 >
-    {#if children}
-        {@render children()}
-    {/if}
+	{#if children}
+		{@render children()}
+	{/if}
 </div>
