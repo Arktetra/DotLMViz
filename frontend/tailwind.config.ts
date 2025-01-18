@@ -13,10 +13,12 @@ export default {
 				'theme-w': '#efefef',
 				'theme-w-alt': '#eaeaea',
 				'theme-g': '#dddddd',
-				'theme-g-alt': '#cdcdcd'
+				'theme-g-alt': '#cdcdcd',
+				'theme-r': "#ec2315",
+				'theme-r-alt': "#db1204",
 			},
 			fontSize: {
-				ti: '0.75rem',
+				'ti': '0.75rem',
 				'ti-s': '0.7rem'
 			}
 		}
