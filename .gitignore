@@ -2,7 +2,7 @@
 **/*.vscode
 **/*.DS_Store
 **/*__pycache__
-**/*data
+**/data
 **/*egg-info
 **/*instance
 **/*notebooks_rough
