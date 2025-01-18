@@ -6,7 +6,6 @@
 	import InputBlock from '../modules/InputBlock.svelte';
 	import TokensBlock from '../modules/TokensBlock.svelte';
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
-	import Navbar from '../lib/Navbar.svelte';
 	import { onMount } from 'svelte';
 
 	let model_name = $state('gpt2-small');
@@ -89,7 +88,6 @@
 	onMount(() => loadModel());
 </script>
 
-<Navbar />
 <section
 	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-evenly"
 >
