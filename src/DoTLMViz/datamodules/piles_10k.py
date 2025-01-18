@@ -11,7 +11,18 @@ import DoTLMViz.metadata.piles_10k as metadata
 
 
 class Piles10k(DataModule):
-    """A data module for Piles-10k dataset."""
+    """
+    A data module for Piles-10k dataset.
+
+    Example:
+    -------
+
+    >>> from DoTLMViz.datamodule import Piles10k
+    >>>
+    >>> datamodule = Piles10k(batch_size = 64, max_length = 256)
+    >>> datamodule.prepare_data()
+    >>> datamodule.setup()
+    """
 
     def __init__(self, batch_size=256, max_length=1024, *args, **kwargs):
         super().__init__(*args, **kwargs)

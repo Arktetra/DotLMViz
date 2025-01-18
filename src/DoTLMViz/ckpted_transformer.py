@@ -3,6 +3,7 @@ import torch.nn as nn
 
 from functools import partial
 from jaxtyping import Float, Int
+from pathlib import Path
 from typing import Dict, List, Tuple
 from torch import Tensor
 
@@ -12,13 +13,30 @@ from .core.hook import Hooks
 from .core import Ckpt, ActivationCkpts
 from .transformers import Config, Embedding, GPT2SmallConfig, LayerNorm, PosEmbedding, TransformerBlock, Unembedding
 
+PRETRAINED_PATH = Path(__file__).resolve().parents[2] / "pretrained_models"
+
 
 class CkptedTransformer(nn.Module):
     """
     Hook a Transformer model to add checkpoints for the intermediate outputs of
-    each layer in the model."""
+    each layer in the model.
 
-    def __init__(self, config: Config):
+    Example:
+    --------
+
+    >>> from transformers import GPT2Tokenizer
+    >>> from DoTLMViz import CkptedTransformer
+    >>>
+    >>> tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+    >>> model = CkptedTransformer.from_pretrained("gpt2-small", device = "cuda")
+    >>>
+    >>> text = "alpha beta gamma delta eta epsilone zeta"
+    >>> tokens = tokenizer(text, return_tensors = "pt")
+    >>>
+    >>> logits, cache = model.run_with_ckpts(tokens["input_ids"])
+    """
+
+    def __init__(self, config: Config = GPT2SmallConfig):
         super().__init__()
         self.config = config
         self.embed = Embedding(config)
@@ -61,7 +79,12 @@ class CkptedTransformer(nn.Module):
         if model_name == "gpt2-small":
             config = GPT2SmallConfig
 
-        state_dict = Converter(model_name, config).convert()
+        if (PRETRAINED_PATH / (model_name + ".pth")).exists():
+            state_dict = torch.load(PRETRAINED_PATH / (model_name + ".pth"))
+        else:
+            state_dict = Converter(model_name, config).convert()
+            PRETRAINED_PATH.mkdir(parents=True, exist_ok=True)
+            torch.save(state_dict, (PRETRAINED_PATH / (model_name + ".pth")))
 
         model = cls(config)
 

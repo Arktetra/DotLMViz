@@ -1,20 +1,39 @@
 [project]
 name = "DoTLMViz"
-version = "0.1"
+version = "0.1.0"
 dependencies = [
     "jaxtyping",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest"
+]
+
+docs = [
     "mkdocs",
     "mkdocstrings-python",
-    "mkdocs-material",
-    "pre-commit",
+    "mkdocs-material"
+]
+
+others = [
+    "pre-commit"
+]
+
+lint = [
     "ruff"
+]
+
+dev = [
+    "DoTLMViz[test, docs, others, lint]"
 ]
 
 [project.urls]
 Repository = "https://github.com/Arktetra/DoTLMViz.git"
 
-[tool.setuptools]
-packages = ["DoTLMViz"]
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
 
 [tool.ruff]
 line-length = 120

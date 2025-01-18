@@ -3,6 +3,23 @@
 
 	import SideDrawer from '../components/SideDrawer.svelte';
 	import ThemeInputSlider from '../components/ThemeInputSlider.svelte';
+	import { activeComponent } from '../state.svelte';
+
+	const predNextToken = async () => {
+		try {
+			return await fetch('/model/pred')
+				.then((res) => res)
+				.then((res) => {
+					let logits = res.json();
+					console.log(logits);
+					// return logits;
+				})
+				.catch((error) => console.log("Could not predict the next token " + error));
+		} catch (error) {
+			console.log("Unable to fetch " + error);
+			return;
+		}
+	}
 </script>
 
 <SideDrawer width={'25rem'}>
@@ -24,9 +41,11 @@
 			class="flex min-h-[15rem] w-full flex-col items-center justify-evenly rounded-md bg-theme-g-alt p-3 shadow-inner shadow-theme-g-alt"
 		>
 			<div class="chart w-full text-right text-ti font-light">
-				<span class="text-md my-4 block text-center font-bold text-theme underline"
-					>Chart here.. Probability distribution</span
-				>
+				{#if activeComponent.name === "Generate"}
+					<span class="text-md my-4 block text-center font-bold text-theme underline"
+						>Chart here.. {activeComponent.name} {predNextToken()}</span
+					>
+				{/if}
 			</div>
 		</div>
 		<span class="my-2 font-bold text-theme"

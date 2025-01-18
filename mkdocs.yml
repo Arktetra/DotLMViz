@@ -7,7 +7,9 @@ theme:
 nav:
   - Home: index.md
   - decomposition:
-    - pca: decomposition/PCA.md
+    - PCA: decomposition/PCA.md
+  - checkpointed-transformer:
+    - CkptedTransformer: CkptedTransformer.md
 
 plugins:
   - mkdocstrings:
