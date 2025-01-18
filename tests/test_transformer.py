@@ -8,7 +8,7 @@ from DoTLMViz.transformers.embedding import Embedding, PosEmbedding, Unembedding
 from DoTLMViz.transformers.attention import Attention
 from DoTLMViz.transformers.mlp import MLP
 from DoTLMViz.transformers.transformer import TransformerBlock, Transformer
-from DoTLMViz import HookedTransformer as CustomHookedTransformer
+from DoTLMViz import CkptedTransformer
 
 device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
@@ -74,5 +74,5 @@ class TestTransformer:
         assert load_gpt2_test(Transformer, self.reference_gpt2, self.tokens)
 
     def test_hooked_transformer(self):
-        model = CustomHookedTransformer.from_pretrained("gpt2-small")
+        model = CkptedTransformer.from_pretrained("gpt2-small")
         compare(model(self.tokens), self.logits)
