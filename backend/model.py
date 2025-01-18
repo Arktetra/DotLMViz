@@ -20,6 +20,9 @@ def load_model():
             if model_name == "gpt2-small":
                 current_app.tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
                 current_app.model = CkptedTransformer.from_pretrained("gpt2-small")
+                current_app.device = (
+                    "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+                )
                 print(f"{model_name} model loaded successfully!!!")
             return Response(None, status=201)
     except Exception as e:
@@ -34,12 +37,10 @@ def run_model():
     """
     try:
         if request.method == "POST":
-            # print("run model clicked.")
             text = request.json["text"]
-            # print(text)
-            tokens = current_app.tokenizer(text)["input_ids"]
-            tokens = torch.tensor(tokens).reshape(1, -1)
-            logits, ckpts = current_app.model.run_with_ckpts(tokens)
+            text = " " if text == "" else text
+            tokens = current_app.tokenizer(text, return_tensors="pt")["input_ids"]
+            logits, ckpts = current_app.model.run_with_ckpts(tokens.to(current_app.device))
             current_app.logits = logits
             current_app.ckpts = ckpts
             print("Successfully ran the model on the input text.")
@@ -49,14 +50,17 @@ def run_model():
         return jsonify({"Error": str(e)}), 500
 
 
-@bp.route("/predict", methods=["GET"])
+@bp.route("/pred", methods=["GET"])
 def predict():
     """
     Predicts the next token by using the logits obtained by running the
     model.
     """
     try:
-        return predict_next_token(current_app.logits).tolist()
+        dist = predict_next_token(current_app.logits[:, -1])
+        sorted_dist, sorted_idxs = torch.sort(dist.squeeze().detach().cpu(), descending=True)
+        sorted_tokens = current_app.tokenizer.convert_ids_to_tokens(sorted_idxs)
+        return [sorted_dist[:20].tolist(), sorted_tokens[:20]]
     except Exception as e:
         print("Error: ", str(e))
         return jsonify({"Error": str(e)}), 500

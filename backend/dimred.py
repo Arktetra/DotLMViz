@@ -7,7 +7,7 @@ import torch
 bp = Blueprint("dimred", __name__, url_prefix="/dimred")
 
 
-@bp.route("/dimred", methods=["POST"])
+@bp.route("/pca", methods=["POST"])
 def perform_pca():
     """
     Perform PCA on the data-points in the POST request.
