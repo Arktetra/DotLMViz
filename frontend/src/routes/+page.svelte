@@ -10,45 +10,43 @@
 	import { onMount } from 'svelte';
 
 	let model_name = $state('gpt2-small');
-    let tokens: string[] = $state([])
-    let inpText: string = $state('')
-    let activeTokenInd: number = $state(0)
+	let tokens: string[] = $state([]);
+	let inpText: string = $state('');
+	let activeTokenInd: number = $state(0);
 
 	const loadModel = async () => {
 		try {
 			return await fetch('/model/load', {
-			method: 'POST',
-			body: JSON.stringify({ model_name }),
-			headers: {
-				'Content-Type': 'application/json'
-			}
+				method: 'POST',
+				body: JSON.stringify({ model_name }),
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			})
-			.then(res => res)
-			.catch(error => console.log("Something not right " + error))
-		}
-		catch(error) {
-			console.log("Unable to fetch " + error)
+				.then((res) => res)
+				.catch((error) => console.log('Something not right ' + error));
+		} catch (error) {
+			console.log('Unable to fetch ' + error);
 			return;
 		}
-	}
+	};
 
 	const runModel = async () => {
 		try {
 			return await fetch('/model/run', {
 				method: 'POST',
-				body: JSON.stringify({ "text" : inpText }),
+				body: JSON.stringify({ text: inpText }),
 				headers: {
 					'Content-Type': 'application/json'
 				}
-				})
-			.then(res => res)
-			.catch(error => console.log("Something not right " + error))
-		}
-		catch(error) {
-			console.log("Unable to fetch " + error)
+			})
+				.then((res) => res)
+				.catch((error) => console.log('Something not right ' + error));
+		} catch (error) {
+			console.log('Unable to fetch ' + error);
 			return;
 		}
-	}
+	};
 
 	let act_name = 'pattern';
 	let layer_name = 'attn';
@@ -61,7 +59,9 @@
 			headers: {
 				'Content-Type': 'application/json'
 			}
-		}).then((res) => res).catch(error => console.log(error));
+		})
+			.then((res) => res)
+			.catch((error) => console.log(error));
 		var data = await response?.json();
 		console.log(data);
 	}
@@ -72,19 +72,19 @@
 	//     .then(d => console.log(d))
 	// }
 
-    const onInpChange = (v : string) => {
-        inpText = v
-        genToken()
-    }
+	const onInpChange = (v: string) => {
+		inpText = v;
+		genToken();
+	};
 
-    $effect(() => {
-        genToken()
-    })
+	$effect(() => {
+		genToken();
+	});
 
-    const genToken = () => {
-        // tokens = inpText.indexOf(' ') > 0 || inpText.length > 5 ? inpText.split(' ') : inpText.split('')
-        tokens = inpText.split(' ')
-    }
+	const genToken = () => {
+		// tokens = inpText.indexOf(' ') > 0 || inpText.length > 5 ? inpText.split(' ') : inpText.split('')
+		tokens = inpText.split(' ');
+	};
 
 	onMount(() => loadModel());
 </script>
@@ -95,12 +95,8 @@
 >
 	<div class="flex flex-row items-center justify-evenly space-x-10">
 		<TokensBlock {tokens} bind:tokenInd={activeTokenInd}>
-			<span class="text-sm font-light text-theme-w"
-				>Index: <span class="text-md font-bold">{activeTokenInd}</span></span
-			>
-			<span class="text-sm font-light text-theme-w"
-				>Token: <span class="text-lg font-bold">'{tokens[activeTokenInd]}'</span></span
-			>
+			<span class="text-sm font-light text-theme-w">Index: <span class="text-md font-bold">{activeTokenInd}</span></span>
+			<span class="text-sm font-light text-theme-w">Token: <span class="text-lg font-bold">'{tokens[activeTokenInd]}'</span></span>
 		</TokensBlock>
 		<DottedBlockBase
 			label="GPT-2 Small"
