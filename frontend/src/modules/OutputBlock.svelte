@@ -14,21 +14,27 @@
 					console.log(logits);
 					// return logits;
 				})
-				.catch((error) => console.log("Could not predict the next token " + error));
+				.catch((error) => console.log('Could not predict the next token ' + error));
 		} catch (error) {
-			console.log("Unable to fetch " + error);
+			console.log('Unable to fetch ' + error);
 			return;
 		}
-	}
+	};
 </script>
 
 <SideDrawer width={'25rem'}>
 	<div class="flex h-full w-full flex-col items-center justify-evenly">
-		<div class="w-full rounded-md bg-theme-g p-2 shadow-inner shadow-theme-g-alt relative">
-			<a href="/read/control-parameter" title="Control Parameter" class="absolute end-1 top-1 text-theme">
+		<div class="relative w-full rounded-md bg-theme-g p-2 shadow-inner shadow-theme-g-alt">
+			<a
+				href="/read/control-parameter"
+				title="Control Parameter"
+				class="absolute end-1 top-1 text-theme"
+			>
 				<QuestionCircleSolid size={'sm'} />
 			</a>
-			<span class="text-md mb-2 block text-center font-extrabold uppercase text-theme underline">Control Parameters</span>
+			<span class="text-md mb-2 block text-center font-extrabold uppercase text-theme underline"
+				>Control Parameters</span
+			>
 			<ThemeInputSlider label={'Temperature'} min={-2} max={2} step={0.1} />
 			<hr class="my-1 border border-theme-w" />
 			<ThemeInputSlider label={'Top K'} min={1} max={10} step={1} />
@@ -41,7 +47,7 @@
 			class="flex min-h-[15rem] w-full flex-col items-center justify-evenly rounded-md bg-theme-g-alt p-3 shadow-inner shadow-theme-g-alt"
 		>
 			<div class="chart w-full text-right text-ti font-light">
-				{#if activeComponent.name === "Generate"}
+				{#if activeComponent.name === 'Generate'}
 					<span class="text-md my-4 block text-center font-bold text-theme underline"
 						>Chart here.. {activeComponent.name} {predNextToken()}</span
 					>

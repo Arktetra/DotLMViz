@@ -1,3 +1,3 @@
 export const activeComponent = $state({
-    name: 'Output Distribution'
+	name: 'Output Distribution'
 });

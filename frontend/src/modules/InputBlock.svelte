@@ -22,14 +22,14 @@
 			})
 				.then((res) => {
 					activeComponent.name = 'Generate';
-					res
+					res;
 				})
-				.catch((error) => console.log("Could not run the model " + error));
+				.catch((error) => console.log('Could not run the model ' + error));
 		} catch (error) {
-			console.log("Unable to fetch " + error);
+			console.log('Unable to fetch ' + error);
 			return;
 		}
-	}
+	};
 </script>
 
 <div>
