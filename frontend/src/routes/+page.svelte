@@ -5,27 +5,88 @@
 	import EmbeddingBlock from '../modules/EmbeddingBlock.svelte';
 	import InputBlock from '../modules/InputBlock.svelte';
 	import TokensBlock from '../modules/TokensBlock.svelte';
-
-	import Navbar from '../lib/Navbar.svelte';
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
+	import Navbar from '../lib/Navbar.svelte';
+	import { onMount } from 'svelte';
 
-	let tokens: string[] = $state([]);
-	let inpText: string = $state('');
-	let activeTokenInd: number = $state(0);
+	let model_name = $state('gpt2-small');
+    let tokens: string[] = $state([])
+    let inpText: string = $state('')
+    let activeTokenInd: number = $state(0)
 
-	const onInpChange = (v: string) => {
-		inpText = v;
-		genToken();
-	};
+	const loadModel = async () => {
+		try {
+			return await fetch('/model/load', {
+			method: 'POST',
+			body: JSON.stringify({ model_name }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+			})
+			.then(res => res)
+			.catch(error => console.log("Something not right " + error))
+		}
+		catch(error) {
+			console.log("Unable to fetch " + error)
+			return;
+		}
+	}
 
-	$effect(() => {
-		genToken();
-	});
+	const runModel = async () => {
+		try {
+			return await fetch('/model/run', {
+				method: 'POST',
+				body: JSON.stringify({ "text" : inpText }),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+				})
+			.then(res => res)
+			.catch(error => console.log("Something not right " + error))
+		}
+		catch(error) {
+			console.log("Unable to fetch " + error)
+			return;
+		}
+	}
 
-	const genToken = () => {
-		// tokens = inpText.indexOf(' ') > 0 || inpText.length > 5 ? inpText.split(' ') : inpText.split('')
-		tokens = inpText.split(' ');
-	};
+	let act_name = 'pattern';
+	let layer_name = 'attn';
+	let block = 0;
+
+	async function getAttnScores() {
+		const response = await fetch('/ckpt/act', {
+			method: 'POST',
+			body: JSON.stringify({ act_name, layer_name, block }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then((res) => res).catch(error => console.log(error));
+		var data = await response?.json();
+		console.log(data);
+	}
+
+	// function getAttnScores() {
+	//   fetch("/ckpt/act")
+	//     .then(d => d.text())
+	//     .then(d => console.log(d))
+	// }
+
+    const onInpChange = (v : string) => {
+        inpText = v
+        genToken()
+    }
+
+    $effect(() => {
+        genToken()
+    })
+
+    const genToken = () => {
+        // tokens = inpText.indexOf(' ') > 0 || inpText.length > 5 ? inpText.split(' ') : inpText.split('')
+        tokens = inpText.split(' ')
+    }
+
+	onMount(() => loadModel());
 </script>
 
 <Navbar />
@@ -58,6 +119,6 @@
 		</DottedBlockBase>
 	</div>
 
-	<InputBlock bind:value={inpText} inpEventCb={onInpChange} />
+	<InputBlock bind:value={inpText} btnEventCb={runModel} inpEventCb={onInpChange} />
 </section>
 <OutputBlock />

@@ -6,11 +6,11 @@
 	const _transformerBlock = [
 		{
 			label: 'Attention Head',
-			href: '/readings/attentionhead'
+			href: '/read/attentionhead'
 		},
 		{
 			label: 'MLP',
-			href: '/readings/mlp'
+			href: '/read/mlp'
 		}
 	];
 
