@@ -3,6 +3,7 @@ import torch.nn as nn
 
 from functools import partial
 from jaxtyping import Float, Int
+from pathlib import Path
 from typing import Dict, List, Tuple
 from torch import Tensor
 
@@ -11,6 +12,8 @@ from .converter import Converter
 from .core.hook import Hooks
 from .core import Ckpt, ActivationCkpts
 from .transformers import Config, Embedding, GPT2SmallConfig, LayerNorm, PosEmbedding, TransformerBlock, Unembedding
+
+PRETRAINED_PATH = Path(__file__).resolve().parents[1] / "pretrained_models"
 
 
 class CkptedTransformer(nn.Module):
@@ -33,7 +36,7 @@ class CkptedTransformer(nn.Module):
     >>> logits, cache = model.run_with_ckpts(tokens["input_ids"])
     """
 
-    def __init__(self, config: Config):
+    def __init__(self, config: Config = GPT2SmallConfig):
         super().__init__()
         self.config = config
         self.embed = Embedding(config)
@@ -76,7 +79,11 @@ class CkptedTransformer(nn.Module):
         if model_name == "gpt2-small":
             config = GPT2SmallConfig
 
-        state_dict = Converter(model_name, config).convert()
+        if (PRETRAINED_PATH / (model_name + ".pth")).exists():
+            state_dict = torch.load(PRETRAINED_PATH / (model_name + ".pth"))
+        else:
+            state_dict = Converter(model_name, config).convert()
+            torch.save(state_dict, (PRETRAINED_PATH / (model_name + ".pth")))
 
         model = cls(config)
 
