@@ -31,6 +31,22 @@
 		}
 	};
 
+	const predNextToken = async () => {
+		try {
+			return await fetch('/model/pred')
+				.then((res) => res)
+				.then((res) => {
+					let logits = res.json();
+					console.log(logits);
+					// return logits;
+				})
+				.catch((error) => console.log("Could not predict the next token" + error));
+		} catch (error) {
+			console.log("Unable to fetch" + error);
+			return;
+		}
+	}
+
 	const runModel = async () => {
 		try {
 			return await fetch('/model/run', {
@@ -115,6 +131,6 @@
 		</DottedBlockBase>
 	</div>
 
-	<InputBlock bind:value={inpText} btnEventCb={runModel} inpEventCb={onInpChange} />
+	<InputBlock bind:value={inpText} inpEventCb={onInpChange} />
 </section>
 <OutputBlock />
