@@ -41,4 +41,8 @@ def create_app(test_config=None):
 
     app.register_blueprint(ckpt.bp)
 
+    from . import dimred
+
+    app.register_blueprint(dimred.bp)
+
     return app

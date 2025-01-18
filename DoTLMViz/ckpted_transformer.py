@@ -16,7 +16,22 @@ from .transformers import Config, Embedding, GPT2SmallConfig, LayerNorm, PosEmbe
 class CkptedTransformer(nn.Module):
     """
     Hook a Transformer model to add checkpoints for the intermediate outputs of
-    each layer in the model."""
+    each layer in the model.
+
+    Example:
+    --------
+
+    >>> from transformers import GPT2Tokenizer
+    >>> from DoTLMViz import CkptedTransformer
+    >>>
+    >>> tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+    >>> model = CkptedTransformer.from_pretrained("gpt2-small", device = "cuda")
+    >>>
+    >>> text = "alpha beta gamma delta eta epsilone zeta"
+    >>> tokens = tokenizer(text, return_tensors = "pt")
+    >>>
+    >>> logits, cache = model.run_with_ckpts(tokens["input_ids"])
+    """
 
     def __init__(self, config: Config):
         super().__init__()
