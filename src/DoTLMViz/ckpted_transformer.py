@@ -13,7 +13,7 @@ from .core.hook import Hooks
 from .core import Ckpt, ActivationCkpts
 from .transformers import Config, Embedding, GPT2SmallConfig, LayerNorm, PosEmbedding, TransformerBlock, Unembedding
 
-PRETRAINED_PATH = Path(__file__).resolve().parents[1] / "pretrained_models"
+PRETRAINED_PATH = Path(__file__).resolve().parents[2] / "pretrained_models"
 
 
 class CkptedTransformer(nn.Module):
@@ -83,6 +83,7 @@ class CkptedTransformer(nn.Module):
             state_dict = torch.load(PRETRAINED_PATH / (model_name + ".pth"))
         else:
             state_dict = Converter(model_name, config).convert()
+            PRETRAINED_PATH.mkdir(parents=True, exist_ok=True)
             torch.save(state_dict, (PRETRAINED_PATH / (model_name + ".pth")))
 
         model = cls(config)
