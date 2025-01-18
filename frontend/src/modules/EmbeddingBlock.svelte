@@ -5,11 +5,11 @@
 	const _embeddings = [
 		{
 			label: 'Token Embedding',
-			href: '/read/tokenembedding'
+			href: '/read/token-embedding'
 		},
 		{
 			label: 'Positional Embedding',
-			href: '/read/positionalembedding'
+			href: '/read/positional-embedding'
 		}
 	];
 </script>

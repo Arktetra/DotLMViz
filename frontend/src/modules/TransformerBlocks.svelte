@@ -6,7 +6,7 @@
 	const _transformerBlock = [
 		{
 			label: 'Attention Head',
-			href: '/read/attentionhead'
+			href: '/read/attention-head'
 		},
 		{
 			label: 'MLP',
@@ -18,7 +18,6 @@
 </script>
 
 <DottedBlockBase label="Transformer Blocks" inStyle="flex-col p-4">
-	<span class="text-md my-2 uppercase text-theme">Blocks</span>
 	<ThemeNumberOptions count={12} bind:activeIndex={_activeBlock} />
 	<DottedBlockBase
 		label="Block: {_activeBlock}"
@@ -31,7 +30,7 @@
 				<BlockBase label={item.label} height={'10rem'} href={item.href}>
 					<h1 class="bg-theme p-4">{item.label}</h1>
 				</BlockBase>
-				<BlockBase label="LN" width={'4rem'} height={'4rem'} href={'/readings/layernorm'}>
+				<BlockBase label="LN" width={'4rem'} height={'4rem'} href={'/read/layernorm'}>
 					<h1 class="bg-theme p-4">LayerNorm</h1>
 				</BlockBase>
 			</div>

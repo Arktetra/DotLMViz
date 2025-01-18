@@ -1,14 +1,17 @@
 <script lang="ts">
+	import { QuestionCircleSolid } from 'flowbite-svelte-icons';
+
 	import SideDrawer from '../components/SideDrawer.svelte';
 	import ThemeInputSlider from '../components/ThemeInputSlider.svelte';
 </script>
 
 <SideDrawer width={'25rem'}>
 	<div class="flex h-full w-full flex-col items-center justify-evenly">
-		<div class="w-full rounded-md bg-theme-g p-2 shadow-inner shadow-theme-g-alt">
-			<span class="text-md mb-2 block text-center font-extrabold uppercase text-theme underline"
-				>Control Parameters</span
-			>
+		<div class="w-full rounded-md bg-theme-g p-2 shadow-inner shadow-theme-g-alt relative">
+			<a href="/read/control-parameter" title="Control Parameter" class="absolute end-1 top-1 text-theme">
+				<QuestionCircleSolid size={'sm'} />
+			</a>
+			<span class="text-md mb-2 block text-center font-extrabold uppercase text-theme underline">Control Parameters</span>
 			<ThemeInputSlider label={'Temperature'} min={-2} max={2} step={0.1} />
 			<hr class="my-1 border border-theme-w" />
 			<ThemeInputSlider label={'Top K'} min={1} max={10} step={1} />
