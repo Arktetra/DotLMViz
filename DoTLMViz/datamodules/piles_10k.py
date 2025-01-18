@@ -13,24 +13,28 @@ import DoTLMViz.metadata.piles_10k as metadata
 class Piles10k(DataModule):
     """A data module for Piles-10k dataset."""
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, batch_size=256, max_length=1024, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.max_length = max_length
+        self.batch_size = batch_size
 
         self.data_dir = metadata.DL_DATA_DIRNAME
 
     def prepare_data(self):
-        if not os.path.exists(metadata.PROCESSED_DATA_DIRNAME / "piles-10k"):
+        if not os.path.exists(metadata.PROCESSED_DATA_DIRNAME / f"piles-10k-{self.max_length}"):
             from transformers import GPT2Tokenizer
 
             dataset = datasets.load_dataset("NeelNanda/pile-10k", split="train").remove_columns("meta")
             tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 
-            tokenized_dataset = tokenize(dataset, tokenizer)
+            tokenized_dataset = tokenize(dataset, tokenizer, max_length=self.max_length)
 
-            tokenized_dataset.save_to_disk((metadata.PROCESSED_DATA_DIRNAME / "piles-10k").as_posix())
+            tokenized_dataset.save_to_disk(
+                (metadata.PROCESSED_DATA_DIRNAME / f"piles-10k-{self.max_length}").as_posix()
+            )
 
     def setup(self):
-        dataset = datasets.load_from_disk((metadata.PROCESSED_DATA_DIRNAME / "piles-10k").as_posix())
+        dataset = datasets.load_from_disk((metadata.PROCESSED_DATA_DIRNAME / f"piles-10k-{self.max_length}").as_posix())
         dataset_dict = dataset.train_test_split(test_size=1000)
 
         self.train_dataset = dataset_dict["train"]["tokens"]

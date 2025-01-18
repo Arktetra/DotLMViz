@@ -1,6 +1,10 @@
 from flask import Flask
 from pathlib import Path
 
+import socket
+
+socket.setdefaulttimeout(10)
+
 
 def create_app(test_config=None):
     """
@@ -29,8 +33,12 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import rand
+    from . import model
 
-    app.register_blueprint(rand.bp)
+    app.register_blueprint(model.bp)
+
+    from . import ckpt
+
+    app.register_blueprint(ckpt.bp)
 
     return app
