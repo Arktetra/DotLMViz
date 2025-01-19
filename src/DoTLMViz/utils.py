@@ -37,7 +37,7 @@ def cross_entropy_loss(
     return -pred_log_probs.mean()
 
 
-def predict_next_token(logits: torch.Tensor) -> torch.Tensor:
+def get_output_dist(logits: torch.Tensor) -> torch.Tensor:
     """
     Returns a probability distribution for the likelihood of each token in
     the vocabulary for the next token given the input sequence.

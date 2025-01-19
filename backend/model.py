@@ -2,7 +2,7 @@ from flask import Blueprint, current_app, request, Response, jsonify
 from transformers import GPT2TokenizerFast
 
 from DoTLMViz import CkptedTransformer
-from DoTLMViz.utils import predict_next_token
+from DoTLMViz.utils import get_output_dist
 
 import torch
 
@@ -50,14 +50,13 @@ def run_model():
         return jsonify({"Error": str(e)}), 500
 
 
-@bp.route("/pred", methods=["GET"])
-def predict():
+@bp.route("/dist", methods=["GET"])
+def get_dist():
     """
-    Predicts the next token by using the logits obtained by running the
-    model.
+    Returns the first 20 token-probability pair from the output probability distribution.
     """
     try:
-        dist = predict_next_token(current_app.logits[:, -1])
+        dist = get_output_dist(current_app.logits[:, -1])
         sorted_dist, sorted_idxs = torch.sort(dist.squeeze().detach().cpu(), descending=True)
         sorted_tokens = current_app.tokenizer.convert_ids_to_tokens(sorted_idxs)
         return [sorted_dist[:20].tolist(), sorted_tokens[:20]]
