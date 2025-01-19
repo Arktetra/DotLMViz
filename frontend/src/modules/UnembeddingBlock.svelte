@@ -4,6 +4,6 @@
 </script>
 
 <DottedBlockBase label="Unembedding">
-	<BlockBase label="Unembedding" width={'12rem'} height={'20rem'} href={'/readings/unembedding'}
+	<BlockBase label="Unembedding" width={'12rem'} height={'20rem'} href={'/read/unembedding'}
 	></BlockBase>
 </DottedBlockBase>

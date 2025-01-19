@@ -6,7 +6,6 @@
 	import InputBlock from '../modules/InputBlock.svelte';
 	import TokensBlock from '../modules/TokensBlock.svelte';
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
-	import Navbar from '../lib/Navbar.svelte';
 	import { onMount } from 'svelte';
 
 	let model_name = $state('gpt2-small');
@@ -40,12 +39,12 @@
 					console.log(logits);
 					// return logits;
 				})
-				.catch((error) => console.log("Could not predict the next token" + error));
+				.catch((error) => console.log('Could not predict the next token' + error));
 		} catch (error) {
-			console.log("Unable to fetch" + error);
+			console.log('Unable to fetch' + error);
 			return;
 		}
-	}
+	};
 
 	const runModel = async () => {
 		try {
@@ -105,14 +104,17 @@
 	onMount(() => loadModel());
 </script>
 
-<Navbar />
 <section
 	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-evenly"
 >
 	<div class="flex flex-row items-center justify-evenly space-x-10">
 		<TokensBlock {tokens} bind:tokenInd={activeTokenInd}>
-			<span class="text-sm font-light text-theme-w">Index: <span class="text-md font-bold">{activeTokenInd}</span></span>
-			<span class="text-sm font-light text-theme-w">Token: <span class="text-lg font-bold">'{tokens[activeTokenInd]}'</span></span>
+			<span class="text-sm font-light text-theme-w">
+				Index: <span class="text-md font-bold">{activeTokenInd}</span>
+			</span>
+			<span class="text-sm font-light text-theme-w">
+				Token: <span class="text-lg font-bold">'{tokens[activeTokenInd]}'</span>
+			</span>
 		</TokensBlock>
 		<DottedBlockBase
 			label="GPT-2 Small"

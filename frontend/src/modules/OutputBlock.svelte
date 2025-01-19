@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { QuestionCircleSolid } from 'flowbite-svelte-icons';
+
 	import SideDrawer from '../components/SideDrawer.svelte';
 	import ThemeInputSlider from '../components/ThemeInputSlider.svelte';
 	import BarChart from '../dataviz/BarChart.svelte';
@@ -8,7 +10,14 @@
 
 <SideDrawer width={'25rem'}>
 	<div class="flex h-full w-full flex-col items-center justify-evenly">
-		<div class="w-full rounded-md bg-theme-g p-2 shadow-inner shadow-theme-g-alt">
+		<div class="relative w-full rounded-md bg-theme-g p-2 shadow-inner shadow-theme-g-alt">
+			<a
+				href="/read/control-parameter"
+				title="Control Parameter"
+				class="absolute end-1 top-1 text-theme"
+			>
+				<QuestionCircleSolid size={'sm'} />
+			</a>
 			<span class="text-md mb-2 block text-center font-extrabold uppercase text-theme underline"
 				>Control Parameters</span
 			>
