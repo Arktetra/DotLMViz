@@ -2,7 +2,7 @@ from flask import Blueprint, current_app, request, Response, jsonify
 from transformers import GPT2TokenizerFast
 
 from DoTLMViz import CkptedTransformer
-from DoTLMViz.utils import get_output_dist
+from DoTLMViz.utils import get_output_dist, get_token_prob_mappings
 
 import torch
 
@@ -59,7 +59,7 @@ def get_dist():
         dist = get_output_dist(current_app.logits[:, -1])
         sorted_dist, sorted_idxs = torch.sort(dist.squeeze().detach().cpu(), descending=True)
         sorted_tokens = current_app.tokenizer.convert_ids_to_tokens(sorted_idxs)
-        return [sorted_dist[:20].tolist(), sorted_tokens[:20]]
+        return get_token_prob_mappings(sorted_tokens[:20], sorted_dist[:20])
     except Exception as e:
         print("Error: ", str(e))
         return jsonify({"Error": str(e)}), 500

@@ -43,3 +43,16 @@ def get_output_dist(logits: torch.Tensor) -> torch.Tensor:
     the vocabulary for the next token given the input sequence.
     """
     return torch.softmax(logits[-1], dim=-1)  # the last logits gives the evidence of each token for the next token.
+
+
+def get_token_prob_mappings(tokens: str, probs: torch.Tensor):
+    """
+    Returns a dictionary containing the mappings of tokens to their
+    corresponding probability.
+    """
+    token_prob_mappings = []
+
+    for token, prob in zip(tokens, probs):
+        token_prob_mappings.append({"name": token, "prob": prob.item()})
+
+    return token_prob_mappings
