@@ -1,12 +1,7 @@
 <script lang="ts">
     import { scaleLinear } from "d3-scale";
 
-    let {
-        tokens,
-    } = $props<{
-        tokens: { name: string, prob: number }[],
-    }>();
-
+    let { tokens } = $props();
 
     let width = $state(500);
     let height = 266;
@@ -32,7 +27,7 @@
 </script>
 
 <div class="chart" bind:clientWidth={width}>
-    <svg {width}{height}>
+    <svg {width} {height}>
         <g class="bars">
 
         </g>

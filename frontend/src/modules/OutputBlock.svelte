@@ -32,13 +32,13 @@
 		<div
 			class="flex min-h-[15rem] w-full flex-col items-center justify-evenly rounded-md bg-theme-g-alt p-3 shadow-inner shadow-theme-g-alt"
 		>
+		{#if data.tokenProbMappings.length != 0}
 			<div
 				class="chart w-full text-right text-ti font-light"
 			>
-				{#if activeComponent.name === "Generate"}
-					<BarChart tokens={data.tokenProbMappings} />
-				{/if}
+				<BarChart tokens={data.tokenProbMappings} />
 			</div>
+			{/if}
 		</div>
 		<span class="my-2 font-bold text-theme"
 			>Next Token : <span class="rounded-md bg-theme p-1 px-2 font-light text-theme-w">E</span
