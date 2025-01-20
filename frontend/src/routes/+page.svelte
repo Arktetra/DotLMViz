@@ -7,7 +7,7 @@
 	import TokensBlock from '../modules/TokensBlock.svelte';
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import { onMount } from 'svelte';
-	import { runModel, loadModel, predNextToken, getAttnScores } from './fetch.svelte';
+	import { runModel, loadModel, getAttnScores } from './fetch.svelte';
 	import { InitEventMap } from '../eventstate.svelte';
 	import { active_model } from '../state.svelte';
 	import ThemeToggle from '../components/ThemeToggle.svelte';
