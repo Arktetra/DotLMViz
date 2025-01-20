@@ -1,10 +1,10 @@
 <script lang="ts">
-	let { count, stackAxis = 'Horizontal', activeIndex = $bindable() } = $props();
+	let { count, stackAxis = 'Horizontal', style = "", activeIndex = $bindable() } = $props();
 </script>
 
 <div
 	class="mb-10 flex items-center justify-evenly rounded-md border border-theme bg-theme-w
-    {stackAxis == 'Horizontal' ? 'flex-row' : 'flex-col'}"
+    {stackAxis == 'Horizontal' ? 'flex-row' : 'flex-col'} {style}"
 >
 	{#each { length: count } as i, ind}
 		<button
