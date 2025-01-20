@@ -24,12 +24,12 @@
             .range([padding.left, width - padding.right])
     );
 
-    // tokens along y-axis
-    let yScale = $derived(
-        scaleLinear()
-            .domain([0, tokens.length])
-            .range([height - padding.bottom, padding.top])
-    );
+	// tokens along y-axis
+	let yScale = $derived(
+		scaleLinear()
+			.domain([0, tokens.length])
+			.range([height - padding.bottom, padding.top])
+	);
 
     let innerWidth = $derived(width - (padding.left + padding.right));
     let barWidth = $derived(innerWidth / tokens.length);

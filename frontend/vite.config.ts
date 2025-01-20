@@ -12,7 +12,7 @@ export default defineConfig({
 				timeout: 10000 // don't abandon the connection until 10 seconds have passed, sometimes loading model takes around 5 seconds.
 			},
 			'/model/dist': 'http://127.0.0.1:5000',
-			'/model/run': 'http://127.0.0.1:5000',
+			'/model/run': 'http://127.0.0.1:5000'
 		}
 	}
 });

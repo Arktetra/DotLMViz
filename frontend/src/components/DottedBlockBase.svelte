@@ -17,9 +17,9 @@
 		>{label}</span
 	>
 
-	<div class="flex items-center {inStyle}">
-		{#if children}
+	{#if children}
+		<div class="flex items-center {inStyle}">
 			{@render children()}
-		{/if}
-	</div>
+		</div>
+	{/if}
 </div>

@@ -5,7 +5,6 @@
 	import ThemeInputSlider from '../components/ThemeInputSlider.svelte';
 	import BarChart from '../dataviz/BarChart.svelte';
 	import { activeComponent, data } from '../state.svelte';
-
 </script>
 
 <SideDrawer width={'25rem'}>
@@ -18,7 +17,7 @@
 			>
 				<QuestionCircleSolid size={'sm'} />
 			</a>
-			<span class="text-md mb-2 block text-center font-extrabold uppercase text-theme underline"
+			<span class="text-md mb-4 block text-center font-extrabold uppercase text-theme underline"
 				>Control Parameters</span
 			>
 			<ThemeInputSlider label={'Temperature'} min={-2} max={2} step={0.1} />
@@ -37,8 +36,8 @@
 			>
 				{#if activeComponent.name === "Generate" || activeComponent.name === "Output Distribution"}
 					<BarChart tokens={data.tokenProbMappings} />
-				{/if}
-			</div>
+				</div>
+			{/if}
 		</div>
 		<span class="my-2 font-bold text-theme"
 			>Next Token : <span class="rounded-md bg-theme p-1 px-2 font-light text-theme-w">E</span

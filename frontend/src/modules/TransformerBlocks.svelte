@@ -2,6 +2,9 @@
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import BlockBase from '../components/BlockBase.svelte';
 	import ThemeNumberOptions from '../components/ThemeNumberOptions.svelte';
+	import ElementBlockBase from '../components/ElementBlockBase.svelte';
+	import AttentionHeads from './AttentionHeads.svelte';
+	import Mlp from './MLP.svelte';
 
 	const _transformerBlock = [
 		{
@@ -25,15 +28,22 @@
 		titStyle="text-ti top-[-1.4rem]"
 		inStyle="w-[30rem] h-[20rem] flex-row justify-between"
 	>
-		{#each _transformerBlock as item}
-			<div class="flex h-full flex-col items-start justify-evenly">
-				<BlockBase label={item.label} height={'10rem'} href={item.href}>
-					<h1 class="bg-theme p-4">{item.label}</h1>
-				</BlockBase>
-				<BlockBase label="LN" width={'4rem'} height={'4rem'} href={'/read/layernorm'}>
-					<h1 class="bg-theme p-4">LayerNorm</h1>
-				</BlockBase>
-			</div>
-		{/each}
+		<div class="flex h-full flex-col items-start justify-evenly">
+			<ElementBlockBase blockEle={AttentionHeads} blockStyle="p-2 min-w-[12rem] min-h-[10rem]" href={_transformerBlock[0].href}>
+				<span>{_transformerBlock[0].label}</span>
+			</ElementBlockBase>
+			<ElementBlockBase blockStyle="p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'}>
+				<span>LN</span>
+			</ElementBlockBase>
+		</div>
+		<div class="flex h-full flex-col items-start justify-evenly">
+			<ElementBlockBase blockEle={Mlp} blockStyle="p-4 min-w-[12rem] min-h-[10rem]" href={_transformerBlock[1].href}>
+				<span>{_transformerBlock[1].label}</span>
+			</ElementBlockBase>
+			<ElementBlockBase blockStyle="p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'}>
+				<span>LN</span>
+			</ElementBlockBase>
+		</div>
 	</DottedBlockBase>
+
 </DottedBlockBase>

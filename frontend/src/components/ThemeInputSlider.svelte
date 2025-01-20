@@ -16,13 +16,15 @@
 		if (changeEventCb) changeEventCb(v);
 		inpVal = v;
 	};
+
+	const MAX_CHAR_SIZE = 6
 </script>
 
-<div class="mb-5 flex w-full flex-col">
+<div class="mb-5 grid grid-cols-4">
 	{#if label}
-		<label class="font-main text-sm font-bold text-theme-r">{label}</label>
+		<label class="font-main text-sm font-bold text-theme-r" title={label}>{label.length > MAX_CHAR_SIZE ? label.slice(0, MAX_CHAR_SIZE) + "." : label}</label>
 	{/if}
-	<div class="relative flex w-full flex-row items-center justify-between text-gray-500">
+	<div class="relative col-span-3 flex flex-row items-center justify-between text-gray-500">
 		<span class="absolute -bottom-4 -start-1 text-ti font-bold">{min}</span>
 		<input
 			type="range"
@@ -36,7 +38,7 @@
 		<span class="absolute -bottom-4 -end-1 text-ti font-bold">{max}</span>
 		<span
 			style="left: {((inpVal - min) / (max - min)) * 100}%;"
-			class={'absolute -bottom-4 min-w-[1.8rem] translate-x-[-50%] rounded-md bg-theme text-center text-ti-s text-theme-w '}
+			class={'absolute -bottom-[0.85rem] min-w-[1.8rem] translate-x-[-50%] rounded-md bg-theme text-center text-ti-s text-theme-w '}
 		>
 			{inpVal}
 		</span>
