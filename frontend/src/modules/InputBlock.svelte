@@ -1,8 +1,8 @@
 <script lang="ts">
 	import ThemeInputField from '../components/ThemeInputField.svelte';
 	import ThemeButton from '../components/ThemeButton.svelte';
-	import { activeComponent, data } from '../state.svelte';
-	import { runModel, getDist } from '../routes/fetch.svelte';
+	import { activeComponent, data, global_state } from '../state.svelte';
+	import { loadModel, runModel, getDist } from '../routes/fetch.svelte';
 
 	let { inpEventCb = null, value = $bindable() } = $props();
 
@@ -14,6 +14,10 @@
 	};
 
 	const runAndGetDist = async () => {
+		if (global_state.isModelLoaded === false) {
+			await loadModel();
+		}
+		console.log("is model loaded? " + global_state.isModelLoaded);
 		await runModel(value);
 		await getDist();
 	};
