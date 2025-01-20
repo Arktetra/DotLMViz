@@ -36,8 +36,8 @@
 			>
 				{#if activeComponent.name === "Generate" || activeComponent.name === "Output Distribution"}
 					<BarChart tokens={data.tokenProbMappings} />
-				</div>
-			{/if}
+				{/if}
+			</div>
 		</div>
 		<span class="my-2 font-bold text-theme"
 			>Next Token : <span class="rounded-md bg-theme p-1 px-2 font-light text-theme-w">E</span
