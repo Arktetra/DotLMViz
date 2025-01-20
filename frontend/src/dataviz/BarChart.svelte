@@ -30,9 +30,6 @@
 			.range([height - padding.bottom, padding.top])
 	);
 
-    let innerWidth = $derived(width - (padding.left + padding.right));
-    let barWidth = $derived(innerWidth / tokens.length);
-
     let innerHeight = $derived(height - (padding.top + padding.bottom));
     let barHeight = $derived(innerHeight / tokens.length);
 
