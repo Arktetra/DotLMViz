@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ThemeInputField from '../components/ThemeInputField.svelte';
 	import ThemeButton from '../components/ThemeButton.svelte';
-	import { activeComponent, data } from '../state.svelte';
+	import { activeComponent, data, model } from '../state.svelte';
 
 	let { inpEventCb = null, value = $bindable() } = $props();
 

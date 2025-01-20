@@ -33,9 +33,9 @@
 			class="flex min-h-[15rem] w-full flex-col items-center justify-evenly rounded-md bg-theme-g-alt p-3 shadow-inner shadow-theme-g-alt"
 		>
 			<div
-				class="chart w-full text-right text-ti font-light"
+				class="chart-container w-full text-right text-ti font-light"
 			>
-				{#if activeComponent.name === "Generate"}
+				{#if activeComponent.name === "Generate" || activeComponent.name === "Output Distribution"}
 					<BarChart tokens={data.tokenProbMappings} />
 				{/if}
 			</div>
@@ -48,15 +48,7 @@
 </SideDrawer>
 
 <style lang="css">
-	.chart :global(div) {
-		background-color: #665191;
-		padding: 3px;
-		margin: 1px;
-		color: white;
-		opacity: 50%;
-	}
-
-	.chart :global(div):hover {
-		opacity: 100%;
+	.chart-container {
+		height: 100%;
 	}
 </style>

@@ -4,4 +4,8 @@ export const activeComponent = $state({
 
 export const data = $state({
     tokenProbMappings: []
-})
+});
+
+export const model = $state({
+    loaded: true
+});
