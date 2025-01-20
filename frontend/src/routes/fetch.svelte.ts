@@ -38,7 +38,7 @@ export const runModel = async (input_text: string) => {
 	}
 };
 
-export const getAttnScores = async (act_name: string, layer_name: string, block: number) => {
+export const getAct = async (act_name: string, layer_name: string, block: number) => {
 	const response = await fetch('/ckpt/act', {
 		method: 'POST',
 		body: JSON.stringify({ act_name, layer_name, block }),
