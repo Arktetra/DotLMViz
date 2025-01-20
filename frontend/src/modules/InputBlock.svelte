@@ -16,11 +16,11 @@
 	const runAndGetDist = async () => {
 		await runModel(value);
 		await getDist();
-	}
+	};
 
 	$effect(() => {
 		$inspect(data.tokenProbMappings);
-	})
+	});
 </script>
 
 <div>

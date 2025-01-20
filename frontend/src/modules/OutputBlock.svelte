@@ -5,7 +5,6 @@
 	import ThemeInputSlider from '../components/ThemeInputSlider.svelte';
 	import BarChart from '../dataviz/BarChart.svelte';
 	import { activeComponent, data } from '../state.svelte';
-
 </script>
 
 <SideDrawer width={'25rem'}>
@@ -32,12 +31,10 @@
 		<div
 			class="flex min-h-[15rem] w-full flex-col items-center justify-evenly rounded-md bg-theme-g-alt p-3 shadow-inner shadow-theme-g-alt"
 		>
-		{#if data.tokenProbMappings.length != 0}
-			<div
-				class="chart w-full text-right text-ti font-light"
-			>
-				<BarChart tokens={data.tokenProbMappings} />
-			</div>
+			{#if data.tokenProbMappings.length != 0}
+				<div class="chart w-full text-right text-ti font-light">
+					<BarChart tokens={data.tokenProbMappings} />
+				</div>
 			{/if}
 		</div>
 		<span class="my-2 font-bold text-theme"

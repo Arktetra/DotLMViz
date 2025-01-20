@@ -34,8 +34,8 @@
 	};
 
 	onMount(() => {
-		InitEventMap()
-		loadModel(active_model.model_name)
+		InitEventMap();
+		loadModel(active_model.model_name);
 	});
 </script>
 
