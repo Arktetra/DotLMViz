@@ -59,7 +59,8 @@ def get_dist():
         dist = get_output_dist(current_app.logits[:, -1])
         sorted_dist, sorted_idxs = torch.sort(dist.squeeze().detach().cpu(), descending=True)
         sorted_tokens = current_app.tokenizer.convert_ids_to_tokens(sorted_idxs)
-        return get_token_prob_mappings(sorted_tokens[:20], sorted_dist[:20])
+        mappings = get_token_prob_mappings(sorted_tokens[:20], sorted_dist[:20])
+        return mappings
     except Exception as e:
         print("Error: ", str(e))
         return jsonify({"Error": str(e)}), 500
