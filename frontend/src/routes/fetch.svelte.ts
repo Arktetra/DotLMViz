@@ -1,4 +1,4 @@
-import { data, active_model } from '../state.svelte';
+import { data, active_model, global_state } from '../state.svelte';
 
 // This function will load the model of name passed as param, fallback is to the default model on active_model on state.svelte
 export const loadModel = async (model_name: string = active_model.model_name) => {
@@ -10,7 +10,10 @@ export const loadModel = async (model_name: string = active_model.model_name) =>
 				'Content-Type': 'application/json'
 			}
 		})
-			.then((res) => res)
+			.then((res) => {
+				global_state.isModelLoaded = true;
+				res
+			})
 			.catch((error) => console.log('Something not right ' + error));
 	} catch (error) {
 		console.log('Unable to fetch ' + error);
@@ -80,9 +83,3 @@ export const getDist = async () => {
 		return;
 	}
 };
-
-// const getAttnScores = () => {
-//   fetch("/ckpt/act")
-//     .then(d => d.text())
-//     .then(d => console.log(d))
-// }
