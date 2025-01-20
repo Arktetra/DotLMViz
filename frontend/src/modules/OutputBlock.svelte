@@ -17,7 +17,7 @@
 			>
 				<QuestionCircleSolid size={'sm'} />
 			</a>
-			<span class="text-md mb-2 block text-center font-extrabold uppercase text-theme underline"
+			<span class="text-md mb-4 block text-center font-extrabold uppercase text-theme underline"
 				>Control Parameters</span
 			>
 			<ThemeInputSlider label={'Temperature'} min={-2} max={2} step={0.1} />
