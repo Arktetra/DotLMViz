@@ -1,5 +1,7 @@
 from flask import Blueprint, current_app, request, jsonify
 
+from . import utils
+
 bp = Blueprint("ckpt", __name__, url_prefix="/ckpt")
 
 
@@ -15,10 +17,10 @@ def get_act():
             layer_name = request.json["layer_name"]
             block = request.json["block"]
 
-            print(act_name, layer_name, block)
-            print("inside here")
-
             act = current_app.ckpts.get(act_name, layer_name, block)
+
+            if act_name == "embed" or act_name == "pos_embed":
+                return utils.perform_pca(act)
             return act.tolist()
     except Exception as e:
         print("Error: ", str(e))
