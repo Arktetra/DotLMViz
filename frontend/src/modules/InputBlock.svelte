@@ -3,11 +3,11 @@
 	import ThemeButton from '../components/ThemeButton.svelte';
 	import { activeComponent, data, global_state } from '../state.svelte';
 	import { loadModel, runModel, getDist } from '../routes/fetch.svelte';
+	import { active } from 'd3';
 
 	let { inpEventCb = null, value = $bindable() } = $props();
 
 	let inpText: string = $state('');
-	// let tokenProbMappings: { name: string, prob: number }[] = [];
 
 	const randomInpText = () => {
 		inpEventCb('alpha beta gamma delta eta zeta epsilon');
@@ -18,8 +18,17 @@
 			await loadModel();
 		}
 		console.log("is model loaded? " + global_state.isModelLoaded);
-		await runModel(value);
+
+		// will have to test this more rigorously.
+		try {
+			await runModel(value);
+		} catch {
+			await loadModel();
+			await runModel(value);
+		}
 		await getDist();
+
+		activeComponent.name = "Output Distribution";
 	};
 
 	$effect(() => {
