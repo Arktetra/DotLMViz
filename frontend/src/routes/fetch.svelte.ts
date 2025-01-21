@@ -23,22 +23,26 @@ export const loadModel = async (model_name: string = active_model.model_name) =>
 
 export const runModel = async (input_text: string) => {
 	try {
-		return await fetch('/model/run', {
+		const response = await fetch('/model/run', {
 			method: 'POST',
 			body: JSON.stringify({ text: input_text }),
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		})
-			.then((res) => res)
-			.catch((error) => console.log('Something not right ' + error));
+
+		if (response.ok) {
+			console.log("Promise resolved and successfully ran the model.");
+		} else {
+			throw new Error(`${response.status}, ${response.statusText}`);
+		}
+		return response
 	} catch (error) {
-		console.log('Unable to fetch ' + error);
-		return;
+		throw error;
 	}
 };
 
-export const getAct = async (act_name: string, layer_name: string, block: number) => {
+export const getAct = async (act_name: string, layer_name: string | null, block: number | null) => {
 	const response = await fetch('/ckpt/act', {
 		method: 'POST',
 		body: JSON.stringify({ act_name, layer_name, block }),
