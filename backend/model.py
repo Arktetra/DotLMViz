@@ -1,8 +1,7 @@
 from flask import Blueprint, current_app, request, Response, jsonify
-from transformers import GPT2TokenizerFast
 
-from DoTLMViz import CkptedTransformer
 from DoTLMViz.utils import get_output_dist, get_token_prob_mappings
+from . import utils
 
 import torch
 
@@ -16,14 +15,8 @@ def load_model():
     """
     try:
         if request.method == "POST":
-            model_name = request.json["model_name"]
-            if model_name == "gpt2-small":
-                current_app.tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
-                current_app.model = CkptedTransformer.from_pretrained("gpt2-small")
-                current_app.device = (
-                    "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
-                )
-                print(f"{model_name} model loaded successfully!!!")
+            current_app.model_name = request.json["model_name"]
+            utils.load_model()
             return Response(None, status=201)
     except Exception as e:
         print("Error: ", str(e))
