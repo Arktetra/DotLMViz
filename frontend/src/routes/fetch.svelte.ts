@@ -43,18 +43,26 @@ export const runModel = async (input_text: string) => {
 };
 
 export const getAct = async (act_name: string, layer_name: string | null, block: number | null) => {
-	const response = await fetch('/ckpt/act', {
-		method: 'POST',
-		body: JSON.stringify({ act_name, layer_name, block }),
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-		.then((res) => res)
-		.catch((error) => console.log(error));
+	try {
+		const res = await fetch('/ckpt/act', {
+			method: 'POST',
+			body: JSON.stringify({ act_name, layer_name, block }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
 
-	let data = await response?.json();
-	console.log(data);
+		if (!res.ok) {
+			throw new Error(`Response status: ${res.status}`);
+		}
+
+		let data = await res.json();
+
+		global_state.data = data;
+	} catch (error: any) {
+		console.log(error.message);
+		return;
+	}
 };
 
 export const getDist = async () => {
