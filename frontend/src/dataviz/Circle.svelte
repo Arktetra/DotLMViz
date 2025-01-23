@@ -1,5 +1,5 @@
 <script lang="ts">
-    let {x, y, r, fill} = $props();
+    let {x, y, r, fill, stroke="blue", strokeWidth=1} = $props();
 </script>
 
 <circle
@@ -7,6 +7,8 @@
     cy={y}
     r={r}
     fill={fill}
+    stroke={stroke}
+    stroke-width={strokeWidth}
 />
 
 <style>
