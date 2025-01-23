@@ -26,7 +26,6 @@ def perform_pca(data: torch.Tensor):
     """
     A utility function for performing PCA on the data.
     """
-    print(data.shape)
     pca = PCA(n_components=2)
     pca.fit(data.squeeze())
     return pca(data).tolist()

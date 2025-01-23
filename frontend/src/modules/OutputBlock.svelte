@@ -4,7 +4,8 @@
 	import SideDrawer from '../components/SideDrawer.svelte';
 	import ThemeInputSlider from '../components/ThemeInputSlider.svelte';
 	import BarChart from '../dataviz/BarChart.svelte';
-	import { activeComponent, data } from '../state.svelte';
+	import { activeComponent, data, global_state } from '../state.svelte';
+	import ScatterChart from '../dataviz/ScatterChart.svelte';
 </script>
 
 <SideDrawer width={'25rem'}>
@@ -36,6 +37,8 @@
 			>
 				{#if activeComponent.name === "Generate" || activeComponent.name === "Output Distribution"}
 					<BarChart tokens={data.tokenProbMappings} />
+				{:else if activeComponent.name === "embed" || activeComponent.name === "pos_embed"}
+					<ScatterChart data={global_state.data}/>
 				{/if}
 			</div>
 		</div>
