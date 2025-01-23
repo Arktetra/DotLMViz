@@ -19,8 +19,13 @@ class PCA:
         `n_components` number of components
     """
 
-    def __init__(self, n_components: Optional[int] = None):
+    def __init__(self, n_components: Optional[int] = None, device=None):
         self.n_components = n_components
+
+        self.device = device
+
+        if self.device is None:
+            self.device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
     def __call__(self, X: Float[Tensor, "n_samples n_features"]):
         """Perform PCA on the given data.
@@ -41,7 +46,7 @@ class PCA:
         cov = X.T.cov()
 
         # 2. Find eigen values, and eigen vectors of X
-        eigen_values, eigen_vectors = torch.linalg.eigh(cov)
+        eigen_values, eigen_vectors = torch.linalg.eigh(cov.cpu())
 
         # 3. Sort the eigen vectors in decreasing order of explained variance
         desc_idxs: Float[Tensor, " n_features"] = eigen_values.argsort().flip((0,))
@@ -52,4 +57,4 @@ class PCA:
 
         # 5. Set self.components
         n_components = self.n_components if self.n_components else len(desc_eigen_vectors)
-        self.components = desc_eigen_vectors[:n_components, :]
+        self.components = desc_eigen_vectors[:n_components, :].to(self.device)
