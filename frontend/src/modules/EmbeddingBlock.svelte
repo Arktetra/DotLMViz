@@ -4,13 +4,13 @@
 	import { getAct } from '../routes/fetch.svelte';
 	import { activeComponent } from '../state.svelte';
 
-	const getEmbedOutput = () => {
-		getAct("embed", null, null);
+	const getEmbedOutput = async () => {
+		await getAct("embed", null, null);
 		activeComponent.name = "embed";
 	}
 
-	const getPosEmbedOutput = () => {
-		getAct("pos_embed", null, null);
+	const getPosEmbedOutput = async () => {
+		await getAct("pos_embed", null, null);
 		activeComponent.name = "pos_embed";
 	}
 
