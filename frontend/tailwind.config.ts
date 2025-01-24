@@ -19,7 +19,7 @@ export default {
 			},
 			fontSize: {
 				ti: '0.75rem',
-				'ti-s': '0.7rem'
+				'ti-s': '0.6rem'
 			}
 		}
 	},

@@ -22,10 +22,10 @@
 
 <div class="mb-5 grid grid-cols-4">
 	{#if label}
-		<label class="font-main text-sm font-bold text-theme-r" title={label}>{label.length > MAX_CHAR_SIZE ? label.slice(0, MAX_CHAR_SIZE) + "." : label}</label>
+		<label class="font-main text-ti font-bold text-theme-r" title={label}>{label.length > MAX_CHAR_SIZE ? label.slice(0, MAX_CHAR_SIZE) + "." : label}</label>
 	{/if}
 	<div class="relative col-span-3 flex flex-row items-center justify-between text-gray-500">
-		<span class="absolute -bottom-4 -start-1 text-ti font-bold">{min}</span>
+		<span class="absolute -bottom-3 -start-1 text-ti-s font-bold">{min}</span>
 		<input
 			type="range"
 			value={inpVal}
@@ -33,12 +33,12 @@
 			{max}
 			{step}
 			oninput={(e: any) => updateInpVal(e.target.value)}
-			class="w-full accent-theme {inpStyle}"
+			class="w-full accent-theme h-[6px] cursor-pointer {inpStyle}"
 		/>
-		<span class="absolute -bottom-4 -end-1 text-ti font-bold">{max}</span>
+		<span class="absolute -bottom-3 -end-1 text-ti-s font-bold">{max}</span>
 		<span
 			style="left: {((inpVal - min) / (max - min)) * 100}%;"
-			class={'absolute -bottom-[0.85rem] min-w-[1.8rem] translate-x-[-50%] rounded-md bg-theme text-center text-ti-s text-theme-w '}
+			class={'absolute -bottom-[0.8rem] min-w-[1.8rem] translate-x-[-50%] rounded-md bg-theme text-center text-ti-s text-theme-w '}
 		>
 			{inpVal}
 		</span>
