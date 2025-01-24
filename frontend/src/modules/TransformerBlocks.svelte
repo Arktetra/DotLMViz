@@ -5,6 +5,7 @@
 	import ElementBlockBase from '../components/ElementBlockBase.svelte';
 	import AttentionHeads from './AttentionHeads.svelte';
 	import Mlp from './MLP.svelte';
+	import { global_state } from '../state.svelte';
 
 	const _transformerBlock = [
 		{
@@ -16,14 +17,12 @@
 			href: '/read/mlp'
 		}
 	];
-
-	let _activeBlock = $state(0);
 </script>
 
 <DottedBlockBase label="Transformer Blocks" inStyle="flex-col p-4">
-	<ThemeNumberOptions count={12} bind:activeIndex={_activeBlock} />
+	<ThemeNumberOptions count={12} bind:activeIndex={global_state.active_block} />
 	<DottedBlockBase
-		label="Block: {_activeBlock}"
+		label="Block: {global_state.active_block}"
 		borderSize={'1px'}
 		titStyle="text-ti top-[-1.4rem]"
 		inStyle="w-[30rem] h-[20rem] flex-row justify-between"
