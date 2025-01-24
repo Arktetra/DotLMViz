@@ -6,6 +6,7 @@
 	import BarChart from '../dataviz/BarChart.svelte';
 	import { activeComponent, data, global_state } from '../state.svelte';
 	import ScatterChart from '../dataviz/ScatterChart.svelte';
+	import HeatMap from '../dataviz/HeatMap.svelte';
 </script>
 
 <SideDrawer width={'25rem'}>
@@ -38,7 +39,9 @@
 				{#if activeComponent.name === "Generate" || activeComponent.name === "Output Distribution"}
 					<BarChart tokens={data.tokenProbMappings} />
 				{:else if activeComponent.name === "embed" || activeComponent.name === "pos_embed"}
-					<ScatterChart data={global_state.data}/>
+					<ScatterChart data={global_state.data} />
+				{:else if activeComponent.name === "attn"}
+					<HeatMap data={global_state.data[global_state.active_head]} />
 				{/if}
 			</div>
 		</div>
