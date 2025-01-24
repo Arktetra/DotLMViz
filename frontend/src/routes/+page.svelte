@@ -7,12 +7,11 @@
 	import TokensBlock from '../modules/TokensBlock.svelte';
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import { onMount } from 'svelte';
-	import { runModel, loadModel, getAct } from './fetch.svelte';
+	import { runModel, loadModel, getAct, getTokens } from './fetch.svelte';
 	import { InitEventMap } from '../eventstate.svelte';
-	import { active_model } from '../state.svelte';
+	import { active_model, global_state } from '../state.svelte';
 	import ThemeToggle from '../components/ThemeToggle.svelte';
 
-	let tokens: string[] = $state([]);
 	let inpText: string = $state('');
 	let activeTokenInd: number = $state(0);
 	// this will hold which view it is, 0 (false) - black box view, 1 (true) - white box view
@@ -31,9 +30,8 @@
 		genToken();
 	});
 
-	const genToken = () => {
-		// tokens = inpText.indexOf(' ') > 0 || inpText.length > 5 ? inpText.split(' ') : inpText.split('')
-		tokens = inpText.split(' ');
+	const genToken = async () => {
+		await getTokens(inpText);
 	};
 
 	onMount(() => {
@@ -46,12 +44,12 @@
 	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-evenly"
 >
 	<div class="flex flex-row items-center justify-evenly space-x-10">
-		<TokensBlock {tokens} bind:tokenInd={activeTokenInd}>
+		<TokensBlock tokens={global_state.tokens} bind:tokenInd={activeTokenInd}>
 			<span class="text-sm font-light text-theme-w">
 				Index: <span class="text-md font-bold">{activeTokenInd}</span>
 			</span>
 			<span class="text-sm font-light text-theme-w">
-				Token: <span class="text-lg font-bold">'{tokens[activeTokenInd]}'</span>
+				Token: <span class="text-lg font-bold">'{global_state.tokens[activeTokenInd]}'</span>
 			</span>
 		</TokensBlock>
 		<DottedBlockBase

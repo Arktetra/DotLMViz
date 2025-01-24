@@ -29,14 +29,13 @@ export const runModel = async (input_text: string) => {
 			headers: {
 				'Content-Type': 'application/json'
 			}
-		})
+		});
 
-		if (response.ok) {
-			console.log("Promise resolved and successfully ran the model.");
-		} else {
+		if (!response.ok) {
 			throw new Error(`${response.status}, ${response.statusText}`);
 		}
-		return response
+
+		return response;
 	} catch (error) {
 		throw error;
 	}
@@ -79,3 +78,29 @@ export const getDist = async () => {
 		return;
 	}
 };
+
+export const getTokens = async (input_text: string) => {
+	try {
+		const response = await fetch('/model/tokenize', {
+			method: "POST",
+			body: JSON.stringify({ text: input_text }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+
+		if (!response.ok) {
+			if (response.status != 500) {
+				throw new Error(`${response.status}, ${response.statusText}`);
+			}
+		}
+
+		let tokens = await response.json();
+
+		global_state.tokens = tokens;
+	} catch (error: any) {
+		console.error(error.message);
+
+		return;
+	}
+}
