@@ -1,5 +1,9 @@
 <script lang="ts">
-	let { count, stackAxis = 'Horizontal', style = "", activeIndex = $bindable() } = $props();
+	import { getAct } from "../routes/fetch.svelte";
+	import { activeComponent } from "../state.svelte";
+
+	let { count, stackAxis = 'Horizontal', style = "", activeIndex = $bindable(), clickEventCb = null } = $props();
+
 </script>
 
 <div
@@ -10,6 +14,9 @@
 		<button
 			onclick={() => {
 				activeIndex = ind;
+				if (clickEventCb != null) {
+					clickEventCb();
+				}
 			}}
 			class="text-md rounded-sm p-1 px-3 font-bold {activeIndex == ind
 				? ' bg-theme text-theme-w '
