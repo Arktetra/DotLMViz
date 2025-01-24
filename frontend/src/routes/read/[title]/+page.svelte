@@ -14,7 +14,7 @@
 	>
 		<h1 class="text-theme mb-10 text-center text-4xl font-extrabold uppercase">{title}</h1>
 		<p class="h-full w-full">
-			{description}
+			{@html description}
 		</p>
 	</div>
 </div>
