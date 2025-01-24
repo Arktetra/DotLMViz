@@ -21,7 +21,8 @@ def get_act():
 
             if act_name == "embed" or act_name == "pos_embed":
                 return utils.perform_pca(act)
-            return act.tolist()
+
+            return act.squeeze().tolist()
     except Exception as e:
         print("Error: ", str(e))
         return jsonify({"Error": str(e)}), 500
