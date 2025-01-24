@@ -42,8 +42,6 @@
             height = chart.clientHeight;
         }
     });
-
-    // $inspect(data);
 </script>
 
 <div class="chart" bind:clientWidth={width}>
