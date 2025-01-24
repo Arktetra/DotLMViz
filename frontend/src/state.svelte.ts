@@ -15,5 +15,7 @@ export const active_model = $state({
 // #note: currently this is not to be used, left to configure
 export const global_state = $state({
 	isModelLoaded: false,
-	data: []
+	data: [],
+	active_head: 0,
+	active_block: 0,
 });
