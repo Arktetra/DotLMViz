@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { fly, scale } from "svelte/transition";
+
 	const {
 		label = 'Untitled',
 		borderSize = '1.5px',
@@ -9,6 +11,7 @@
 </script>
 
 <div
+	in:scale={{duration:200}}
 	style="border-width: {borderSize};"
 	class="relative m-2 rounded-xl border-dashed border-theme transition-colors duration-200"
 >
@@ -18,7 +21,7 @@
 	>
 
 	{#if children}
-		<div class="flex items-center {inStyle}">
+		<div in:scale={{duration:200}} class="flex items-center {inStyle}">
 			{@render children()}
 		</div>
 	{/if}
