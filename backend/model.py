@@ -23,6 +23,21 @@ def load_model():
         return jsonify({"Error": str(e)}), 500
 
 
+@bp.route("/tokenize", methods=["POST"])
+def tokenize():
+    """
+    Tokenize the text that is in the POST request.
+    """
+    try:
+        if request.method == "POST":
+            text = request.json["text"]
+            token_ids = current_app.tokenizer(text, return_tensors="pt")["input_ids"]
+            return current_app.tokenizer.convert_ids_to_tokens(token_ids.squeeze())
+    except Exception as e:
+        print("Error: ", str(e))
+        return jsonify({"Error": str(e)}), 500
+
+
 @bp.route("/run", methods=["GET", "POST"])
 def run_model():
     """
