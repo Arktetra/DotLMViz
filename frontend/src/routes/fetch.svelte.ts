@@ -66,7 +66,6 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 
 			global_state.embed_output = embedOutput;
 		} else if (act_name === "pattern") {
-			console.log(data[0]);
 			let attnPatterns: HeatMapData[] = [];
 
 			for (let i = 0; i < data.length; i++) {
@@ -94,6 +93,15 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 		return;
 	}
 };
+
+export const getAttnPattern = async () => {
+	if (input.isChanged === true) {
+		await runModel(input.text);
+	}
+
+	await getAct("pattern", "attn", global_state.active_block);
+	activeComponent.name = "attn";
+}
 
 export const getDist = async () => {
 	try {
