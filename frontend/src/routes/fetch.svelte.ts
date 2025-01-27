@@ -56,6 +56,17 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 		}
 
 		let data = await res.json();
+		console.log(data[0]);
+
+		if (act_name === "embed" || act_name === "pos_embed") {
+			let embedOutput: ScatterPlotData = [];
+
+			for (let i = 0; i < data.length; i++) {
+				embedOutput.push({x: data[i][0], y: data[i][1], token: global_state.tokens[i]});
+			}
+
+			global_state.embed_output = embedOutput;
+		}
 
 		global_state.data = data;
 	} catch (error: any) {
