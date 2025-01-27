@@ -1,11 +1,15 @@
 <script lang="ts">
-    import { scaleLinear } from "d3-scale";
+    import { scaleBand, scaleLinear } from "d3-scale";
+	import { LabelSolid } from "flowbite-svelte-icons";
 	import { onMount } from "svelte";
+	import { global_state } from "../state.svelte";
 
     let {
         data,
-        vmin ="#e00000",
-        vmax ="#0000e0"
+        vmin="#e00000",
+        vmax="#0000e0",
+        xlabel="source token",
+        ylabel="destination token",
     } = $props<{data: Array<Array<number>>}>();
 
     let minRow = data.map((row: Array<number>) => Math.min(...row));
@@ -16,7 +20,12 @@
     let width = $state(500);
     let height = $state(266);
 
-    const padding = { top: 20, right: 15, bottom: 20, left: 20 };
+    let padding = {
+        top: 20,
+        right: 15,
+        bottom: 30,
+        left: 30
+    }
 
     let xScale = $derived(scaleLinear()
         .domain([0, data.length])
@@ -60,6 +69,7 @@
 
     $effect(() => {
         console.log(height);
+        console.log(padding);
         console.log("top:" + yScale(0));
         console.log("bottom:" + yScale(data.length));
     })
@@ -80,6 +90,23 @@
                 />
             {/each}
         {/each}
+
+        <!-- Y label -->
+        <text
+            x={xScale(0)}
+            y={yScale(data.length / 2)}
+            text-anchor="middle"
+            transform="rotate(-90, {xScale(0)- 10}, {yScale(data.length / 2)})"
+        >{ylabel}</text>
+
+        <!-- X label -->
+        <text
+            x={xScale(data.length / 2)}
+            y={yScale(0)}
+            dy=15
+            text-anchor="middle"
+            transform="rotate(0, {xScale(0)}, {yScale(data.length / 2)})"
+        >{xlabel}</text>
     </svg>
 </div>
 
