@@ -7,6 +7,8 @@ type ScatterPlotPoint = {
 type HeatMapPoint = {
     x: number,
     y: number,
+    source: string,
+    destination: string,
     score: number
 }
 

@@ -21,15 +21,17 @@ export const input = $state({
 export const global_state = $state<{
 	isModelLoaded: boolean,
 	data: any[],
-	embed_output: ScatterPlotData,
 	tokens: any[],
+	embed_output: ScatterPlotData,
+	attn_patterns: HeatMapData[],	// contains attn pattern for all heads
 	active_head: number,
 	active_block: number
 }>({
 	isModelLoaded: false,
 	data: [],
-	embed_output: [],
 	tokens: [],
+	embed_output: [],
+	attn_patterns: [],
 	active_head: 0,
 	active_block: 0,
 });
