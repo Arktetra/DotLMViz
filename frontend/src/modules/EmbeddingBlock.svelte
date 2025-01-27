@@ -1,15 +1,22 @@
 <script>
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import BlockBase from '../components/BlockBase.svelte';
-	import { getAct } from '../routes/fetch.svelte';
-	import { activeComponent } from '../state.svelte';
+	import { getAct, runModel } from '../routes/fetch.svelte';
+	import { activeComponent, input } from '../state.svelte';
 
 	const getEmbedOutput = async () => {
+		if (input.isChanged === true) {
+			await runModel(input.text);
+		}
 		await getAct("embed", null, null);
 		activeComponent.name = "embed";
 	}
 
 	const getPosEmbedOutput = async () => {
+		if (input.isChanged === true) {
+			await runModel(input.text);
+		}
+
 		await getAct("pos_embed", null, null);
 		activeComponent.name = "pos_embed";
 	}
