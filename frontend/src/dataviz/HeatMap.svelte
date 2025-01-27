@@ -74,15 +74,6 @@
             height = chart.clientHeight;
         }
     });
-
-    $effect(() => {
-        // console.log(height);
-        // console.log(padding);
-        // console.log("top:" + yScale(0));
-        // console.log("bottom:" + yScale(global_state.tokens.length));
-        $inspect(data);
-        $inspect(global_state.tokens.length);
-    })
 </script>
 
 

@@ -79,10 +79,6 @@
 
     const position: Position | null = $derived(found ? getPosition(found) : null);
     const yPosition: number | null = $derived(found ? yScale(found["y"]) : null);
-
-    $effect(() => {
-        $inspect(visible);
-    })
 </script>
 
 <div

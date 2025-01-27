@@ -33,8 +33,6 @@
 			callback: getPosEmbedOutput
 		}
 	];
-
-
 </script>
 
 <DottedBlockBase label="Embeddings" inStyle="flex-col">
