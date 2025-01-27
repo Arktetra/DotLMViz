@@ -7,6 +7,10 @@
 	import { activeComponent, data, global_state } from '../state.svelte';
 	import ScatterChart from '../dataviz/ScatterChart.svelte';
 	import HeatMap from '../dataviz/HeatMap.svelte';
+
+	$effect(() => {
+		$inspect(activeComponent);
+	})
 </script>
 
 <SideDrawer width={'25rem'}>
@@ -41,7 +45,7 @@
 				{:else if activeComponent.name === "embed" || activeComponent.name === "pos_embed"}
 					<ScatterChart data={global_state.embed_output} />
 				{:else if activeComponent.name === "attn"}
-					<HeatMap data={global_state.data[global_state.active_head]} />
+					<HeatMap data={global_state.attn_patterns[global_state.active_head]} vmax="#03045E"/>
 				{/if}
 			</div>
 		</div>
