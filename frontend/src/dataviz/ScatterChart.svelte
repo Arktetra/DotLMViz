@@ -2,36 +2,24 @@
     import { scaleLinear } from "d3-scale";
     import Circle from "./Circle.svelte";
 	import { onMount } from "svelte";
+	import { extent } from "d3";
+	import Quadtree from "./Quadtree.svelte";
 
-    let { data } = $props<{data: Array<Array<number>>}>(); // The data needs to be accessed by indexing as data[0]. Why?
-
-    function findMinMax(array: Array<Array<number>>, dim: number) {
-        $inspect(data);
-        let elements = array.map((element: Array<number>) => {
-            return element[dim];
-        });
-
-        console.log([Math.min.apply(null, elements), Math.max.apply(null, elements)]);
-
-        return [Math.min.apply(null, elements), Math.max.apply(null, elements)];
-    }
+    let { data } : {
+        data: ScatterPlotData
+    } = $props();
 
     let width = $state(500);
     let height = $state(266);
     const padding = { top: 20, right: 15, bottom: 20, left: 20};
 
-    let x_minmax = findMinMax(data[0], 0);
-    let y_minmax = findMinMax(data[0], 1);
-    let x_extra_space = (x_minmax[1] - x_minmax[0]) / 10;   // for some extra space around the data points
-    let y_extra_space = (y_minmax[1] - y_minmax[0]) / 10;
-
     let xScale = $derived(scaleLinear()
-        .domain([x_minmax[0] - x_extra_space, x_minmax[1] + x_extra_space])
+        .domain(extent(data, (d) => d.x) as [number, number])
         .range([padding.left, width - padding.right])
     );
 
     let yScale = $derived(scaleLinear()
-        .domain([y_minmax[0] - y_extra_space, y_minmax[1] + y_extra_space])
+        .domain(extent(data, (d) => d.y) as [number, number])
         .range([height - padding.bottom, padding.top])
     );
 
@@ -45,27 +33,104 @@
 </script>
 
 <div class="chart" bind:clientWidth={width}>
-    <svg {width} {height}>
-        <g class="bars">
-            {#each data[0] as point}
-                <Circle
-                    x={xScale(point[0])}
-                    y={yScale(point[1])}
-                    r={5}
-                    fill={"#6a6ef0"}
-                />
-            {/each}
-        </g>
-    </svg>
+    <div class="relative">
+        <Quadtree
+            {xScale}
+            {yScale}
+            margin={padding}
+            {data}
+            searchRadius={30}
+        >
+        {#snippet children({x, y, found, visible})}
+            <div
+                class="circle"
+                style="
+                    top:{y}px;
+                    left:{x.circle}px;
+                    display: {visible
+                        ? 'block'
+                        : 'none'
+                    };
+                    width: {10};
+                    height: {10};
+                ">
+            </div>
+            <div
+                class="tooltip"
+                style="
+                    top:{y! + 5}px;
+                    left: {x.square + 10}px;
+                    display: {visible
+                        ? 'block'
+                        : 'none'
+                    };
+                "
+            >
+                <h1 class="tooltip-heading">{"token" in found ? found.token : ""}</h1>
+                x: {(found.x).toFixed(3)}<br />
+                y: {(found.y).toFixed(3)}
+            </div>
+        {/snippet}
+        </Quadtree>
+
+        <svg {width} {height}>
+            <g class="bars">
+                {#each data as point}
+                    <Circle
+                        x={xScale(point.x)}
+                        y={yScale(point.y)}
+                        r={5}
+                        fill={"#6a6ef0"}
+                    />
+                {/each}
+            </g>
+        </svg>
+    </div>
 </div>
 
 <style>
     .chart {
         height: 100%;
+        position: relative;
     }
 
     svg {
         background-color: aliceblue;
         color: #6a6ef0;
+    }
+
+    .circle {
+        position: absolute;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        width: 10px;
+        height: 10px;
+        border: 1px solid #000000;
+        transition:
+            left 300ms ease,
+            top 300ms ease;
+    }
+
+    .tooltip {
+        position: absolute;
+        font-family: 'Poppins', sans-serif !important;
+        min-width: 8em;
+        line-height: 1.2;
+        pointer-events: none;
+        font-size: 0.875rem;
+        z-index: 1;
+        padding: 6px;
+        background-color: #f0f0f080;
+        color: #555555;
+        transition:
+            left 100ms ease,
+            top 100ms ease;
+        /* fill-opacity: 0.5; */
+        text-align: left;
+    }
+
+    .tooltip-heading {
+        color: black;
     }
 </style>

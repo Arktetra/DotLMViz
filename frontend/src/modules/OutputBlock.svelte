@@ -39,7 +39,7 @@
 				{#if activeComponent.name === "Generate" || activeComponent.name === "Output Distribution"}
 					<BarChart tokens={data.tokenProbMappings} />
 				{:else if activeComponent.name === "embed" || activeComponent.name === "pos_embed"}
-					<ScatterChart data={global_state.data} />
+					<ScatterChart data={global_state.embed_output} />
 				{:else if activeComponent.name === "attn"}
 					<HeatMap data={global_state.data[global_state.active_head]} />
 				{/if}
