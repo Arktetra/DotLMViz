@@ -1,8 +1,6 @@
 <script lang="ts">
-    import { scaleBand, scaleLinear } from "d3-scale";
-	import { LabelSolid } from "flowbite-svelte-icons";
+    import { scaleLinear } from "d3-scale";
 	import { onMount } from "svelte";
-	import { global_state } from "../state.svelte";
 
     let {
         data,
