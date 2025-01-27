@@ -3,6 +3,8 @@ name = "DoTLMViz"
 version = "0.1.0"
 dependencies = [
     "jaxtyping",
+    "einops",
+    "transformers"
 ]
 
 [project.optional-dependencies]
