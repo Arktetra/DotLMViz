@@ -9,22 +9,19 @@
 	import { onMount } from 'svelte';
 	import { runModel, loadModel, getAct, getTokens } from './fetch.svelte';
 	import { InitEventMap } from '../eventstate.svelte';
-	import { active_model, global_state } from '../state.svelte';
+	import { active_model, global_state, input } from '../state.svelte';
 	import ThemeToggle from '../components/ThemeToggle.svelte';
 	import ExpandableDottedBlock from '../components/ExpandableDottedBlock.svelte';
 
-	let inpText: string = $state('');
+	// let inpText: string = $state('');
 	let activeTokenInd: number = $state(0);
 	// this will hold which view it is, 0 (false) - black box view, 1 (true) - white box view
 	let viewMode: boolean = $state(false);
 
-	let act_name = 'pattern';
-	let layer_name = 'attn';
-	let block = 0;
-
 	const onInpChange = (v: string) => {
-		inpText = v;
+		input.text = v;
 		genToken();
+		input.isChanged = true;
 	};
 
 	$effect(() => {
@@ -32,7 +29,7 @@
 	});
 
 	const genToken = async () => {
-		await getTokens(inpText);
+		await getTokens(input.text);
 	};
 
 	onMount(() => {
@@ -82,7 +79,7 @@
 		</DottedBlockBase>
 	</div>
 
-	<InputBlock bind:value={inpText} inpEventCb={onInpChange} />
+	<InputBlock bind:value={input.text} inpEventCb={onInpChange} />
 </section>
 <OutputBlock />
 <ThemeToggle bind:state={viewMode} style="fixed bottom-5 left-[1rem] z-50" leftlabel="Detailed" rightlabel="Overview"/>
