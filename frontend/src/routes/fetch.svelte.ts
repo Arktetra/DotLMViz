@@ -1,4 +1,4 @@
-import { data, active_model, global_state } from '../state.svelte';
+import { data, active_model, global_state, input, activeComponent } from '../state.svelte';
 
 // This function will load the model of name passed as param, fallback is to the default model on active_model on state.svelte
 export const loadModel = async (model_name: string = active_model.model_name) => {
@@ -56,7 +56,6 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 		}
 
 		let data = await res.json();
-		console.log(data[0]);
 
 		if (act_name === "embed" || act_name === "pos_embed") {
 			let embedOutput: ScatterPlotData = [];
@@ -66,6 +65,27 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 			}
 
 			global_state.embed_output = embedOutput;
+		} else if (act_name === "pattern") {
+			console.log(data[0]);
+			let attnPatterns: HeatMapData[] = [];
+
+			for (let i = 0; i < data.length; i++) {
+				let attnPattern: HeatMapData = [];
+				for (let j = 0; j < data[i].length; j++) {
+					for (let k = 0; k < data[i][j].length; k++) {
+						attnPattern.push({
+							x: k,
+							y: j,
+							source: global_state.tokens[k],
+							destination: global_state.tokens[j],
+							score: data[i][j][k]
+						})
+					}
+				}
+				attnPatterns.push(attnPattern);
+			}
+
+			global_state.attn_patterns = attnPatterns;
 		}
 
 		global_state.data = data;
