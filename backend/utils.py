@@ -28,4 +28,4 @@ def perform_pca(data: torch.Tensor):
     """
     pca = PCA(n_components=2)
     pca.fit(data.squeeze())
-    return pca(data).tolist()
+    return pca(data).squeeze().tolist()
