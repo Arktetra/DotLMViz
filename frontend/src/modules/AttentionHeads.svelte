@@ -1,17 +1,9 @@
 <script lang="ts">
 
     import ThemeNumberOptions from "../components/ThemeNumberOptions.svelte";
-	import { getAct } from "../routes/fetch.svelte";
-	import { activeComponent, global_state } from "../state.svelte";
+	import { getAttnPattern } from "../routes/fetch.svelte";
+	import { global_state } from "../state.svelte";
 
-    /**
-     * A function which will fetch the attention pattern and store it
-     * in the global state `global_state.data`.
-     */
-    const getAttnPattern = async () => {
-        await getAct("pattern", "attn", global_state.active_block);
-        activeComponent.name = "attn";
-    }
 </script>
 
 <h1 class="w-full p-4 text-2xl bg-theme-g text-theme font-bold text-center uppercase">Attention Heads</h1>

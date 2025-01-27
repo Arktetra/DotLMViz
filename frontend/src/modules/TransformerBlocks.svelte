@@ -1,11 +1,11 @@
 <script lang="ts">
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
-	import BlockBase from '../components/BlockBase.svelte';
 	import ThemeNumberOptions from '../components/ThemeNumberOptions.svelte';
 	import ElementBlockBase from '../components/ElementBlockBase.svelte';
 	import AttentionHeads from './AttentionHeads.svelte';
 	import Mlp from './MLP.svelte';
 	import { global_state } from '../state.svelte';
+	import { getAttnPattern } from '../routes/fetch.svelte';
 
 	const _transformerBlock = [
 		{
@@ -20,7 +20,11 @@
 </script>
 
 <DottedBlockBase label="Transformer Blocks" inStyle="flex-col p-4">
-	<ThemeNumberOptions count={12} bind:activeIndex={global_state.active_block} />
+	<ThemeNumberOptions
+		count={12}
+		bind:activeIndex={global_state.active_block}
+		clickEventCb={getAttnPattern}
+	/>
 	<DottedBlockBase
 		label="Block: {global_state.active_block}"
 		borderSize={'1px'}
@@ -28,7 +32,12 @@
 		inStyle="w-[30rem] h-[20rem] flex-row justify-between"
 	>
 		<div class="flex h-full flex-col items-start justify-evenly">
-			<ElementBlockBase blockEle={AttentionHeads} blockStyle="p-2 min-w-[12rem] min-h-[10rem]" href={_transformerBlock[0].href}>
+			<ElementBlockBase
+				blockEle={AttentionHeads}
+				blockStyle="p-2 min-w-[12rem] min-h-[10rem]"
+				href={_transformerBlock[0].href}
+				clickEventCb={getAttnPattern}
+			>
 				<span>{_transformerBlock[0].label}</span>
 			</ElementBlockBase>
 			<ElementBlockBase blockStyle="p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'}>
