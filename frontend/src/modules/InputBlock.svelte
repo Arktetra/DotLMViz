@@ -1,13 +1,11 @@
 <script lang="ts">
 	import ThemeInputField from '../components/ThemeInputField.svelte';
 	import ThemeButton from '../components/ThemeButton.svelte';
-	import { activeComponent, data, global_state } from '../state.svelte';
+	import { activeComponent, data, global_state, input } from '../state.svelte';
 	import { loadModel, runModel, getDist } from '../routes/fetch.svelte';
 	import { active } from 'd3';
 
 	let { inpEventCb = null, value = $bindable() } = $props();
-
-	let inpText: string = $state('');
 
 	const randomInpText = () => {
 		inpEventCb('alpha beta gamma delta eta zeta epsilon');
@@ -29,6 +27,7 @@
 		await getDist();
 
 		activeComponent.name = "Output Distribution";
+		input.isChanged = false;
 	};
 
 	$effect(() => {
