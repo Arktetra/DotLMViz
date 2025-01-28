@@ -98,7 +98,7 @@
                 class="tooltip"
                 style="
                     top: {yScale(global_state.tokens.length - found.y) + box_height}px;
-                    left: {xScale(found.x) + box_width}px;
+                    left: {found.x > 0.8 * global_state.tokens.length ? xScale(found.x) - 100 + box_width : xScale(found.x) + box_width}px;
                     display: {visible
                         ? 'block'
                         : 'none'
