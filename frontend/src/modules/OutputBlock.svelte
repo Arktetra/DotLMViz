@@ -4,7 +4,7 @@
 	import SideDrawer from '../components/SideDrawer.svelte';
 	import ThemeInputSlider from '../components/ThemeInputSlider.svelte';
 	import BarChart from '../dataviz/BarChart.svelte';
-	import { activeComponent, data, global_state } from '../state.svelte';
+	import { activeComponent, data, global_state, input } from '../state.svelte';
 	import ScatterChart from '../dataviz/ScatterChart.svelte';
 	import HeatMap from '../dataviz/HeatMap.svelte';
 
@@ -40,7 +40,9 @@
 			<div
 				class="chart-container w-full text-right text-ti font-light"
 			>
-				{#if activeComponent.name === "Generate" || activeComponent.name === "Output Distribution"}
+				{#if input.text === ""}
+					Enter Something.
+				{:else if activeComponent.name === "Generate" || activeComponent.name === "Output Distribution"}
 					<BarChart tokens={data.tokenProbMappings} />
 				{:else if activeComponent.name === "embed" || activeComponent.name === "pos_embed"}
 					<ScatterChart data={global_state.embed_output} />
