@@ -57,7 +57,7 @@
                     x={xScale(token.prob) + 2}
                     y={yScale(tokens.length - i) + barHeight - 2}
                 >
-                    {(token.prob).toFixed(3)}
+                    {(token.prob * 100).toFixed(3) + "%"}
                 </text>
             {/each}
         </g>
