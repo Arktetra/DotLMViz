@@ -7,6 +7,8 @@
 	import { activeComponent, data, global_state, input } from '../state.svelte';
 	import ScatterChart from '../dataviz/ScatterChart.svelte';
 	import HeatMap from '../dataviz/HeatMap.svelte';
+	import MlpNeurons from '../dataviz/MLPNeurons.svelte';
+	import { getMLPPre } from '../routes/fetch.svelte';
 
 	$effect(() => {
 		$inspect(activeComponent);
@@ -15,6 +17,18 @@
 
 <SideDrawer width={'25rem'}>
 	<div class="flex h-full w-full flex-col items-center justify-evenly">
+		{#if activeComponent.name === "mlp_pre"}
+			<label for="neuron">Neuron:</label>
+			<input
+				id="neuron"
+				name="neuron"
+				type="number"
+				min="0"
+				max="3072"
+				bind:value={global_state.neuron}
+				onchange={getMLPPre}
+			>
+		{:else}
 		<div class="relative w-full rounded-md bg-theme-g p-2 shadow-inner shadow-theme-g-alt">
 			<a
 				href="/read/control-parameter"
@@ -32,6 +46,7 @@
 			<hr class="my-1 border border-theme-w" />
 			<ThemeInputSlider label={'Top P'} min={0} max={1} step={0.05} />
 		</div>
+		{/if}
 		<hr class="w-full border border-theme" />
 		<h1 class="text-md my-2 text-center font-extrabold uppercase text-theme">Softmax Output</h1>
 		<div
@@ -48,6 +63,8 @@
 					<ScatterChart data={global_state.embed_output} />
 				{:else if activeComponent.name === "attn"}
 					<HeatMap data={global_state.attn_patterns[global_state.active_head]} vmax="#03045E"/>
+				{:else if activeComponent.name === "mlp_pre"}
+					<MlpNeurons data={global_state.data} />
 				{/if}
 			</div>
 		</div>

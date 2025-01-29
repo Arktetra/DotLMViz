@@ -103,6 +103,49 @@ export const getAttnPattern = async () => {
 	activeComponent.name = "attn";
 }
 
+export const getMLPOuts = async (act_name: string, layer_name: string | null, block: number | null, neuron: number | null) => {
+	try {
+		const res = await fetch('/ckpt/mlp_outs', {
+			method: 'POST',
+			body: JSON.stringify({ act_name, layer_name, block, neuron }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+
+		if (!res.ok) {
+			throw new Error(`Response status: ${res.status}`);
+		}
+
+		let data = await res.json();
+
+		let act = []
+
+		for (let i = 0; i < data.length; i++) {
+			act.push({
+				token: global_state.tokens[i],
+				score: data[i]
+			})
+		}
+
+		console.log(act);
+
+		global_state.data = act;
+	} catch (error: any) {
+		console.log(error.message);
+		return;
+	}
+};
+
+export const getMLPPre = async () => {
+	if (input.isChanged === true) {
+		await runModel(input.text);
+	}
+
+	await getMLPOuts("pre", "mlp", 0, global_state.neuron);
+	activeComponent.name = "mlp_pre";
+}
+
 export const getDist = async () => {
 	try {
 		const res = await fetch('/model/dist');

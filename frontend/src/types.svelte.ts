@@ -12,5 +12,11 @@ type HeatMapPoint = {
     score: number
 }
 
+type NeuronOutput = {
+    token: string,
+    score: number
+}
+
 type ScatterPlotData = ScatterPlotPoint[]
 type HeatMapData = HeatMapPoint[]
+type NeuronOutputData = NeuronOutput[]

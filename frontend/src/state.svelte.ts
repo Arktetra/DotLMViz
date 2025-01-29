@@ -25,7 +25,8 @@ export const global_state = $state<{
 	embed_output: ScatterPlotData,
 	attn_patterns: HeatMapData[],	// contains attn pattern for all heads
 	active_head: number,
-	active_block: number
+	active_block: number,
+	neuron: number,
 }>({
 	isModelLoaded: false,
 	data: [],
@@ -34,4 +35,5 @@ export const global_state = $state<{
 	attn_patterns: [],
 	active_head: 0,
 	active_block: 0,
+	neuron: 0
 });

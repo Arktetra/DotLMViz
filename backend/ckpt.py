@@ -26,3 +26,24 @@ def get_act():
     except Exception as e:
         print("Error: ", str(e))
         return jsonify({"Error": str(e)}), 500
+
+
+@bp.route("/mlp_outs", methods=["POST"])
+def get_mlp_outs():
+    """
+    Returns a neuron's output for each input using the activation name,
+    layer name, block number, and neuron number in the POST request.
+    """
+    try:
+        if request.method == "POST":
+            act_name = request.json["act_name"]
+            layer_name = request.json["layer_name"]
+            block = request.json["block"]
+            neuron = request.json["neuron"]
+
+            act = current_app.ckpts.get(act_name, layer_name, block)
+
+            return act.squeeze().T[neuron].tolist()
+    except Exception as e:
+        print("Error: ", str(e))
+        return jsonify({"Error": str(e)}), 500

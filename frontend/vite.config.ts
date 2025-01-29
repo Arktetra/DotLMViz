@@ -6,6 +6,7 @@ export default defineConfig({
 	server: {
 		proxy: {
 			'/ckpt/act': 'http://127.0.0.1:5000',
+			'/ckpt/mlp_outs': 'http://127.0.0.1:5000',
 			'/dimred/pca': 'http://127.0.0.1:5000',
 			'/model/dist': 'http://127.0.0.1:5000',
 			'/model/load': {
