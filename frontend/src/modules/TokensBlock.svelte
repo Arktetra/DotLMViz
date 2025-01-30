@@ -22,13 +22,18 @@
 
 <DottedBlockBase label="Tokens" inStyle="min-w-[5rem] min-h-[5rem] flex-col items-center">
 	{#each global_state.tokens as token, ind}
+		{#if ind < MAX_TOKEN_COUNT}
 		<button
 			onclick={() => tokenClick(ind)}
 			class="my-1 block text-xl font-bold text-theme hover:scale-[115%] hover:text-theme-alt"
 		>
 			{token.length > MAX_TOKEN_SIZE ? token.slice(0, MAX_TOKEN_SIZE) + '..' : token}
 		</button>
+		{/if}
 	{/each}
+	{#if global_state.tokens.length > MAX_TOKEN_COUNT}
+		<span>...</span>
+	{/if}
 	{#if popUpEnable}
 		<Popup onCloseCb={() => setPopUpState(false)}>
 			{#if children}
