@@ -16,7 +16,7 @@
 </script>
 
 <SideDrawer width={'25rem'}>
-	<div class="flex h-full w-full flex-col items-center justify-evenly">
+	<div class="flex h-full pt-12 w-full flex-col items-center justify-evenly">
 		{#if activeComponent.name === "mlp_pre"}
 			<label for="neuron">Neuron:</label>
 			<input

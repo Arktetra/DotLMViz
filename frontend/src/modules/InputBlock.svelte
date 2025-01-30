@@ -35,9 +35,9 @@
 	});
 </script>
 
-<div>
+<div class="flex flex-row justify-between items-center">
 	<ThemeInputField {inpEventCb} {value} maxlen={60} />
 	<ThemeButton label="Generate" clickEventCb={runAndGetDist} />
 	<ThemeButton label="Clear" clickEventCb={() => (value = '')} />
-	<ThemeButton label="Load Example" clickEventCb={randomInpText} />
+	<ThemeButton label="Example" clickEventCb={randomInpText} />
 </div>

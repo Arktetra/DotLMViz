@@ -3,34 +3,17 @@
 	import TransformerBlocks from '../modules/TransformerBlocks.svelte';
 	import UnembeddingBlock from '../modules/UnembeddingBlock.svelte';
 	import EmbeddingBlock from '../modules/EmbeddingBlock.svelte';
-	import InputBlock from '../modules/InputBlock.svelte';
 	import TokensBlock from '../modules/TokensBlock.svelte';
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import { onMount } from 'svelte';
 	import { runModel, loadModel, getAct, getTokens } from './fetch.svelte';
 	import { InitEventMap } from '../eventstate.svelte';
 	import { active_model, global_state, input } from '../state.svelte';
-	import ThemeToggle from '../components/ThemeToggle.svelte';
 	import ExpandableDottedBlock from '../components/ExpandableDottedBlock.svelte';
 
 	// let inpText: string = $state('');
 	let activeTokenInd: number = $state(0);
-	// this will hold which view it is, 0 (false) - black box view, 1 (true) - white box view
-	let viewMode: boolean = $state(false);
 
-	const onInpChange = (v: string) => {
-		input.text = v;
-		genToken();
-		input.isChanged = true;
-	};
-
-	$effect(() => {
-		genToken();
-	});
-
-	const genToken = async () => {
-		await getTokens(input.text);
-	};
 
 	onMount(() => {
 		InitEventMap();
@@ -55,10 +38,10 @@
 			href="/read/gpt2-small"
 			titStyle="text-xl font-bold"
 			borderSize={'1px'}
-			expandCb={() => viewMode = !viewMode}
+			expandCb={() => global_state.viewMode = !global_state.viewMode}
 			inStyle="min-w-[50%] m-2 flex-row justify-between space-x-10"
 		>
-			{#if viewMode}
+			{#if global_state.viewMode}
 				<EmbeddingBlock />
 				<TransformerBlocks />
 				<UnembeddingBlock />
@@ -78,8 +61,5 @@
 			</div>
 		</DottedBlockBase>
 	</div>
-
-	<InputBlock bind:value={input.text} inpEventCb={onInpChange} />
 </section>
 <OutputBlock />
-<ThemeToggle bind:state={viewMode} style="fixed bottom-5 left-[1rem] z-50" leftlabel="Detailed" rightlabel="Overview"/>

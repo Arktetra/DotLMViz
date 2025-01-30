@@ -22,5 +22,5 @@
 	{placeholder}
 	maxlength={maxlen}
 	oninput={(e: any) => inpChange(e.target.value)}
-	class="m-2 min-w-[35rem] rounded-sm border border-theme p-[0.35rem] text-lg text-theme outline-none"
+	class="m-2 min-w-[35rem] rounded-md border border-theme-g-alt focus:border-theme p-[0.25rem] text-lg text-theme outline-none"
 />
