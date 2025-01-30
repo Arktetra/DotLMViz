@@ -9,6 +9,7 @@
 	import HeatMap from '../dataviz/HeatMap.svelte';
 	import MlpNeurons from '../dataviz/MLPNeurons.svelte';
 	import { getMLPPre } from '../routes/fetch.svelte';
+	import DensityPlot from '../dataviz/DensityPlot.svelte';
 
 	$effect(() => {
 		$inspect(activeComponent);
@@ -65,6 +66,8 @@
 					<HeatMap data={global_state.attn_patterns[global_state.active_head]} vmax="#03045E"/>
 				{:else if activeComponent.name === "mlp_pre"}
 					<MlpNeurons data={global_state.data} />
+				{:else if activeComponent.name === "ln1" || activeComponent.name === "ln2"}
+					<DensityPlot pre={global_state.ln_pre} post={global_state.ln_post} />
 				{/if}
 			</div>
 		</div>

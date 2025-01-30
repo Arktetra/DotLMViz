@@ -4,8 +4,9 @@
 	import ElementBlockBase from '../components/ElementBlockBase.svelte';
 	import AttentionHeads from './AttentionHeads.svelte';
 	import Mlp from './MLP.svelte';
-	import { global_state } from '../state.svelte';
-	import { getAttnPattern, getLN1PreAct } from '../routes/fetch.svelte';
+	import { activeComponent, global_state, input } from '../state.svelte';
+	import { getAttnPattern, getProbDensity, runModel } from '../routes/fetch.svelte';
+	import { active } from 'd3';
 
 	const _transformerBlock = [
 		{
@@ -19,7 +20,25 @@
 	];
 
 	const LN1Callback = async () => {
-		await getLN1PreAct("resid_pre", null, 0);
+		if (input.isChanged === true) {
+			await runModel(input.text);
+		}
+
+		await getProbDensity("resid_pre", null, global_state.active_block);
+		await getProbDensity("normalized", "ln1", global_state.active_block);
+
+		activeComponent.name = "ln1";
+	}
+
+	const LN2Callback = async () => {
+		if (input.isChanged === true) {
+			await runModel(input.text);
+		}
+
+		await getProbDensity("resid_mid", null, global_state.active_block);
+		await getProbDensity("normalized", "ln2", global_state.active_block);
+
+		activeComponent.name = "ln2";
 	}
 </script>
 
@@ -27,7 +46,7 @@
 	<ThemeNumberOptions
 		count={12}
 		bind:activeIndex={global_state.active_block}
-		clickEventCb={getAttnPattern}
+		clickEventCb={null}
 	/>
 	<DottedBlockBase
 		label="Block: {global_state.active_block}"
@@ -52,7 +71,7 @@
 			<ElementBlockBase blockEle={Mlp} blockStyle="p-4 min-w-[12rem] min-h-[10rem]" href={_transformerBlock[1].href}>
 				<span>{_transformerBlock[1].label}</span>
 			</ElementBlockBase>
-			<ElementBlockBase blockStyle="p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'}>
+			<ElementBlockBase blockStyle="p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'} clickEventCb={LN2Callback}>
 				<span>LN</span>
 			</ElementBlockBase>
 		</div>
