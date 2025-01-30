@@ -5,7 +5,7 @@
 	import AttentionHeads from './AttentionHeads.svelte';
 	import Mlp from './MLP.svelte';
 	import { global_state } from '../state.svelte';
-	import { getAttnPattern } from '../routes/fetch.svelte';
+	import { getAttnPattern, getLN1PreAct } from '../routes/fetch.svelte';
 
 	const _transformerBlock = [
 		{
@@ -17,6 +17,10 @@
 			href: '/read/mlp'
 		}
 	];
+
+	const LN1Callback = async () => {
+		await getLN1PreAct("resid_pre", null, 0);
+	}
 </script>
 
 <DottedBlockBase label="Transformer Blocks" inStyle="flex-col p-4">
@@ -40,7 +44,7 @@
 			>
 				<span>{_transformerBlock[0].label}</span>
 			</ElementBlockBase>
-			<ElementBlockBase blockStyle="p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'}>
+			<ElementBlockBase blockStyle="p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'} clickEventCb={LN1Callback}>
 				<span>LN</span>
 			</ElementBlockBase>
 		</div>

@@ -23,6 +23,8 @@ export const global_state = $state<{
 	data: any[],
 	tokens: any[],
 	embed_output: ScatterPlotData,
+	ln_pre: [],
+	ln_post: [],
 	attn_patterns: HeatMapData[],	// contains attn pattern for all heads
 	active_head: number,
 	active_block: number,
@@ -32,6 +34,8 @@ export const global_state = $state<{
 	data: [],
 	tokens: [],
 	embed_output: [],
+	ln_pre: [],
+	ln_post: [],
 	attn_patterns: [],
 	active_head: 0,
 	active_block: 0,

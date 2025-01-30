@@ -57,6 +57,8 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 
 		let data = await res.json();
 
+		console.log(data);
+
 		if (act_name === "embed" || act_name === "pos_embed") {
 			let embedOutput: ScatterPlotData = [];
 
@@ -85,14 +87,44 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 			}
 
 			global_state.attn_patterns = attnPatterns;
+		} else if (act_name === "resid_pre") {
+			global_state.ln_pre = data;
+		} else {
+			global_state.data = data;
 		}
 
-		global_state.data = data;
 	} catch (error: any) {
 		console.log(error.message);
 		return;
 	}
 };
+
+export const getLN1PreAct = async (act_name: string | null, layer_name: string | null, block: number) => {
+	if (input.isChanged === true) {
+		await runModel(input.text);
+	}
+
+	try {
+		const res = await fetch('/ckpt/prob_density', {
+			method: 'POST',
+			body: JSON.stringify({ act_name, layer_name, block }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+
+		if (!res.ok) {
+			throw new Error(`Response status: ${res.status}`);
+		}
+
+		let data = await res.json();
+
+		console.log(data);
+	} catch (error: any) {
+		console.log(error.message);
+		return;
+	}
+}
 
 export const getAttnPattern = async () => {
 	if (input.isChanged === true) {
