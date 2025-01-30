@@ -6,7 +6,7 @@
 	import TokensBlock from '../modules/TokensBlock.svelte';
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import { onMount } from 'svelte';
-	import { runModel, loadModel, getAct, getTokens } from './fetch.svelte';
+	import { loadModel } from './fetch.svelte';
 	import { InitEventMap } from '../eventstate.svelte';
 	import { active_model, global_state, input } from '../state.svelte';
 	import ExpandableDottedBlock from '../components/ExpandableDottedBlock.svelte';
@@ -25,7 +25,7 @@
 	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-evenly"
 >
 	<div class="flex flex-row items-center justify-evenly space-x-10">
-		<TokensBlock tokens={global_state.tokens} bind:tokenInd={activeTokenInd}>
+		<TokensBlock bind:tokenInd={activeTokenInd}>
 			<span class="text-sm font-light text-theme-w">
 				Index: <span class="text-md font-bold">{activeTokenInd}</span>
 			</span>

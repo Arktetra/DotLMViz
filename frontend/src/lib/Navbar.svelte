@@ -1,8 +1,8 @@
 <script lang="ts">
 	import InputBlock from "../modules/InputBlock.svelte";
 	import ThemeToggle from "../components/ThemeToggle.svelte";
-	import { runModel, loadModel, getAct, getTokens } from '../routes/fetch.svelte';
-	import { active_model, global_state, input } from '../state.svelte';
+	import { getTokens } from '../routes/fetch.svelte';
+	import { global_state, input } from '../state.svelte';
 
 	const genToken = async () => {
 		await getTokens(input.text);
