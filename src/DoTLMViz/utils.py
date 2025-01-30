@@ -56,3 +56,9 @@ def get_token_prob_mappings(tokens: str, probs: torch.Tensor):
         token_prob_mappings.append({"name": token, "prob": prob.item()})
 
     return token_prob_mappings
+
+
+def convert_to_points(arr1, arr2):
+    assert len(arr1) == len(arr2), "The length of the two arrays must be equal."
+    points = [{"x": el1.item(), "y": el2.item()} for (el1, el2) in zip(arr1, arr2)]
+    return points
