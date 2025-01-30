@@ -18,9 +18,9 @@
         ylabel?: string,
     } = $props();
 
-    let minmax = extent(data, (d) => d.score) as [number, number];
-    let min = minmax[0];
-    let max = minmax[1];
+    let minmax = $derived(extent(data, (d) => d.score) as [number, number]);
+    // let min = minmax[0];
+    // let max = minmax[1];
 
     let width = $state(500);
     let height = $state(266);
@@ -45,13 +45,15 @@
         .range([height - padding.bottom, padding.top])
     );
 
-    let blueScale = scaleLinear<string>()
-        .domain([0, max])
-        .range(["white", vmax]);
+    let blueScale = $derived(scaleLinear<string>()
+        .domain([0, minmax[1]])
+        .range(["white", vmax])
+    );
 
-    let redScale = scaleLinear<string>()
-        .domain([min, 0])
+    let redScale = $derived(scaleLinear<string>()
+        .domain([minmax[0], 0])
         .range([vmin, "white"])
+    );
 
     function RGB(val: number) {
         if (val < 0) {
