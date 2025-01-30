@@ -129,7 +129,7 @@ export const getProbDensity = async (act_name: string | null, layer_name: string
 
 		let data = await res?.json();
 		console.log(data);
-		if (act_name == "resid_pre" ) {
+		if (act_name == "resid_pre" || act_name === "resid_mid") {
 			global_state.ln_pre = data;
 		} else if (act_name == "normalized") {
 			global_state.ln_post = data;
