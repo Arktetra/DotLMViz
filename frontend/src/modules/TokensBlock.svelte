@@ -1,8 +1,9 @@
 <script lang="ts">
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import Popup from '../components/Popup.svelte';
-
-	let { tokens, tokenInd = $bindable(), children = null } = $props();
+	import { global_state } from '../state.svelte';
+	
+	let { tokenInd = $bindable(), children = null } = $props();
 
 	let popUpEnable: boolean = $state(false);
 
@@ -20,7 +21,7 @@
 </script>
 
 <DottedBlockBase label="Tokens" inStyle="min-w-[5rem] min-h-[5rem] flex-col items-center">
-	{#each tokens as token, ind}
+	{#each global_state.tokens as token, ind}
 		<button
 			onclick={() => tokenClick(ind)}
 			class="my-1 block text-xl font-bold text-theme hover:scale-[115%] hover:text-theme-alt"

@@ -29,6 +29,7 @@ export const global_state = $state<{
 	active_head: number,
 	active_block: number,
 	neuron: number,
+	viewMode: boolean
 }>({
 	isModelLoaded: false,
 	data: [],
@@ -39,5 +40,6 @@ export const global_state = $state<{
 	attn_patterns: [],
 	active_head: 0,
 	active_block: 0,
-	neuron: 0
+	neuron: 0,
+	viewMode: false
 });
