@@ -8,8 +8,8 @@
 	import ScatterChart from '../dataviz/ScatterChart.svelte';
 	import HeatMap from '../dataviz/HeatMap.svelte';
 	import MlpNeurons from '../dataviz/MLPNeurons.svelte';
-	import { getMLPPre } from '../routes/fetch.svelte';
 	import DensityPlot from '../dataviz/DensityPlot.svelte';
+	import { MLPPreCallback } from '../callbacks.svelte';
 
 	$effect(() => {
 		$inspect(activeComponent);
@@ -27,7 +27,7 @@
 				min="0"
 				max="3072"
 				bind:value={global_state.neuron}
-				onchange={getMLPPre}
+				onchange={MLPPreCallback}
 			>
 		{:else}
 		<div class="relative w-full rounded-md bg-theme-g p-2 shadow-inner shadow-theme-g-alt">

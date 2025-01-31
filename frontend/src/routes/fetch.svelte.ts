@@ -140,14 +140,14 @@ export const getProbDensity = async (act_name: string | null, layer_name: string
 	}
 }
 
-export const getAttnPattern = async () => {
-	if (input.isChanged === true) {
-		await runModel(input.text);
-	}
+// export const getAttnPattern = async () => {
+// 	if (input.isChanged === true) {
+// 		await runModel(input.text);
+// 	}
 
-	await getAct("pattern", "attn", global_state.active_block);
-	activeComponent.name = "attn";
-}
+// 	await getAct("pattern", "attn", global_state.active_block);
+// 	activeComponent.name = "attn";
+// }
 
 export const getMLPOuts = async (act_name: string, layer_name: string | null, block: number | null, neuron: number | null) => {
 	try {
@@ -182,15 +182,6 @@ export const getMLPOuts = async (act_name: string, layer_name: string | null, bl
 		return;
 	}
 };
-
-export const getMLPPre = async () => {
-	if (input.isChanged === true) {
-		await runModel(input.text);
-	}
-
-	await getMLPOuts("pre", "mlp", 0, global_state.neuron);
-	activeComponent.name = "mlp_pre";
-}
 
 export const getDist = async () => {
 	try {

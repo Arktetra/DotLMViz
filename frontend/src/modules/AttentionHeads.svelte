@@ -1,7 +1,6 @@
 <script lang="ts">
-
+	import { attnHeadCallback } from "../callbacks.svelte";
     import ThemeNumberOptions from "../components/ThemeNumberOptions.svelte";
-	import { getAttnPattern } from "../routes/fetch.svelte";
 	import { global_state } from "../state.svelte";
 
 </script>
@@ -12,5 +11,5 @@
     count={12}
     bind:activeIndex={global_state.active_head}
     style="grid grid-cols-3 gap-2 p-2"
-    clickEventCb={getAttnPattern}
+    clickEventCb={attnHeadCallback}
 />
