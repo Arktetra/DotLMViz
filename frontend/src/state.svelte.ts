@@ -29,7 +29,8 @@ export const global_state = $state<{
 	active_head: number,
 	active_block: number,
 	neuron: number,
-	viewMode: boolean
+	viewMode: boolean,
+	ouputBlockState: boolean
 }>({
 	isModelLoaded: false,
 	data: [],
@@ -41,5 +42,6 @@ export const global_state = $state<{
 	active_head: 0,
 	active_block: 0,
 	neuron: 0,
-	viewMode: false
+	viewMode: false,
+	ouputBlockState: false // this stores the side drawer state i.e open or closed
 });

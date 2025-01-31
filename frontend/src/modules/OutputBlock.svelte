@@ -16,7 +16,7 @@
 	})
 </script>
 
-<SideDrawer width={'25rem'}>
+<SideDrawer bind:openState={global_state.ouputBlockState} width={'25rem'}>
 	<div class="flex h-full pt-12 w-full flex-col items-center justify-evenly">
 		{#if activeComponent.name === "MLP (in) Pre-activation"}
 			<label for="neuron">Neuron:</label>
