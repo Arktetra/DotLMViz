@@ -13,7 +13,7 @@
 <div
 	in:scale={{duration:200}}
 	style="border-width: {borderSize};"
-	class="relative m-2 rounded-xl border-dashed border-theme transition-colors duration-200"
+	class="h-full relative m-2 rounded-xl border-dashed border-theme transition-colors duration-200"
 >
 	<span
 		class="absolute left-[50%] top-[-1.8rem] translate-x-[-50%] uppercase text-gray-500 {titStyle}"

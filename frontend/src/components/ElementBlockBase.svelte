@@ -22,7 +22,7 @@
 	on:click={() => blockTrigger(true)}
 	class="relative m-2 flex cursor-pointer flex-col items-center justify-center rounded-md bg-theme p-2 text-theme-w transition-all duration-200 hover:bg-theme-alt {blockStyle}"
 >
-	<a {href} on:click|stopPropagation class="absolute end-1 top-1 text-theme-w">
+	<a {href} target="_blank" on:click|stopPropagation class="absolute end-1 top-1 text-theme-w">
 		<QuestionCircleSolid size={'sm'} />
 	</a>
     {#if children}

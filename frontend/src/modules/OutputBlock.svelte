@@ -32,6 +32,7 @@
 		{:else if activeComponent.name === "Output Distribution"}
 		<div class="relative w-full rounded-md bg-theme-g p-2 shadow-inner shadow-theme-g-alt">
 			<a
+				target="_blank"
 				href="/read/control-parameter"
 				title="Control Parameter"
 				class="absolute end-1 top-1 text-theme"

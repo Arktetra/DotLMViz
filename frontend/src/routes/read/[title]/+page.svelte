@@ -7,7 +7,7 @@
 	const description = content[page.params.title] ?? 'NO information available for this topic!!';
 </script>
 
-<div class="flex flex-col items-center justify-evenly">
+<div class="flex flex-col items-center justify-evenly pt-10">
 	<span class="text-md uppercase">Readings</span>
 	<div
 		class="border-theme-g my-10 min-h-[80vh] w-[80%] rounded-sm border-2 p-10 text-justify text-lg tracking-wider shadow-lg"

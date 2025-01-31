@@ -25,7 +25,7 @@
 	class="relative m-2 rounded-xl border-dashed border-theme transition-colors duration-200"
 >
 	<div class="absolute end-1 top-[0.2rem] text-theme flex flex-row justify-evenly items-center">
-		<a {href} title={label} on:click|stopPropagation class="mx-2">
+		<a {href} target="_blank" title={label} on:click|stopPropagation class="mx-2">
 			<QuestionCircleSolid size={'sm'} />
 		</a>
 		<button on:click|stopPropagation={registerExpand}>
