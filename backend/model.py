@@ -49,14 +49,11 @@ def run_model():
         if request.method == "POST":
             text = request.json["text"]
             text = " " if text == "" else text
-            if current_app.logits == None or current_app.ckpts == None and utils.tokenize_and_saveable(text):
-                tokens = current_app.last_input["token_ids"]
+            tokens = current_app.last_input["token_ids"]
 
-                logits, ckpts = current_app.model.run_with_ckpts(tokens.to(current_app.device))
-                current_app.logits = logits
-                current_app.ckpts = ckpts
-            else:
-                print("Input text is same. using previous current_app val")
+            logits, ckpts = current_app.model.run_with_ckpts(tokens.to(current_app.device))
+            current_app.logits = logits
+            current_app.ckpts = ckpts
 
             print(f"Successfully ran the model on the input: {text}")
             return jsonify({"message": f"Successful inference over | input: {text} | tokens[{len(current_app.last_input['token_ids'][0])}] : {current_app.last_input['raw_tokens']}"}), 201
