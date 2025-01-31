@@ -3,30 +3,30 @@ import { data, active_model, global_state, input, activeComponent } from '../sta
 
 // This function will load the model of name passed as param, fallback is to the default model on active_model on state.svelte
 export const loadModel = async (model_name: string = active_model.model_name) => {
-
-	return await axios.post('/model/load', { model_name })
-						.then((res) => {
-							global_state.isModelLoaded = true
-							return res.data;
-						})
-						.catch(error => console.log(error))
+	return await axios
+		.post('/model/load', { model_name })
+		.then((res) => {
+			global_state.isModelLoaded = true;
+			return res.data;
+		})
+		.catch((error) => console.log(error));
 };
 
 export const runModel = async (input_text: string) => {
-
-	return await axios.post('/model/run', { text: input_text })
-						.then((res) => res.data)
-						.catch(error => console.log(error))
+	return await axios
+		.post('/model/run', { text: input_text })
+		.then((res) => res.data)
+		.catch((error) => console.log(error));
 };
 
 export const getAct = async (act_name: string, layer_name: string | null, block: number | null) => {
-	
-	const res = await axios.post('/ckpt/act', { act_name, layer_name, block })
-						.then(res => res.data)
-						.catch(error => console.log(error))
+	const res = await axios
+		.post('/ckpt/act', { act_name, layer_name, block })
+		.then((res) => res.data)
+		.catch((error) => console.log(error));
 
 	const data = res;
-	console.log(data)
+	console.log(data);
 
 	if (act_name === 'embed' || act_name === 'pos_embed') {
 		let embedOutput: ScatterPlotData = [];
@@ -68,10 +68,10 @@ export const getProbDensity = async (
 	layer_name: string | null,
 	block: number
 ) => {
-
-	const res = await axios.post('/ckpt/prob_density', { act_name, layer_name, block })
-							.then(res => res.data)
-							.catch(error => console.log(error))
+	const res = await axios
+		.post('/ckpt/prob_density', { act_name, layer_name, block })
+		.then((res) => res.data)
+		.catch((error) => console.log(error));
 
 	const data = res;
 	console.log(data);
@@ -98,13 +98,13 @@ export const getMLPOuts = async (
 	block: number | null,
 	neuron: number | null
 ) => {
-
-	const res = await axios.post('/ckpt/mlp_outs', { act_name, layer_name, block, neuron })
-						.then(res => res.data)
-						.catch(error => console.log(error))
+	const res = await axios
+		.post('/ckpt/mlp_outs', { act_name, layer_name, block, neuron })
+		.then((res) => res.data)
+		.catch((error) => console.log(error));
 
 	const data = res;
-	console.log(data)
+	console.log(data);
 	let act = [];
 
 	for (let i = 0; i < data.length; i++) {
@@ -120,19 +120,19 @@ export const getMLPOuts = async (
 };
 
 export const getDist = async () => {
-
-	const res = await axios.get('/model/dist')
-						.then(res => res.data)
-						.catch(error => console.log(error))
+	const res = await axios
+		.get('/model/dist')
+		.then((res) => res.data)
+		.catch((error) => console.log(error));
 
 	data.tokenProbMappings = res;
 };
 
 export const getTokens = async (input_text: string) => {
-
-	const res = await axios.post('/model/tokenize', { text: input_text })
-							.then(res => res.data)
-							.catch(error => console.log(error))
+	const res = await axios
+		.post('/model/tokenize', { text: input_text })
+		.then((res) => res.data)
+		.catch((error) => console.log(error));
 
 	global_state.tokens = res;
 };
