@@ -8,7 +8,7 @@
 <DottedBlockBase label="Unembedding" inStyle="flex-col justify-evenly items-center h-full">
 	{#if global_state.active_block == 11}
 	<ElementBlockBase blockStyle="w-[12rem] p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'}>
-		<span>LN</span>
+		<span>LayerNorm</span>
 	</ElementBlockBase>
 	{/if}
 	<BlockBase label="Unembedding" width={'12rem'} height={global_state.active_block == 11 ? '18rem' : '25rem'} href={'/read/unembedding'}

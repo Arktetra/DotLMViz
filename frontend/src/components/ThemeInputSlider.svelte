@@ -20,9 +20,9 @@
 	const MAX_CHAR_SIZE = 6
 </script>
 
-<div class="mb-5 grid grid-cols-4">
+<div class="mb-4 grid grid-cols-4">
 	{#if label}
-		<label class="font-main text-ti font-bold text-theme-r" title={label}>{label.length > MAX_CHAR_SIZE ? label.slice(0, MAX_CHAR_SIZE) + "." : label}</label>
+		<label for={label} class="font-main-a text-ti font-bold text-theme-r" title={label}>{label.length > MAX_CHAR_SIZE ? label.slice(0, MAX_CHAR_SIZE) + "." : label}</label>
 	{/if}
 	<div class="relative col-span-3 flex flex-row items-center justify-between text-gray-500">
 		<span class="absolute -bottom-3 -start-1 text-ti-s font-bold">{min}</span>

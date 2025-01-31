@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { QuestionCircleSolid, ExpandOutline, MinimizeOutline } from 'flowbite-svelte-icons';
+	import { ExpandOutline, MinimizeOutline } from 'flowbite-svelte-icons';
 	import { fade } from 'svelte/transition';
+	import QuickLink from './QuickLink.svelte';
 
 	const {
 		label = 'Untitled',
@@ -25,19 +26,16 @@
 	class="relative m-2 rounded-xl border-dashed border-theme transition-colors duration-200"
 >
 	<div class="absolute end-1 top-[0.2rem] text-theme flex flex-row justify-evenly items-center">
-		<a {href} target="_blank" title={label} on:click|stopPropagation class="mx-2">
-			<QuestionCircleSolid size={'sm'} />
-		</a>
+		<QuickLink {href} ostyle="!relative !text-theme" />
+
 		<button on:click|stopPropagation={registerExpand}>
-			{#if expanded}
-				<MinimizeOutline size={'lg'} />
-			{:else}
-				<ExpandOutline size={'lg'} />
+			{#if expanded} <MinimizeOutline size={'md'} /> 
+			{:else} <ExpandOutline size={'md'} />
 			{/if}
 		</button>
 	</div>
 	<span
-		class="absolute left-[50%] top-[-1.8rem] translate-x-[-50%] uppercase text-gray-500 {titStyle}"
+		class="absolute left-[50%] top-[-1.8rem] translate-x-[-50%] font-main uppercase text-gray-500 {titStyle}"
 	>
 		{label}
 	</span>

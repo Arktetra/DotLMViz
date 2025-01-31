@@ -10,6 +10,7 @@
 	import MlpNeurons from '../dataviz/MLPNeurons.svelte';
 	import DensityPlot from '../dataviz/DensityPlot.svelte';
 	import { MLPPreCallback } from '../callbacks.svelte';
+	import ThemeInputField from '../components/ThemeInputField.svelte';
 
 	$effect(() => {
 		$inspect(activeComponent);
@@ -17,18 +18,25 @@
 </script>
 
 <SideDrawer bind:openState={global_state.ouputBlockState} width={'25vw'}>
-	<div class="flex h-full pt-12 w-full flex-col items-center justify-evenly">
+	<div class="flex h-full pt-12 w-full flex-col items-center justify-evenly font-main-a">
 		{#if activeComponent.name === "MLP (in) Pre-activation"}
-			<label for="neuron">Neuron:</label>
-			<input
-				id="neuron"
-				name="neuron"
-				type="number"
-				min="0"
-				max="3072"
-				bind:value={global_state.neuron}
-				onchange={MLPPreCallback}
-			>
+			<div class="flex flex-row justify-evenly items-center space-x-4">
+				<label for="neuron">Neuron:</label>
+				<input
+					id="neuron"
+					name="neuron"
+					type="number"
+					min=0
+					max=3072
+					bind:value={global_state.neuron}
+					onchange={MLPPreCallback}
+					class="px-1 outline-none text-theme text-lg rounded-md border border-theme"
+				>
+				<div class="flex flex-col">
+					<span class="text-ti">3072</span>
+					<span class="text-ti">0</span>
+				</div>
+			</div>
 		{:else if activeComponent.name === "Output Distribution"}
 		<div class="relative w-full rounded-md bg-theme-g p-2 shadow-inner shadow-theme-g-alt">
 			<a
@@ -73,7 +81,7 @@
 			</div>
 		</div>
 		<span class="my-2 font-bold text-theme"
-			>Next Token : <span class="rounded-md bg-theme p-1 px-2 font-light text-theme-w">E</span
+			>Next Token : <span class="rounded-md bg-theme p-1 px-2 font-light text-theme-w">{"is"}</span
 			></span
 		>
 	</div>

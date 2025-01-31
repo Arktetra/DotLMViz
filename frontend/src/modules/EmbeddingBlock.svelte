@@ -20,7 +20,6 @@
 <DottedBlockBase label="Embeddings" inStyle="h-full flex-col justify-center items-center">
 	{#each _embeddings as item}
 		<BlockBase label={item.label} href={item.href} clickEventCb={item.callback}>
-			<h1 class="bg-theme p-4">{item.label}</h1>
 		</BlockBase>
 	{/each}
 </DottedBlockBase>

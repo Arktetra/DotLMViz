@@ -24,9 +24,6 @@ export const POST = async (api: string, body: string) => {
 
 // This function will load the model of name passed as param, fallback is to the default model on active_model on state.svelte
 export const loadModel = async (model_name: string = active_model.model_name) => {
-	// return await axios.post(
-		
-	// )
 	try {
 		return await fetch('/model/load', {
 			method: 'POST',

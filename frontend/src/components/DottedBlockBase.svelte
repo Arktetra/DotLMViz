@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fly, scale } from "svelte/transition";
+	import { scale } from "svelte/transition";
 
 	const {
 		label = 'Untitled',
@@ -16,7 +16,7 @@
 	class="h-full relative m-2 rounded-xl border-dashed border-theme transition-colors duration-200"
 >
 	<span
-		class="absolute left-[50%] top-[-1.8rem] translate-x-[-50%] uppercase text-gray-500 {titStyle}"
+		class="absolute left-[50%] top-[-1.8rem] translate-x-[-50%] font-main text-lg uppercase text-gray-500 {titStyle}"
 		>{label}</span
 	>
 

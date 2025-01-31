@@ -24,7 +24,7 @@
 
 <Navbar />
 <section
-	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-start pt-[12rem]"
+	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-start pt-[12rem] font-main-a"
 >
 	<div class="flex flex-row items-start justify-evenly space-x-12 transition-all duration-300 {global_state.ouputBlockState ? "xl:pr-[25vw] pr-[20rem]" : ""}">
 		<TokensBlock bind:tokenInd={activeTokenInd}>
@@ -38,7 +38,7 @@
 		<ExpandableDottedBlock
 			label="GPT-2 Small"
 			href="/read/gpt2-small"
-			titStyle="text-xl font-bold"
+			titStyle="text-xl font-bold text-black"
 			borderSize={'1px'}
 			expandCb={() => global_state.viewMode = !global_state.viewMode}
 			inStyle="min-w-[50vw] h-[50vh] m-2 flex-row justify-between space-x-10"
@@ -61,11 +61,14 @@
 							<div class="absolute w-full h-full shadow-sm shadow-theme top-6 left-6 border bg-white border-theme border-dashed rounded-xl -z-20"></div>
 						</DottedBlockBase>
 					</div>
-					<DottedBlockBase label="Unembedding" inStyle="h-full py-20 flex-col justify-evenly items-center">
-						<h1 class="tracking-tighter">LayerNorm</h1>
-						<hr class="w-[80%] border-theme"/>
-						<h1 class="tracking-tighter">Logits</h1>
-					</DottedBlockBase>
+					<div class="h-full grid grid-rows-2 gap-10">
+						<DottedBlockBase label="LayerNorm" inStyle="h-full py-20 flex-col justify-evenly items-center">
+
+						</DottedBlockBase>
+						<DottedBlockBase label="Unembedding" inStyle="h-full py-20 flex-col justify-evenly items-center">
+	
+						</DottedBlockBase>
+					</div>
 				</div>
 			{/if}
 		</ExpandableDottedBlock>

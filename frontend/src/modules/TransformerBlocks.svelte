@@ -24,7 +24,7 @@
 	const blockChange = () => {
 		pulse = true;
 		TransformerBlockCallback();
-		setTimeout(() => (pulse = false), 800);
+		setTimeout(() => (pulse = false), 300);
 	}
 </script>
 
@@ -35,9 +35,9 @@
 		clickEventCb={blockChange}
 	/>
 	<DottedBlockBase
-		label="Block: {global_state.active_block}"
+		label="Block: '{global_state.active_block}'"
 		borderSize={'1px'}
-		titStyle="text-ti top-[-1.4rem]"
+		titStyle="text-md top-[-1.35rem]"
 		inStyle="w-[30rem] h-[20rem] flex-row justify-between transition-all duration-200 {pulse ? "animate-pulse scale-75" : ""}"
 	>
 		<div class="flex h-full flex-col items-start justify-evenly">
@@ -50,7 +50,7 @@
 				<span>{_transformerBlock[0].label}</span>
 			</ElementBlockBase>
 			<ElementBlockBase blockStyle="p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'} clickEventCb={LN1Callback}>
-				<span>LN</span>
+				<span>LN1</span>
 			</ElementBlockBase>
 		</div>
 		<div class="flex h-full flex-col items-start justify-evenly">
@@ -58,7 +58,7 @@
 				<span>{_transformerBlock[1].label}</span>
 			</ElementBlockBase>
 			<ElementBlockBase blockStyle="p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'} clickEventCb={LN2Callback}>
-				<span>LN</span>
+				<span>LN2</span>
 			</ElementBlockBase>
 		</div>
 	</DottedBlockBase>

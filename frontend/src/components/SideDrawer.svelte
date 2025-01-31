@@ -7,7 +7,7 @@
 
 <section
 	style="width: {width};"
-	class={'min-w-[20rem] fixed top-0 z-20 flex h-screen flex-col items-center justify-center border border-l-gray-400 border-r-gray-400 bg-theme-w p-2 transition-transform duration-500' +
+	class={'min-w-[20rem] h-screen fixed top-0 z-20 flex flex-col items-center justify-center border border-l-gray-400 border-r-gray-400 bg-theme-w p-2 transition-transform duration-500' +
 		(openState
 			? ' translate-x-0 '
 			: side === 'right'
