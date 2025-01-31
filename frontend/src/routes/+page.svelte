@@ -24,7 +24,7 @@
 <section
 	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-start pt-[12rem]"
 >
-	<div class="flex flex-row items-start justify-evenly space-x-12 transition-all duration-300 {global_state.ouputBlockState ? "pr-[25rem]" : ""}">
+	<div class="flex flex-row items-start justify-evenly space-x-12 transition-all duration-300 {global_state.ouputBlockState ? "xl:pr-[25vw] pr-[20rem]" : ""}">
 		<TokensBlock bind:tokenInd={activeTokenInd}>
 			<span class="text-sm font-light text-theme-w">
 				Index: <span class="text-md font-bold">{activeTokenInd}</span>

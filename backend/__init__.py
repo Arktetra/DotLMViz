@@ -20,6 +20,14 @@ def create_app(test_config=None):
         SECRET_KEY="dev",
     )
 
+    # some intialization steps
+    # caching the last input request, this will be helpful for development process mostly
+    app.last_input = {"text": "", "token_ids": [], "raw_tokens": []}
+    app.is_model_loaded = False
+    app.logits = None
+    app.ckpts = None
+
+
     if test_config is None:
         # Load the instance config (if it exists), when not testing
         app.config.from_pyfile("config.py", silent=True)

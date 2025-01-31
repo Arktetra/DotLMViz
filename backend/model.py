@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, request, Response, jsonify
+from flask import Blueprint, current_app, request, jsonify
 
 from DoTLMViz.utils import get_output_dist, get_token_prob_mappings
 from . import utils
@@ -14,13 +14,14 @@ def load_model():
     Loads a model with the name that is in the POST request.
     """
     try:
-        if request.method == "POST":
-            current_app.model_name = request.json["model_name"]
-            utils.load_model()
-            return Response(None, status=201)
+        utils.if_not_load(request.json["model_name"])
+
+        return jsonify({"message": f'{current_app.model_name} model loaded successfully'}), 200
     except Exception as e:
         print("Error: ", str(e))
         return jsonify({"Error": str(e)}), 500
+
+
 
 
 @bp.route("/tokenize", methods=["POST"])
@@ -29,10 +30,11 @@ def tokenize():
     Tokenize the text that is in the POST request.
     """
     try:
-        if request.method == "POST":
-            text = request.json["text"]
-            token_ids = current_app.tokenizer(text, return_tensors="pt")["input_ids"]
-            return current_app.tokenizer.convert_ids_to_tokens(token_ids.squeeze())
+        text = request.json["text"]
+        utils.tokenize_and_saveable(text)
+
+        # above utils.tokenize_and_save garuntes that the tokens for the text exists
+        return current_app.last_input["raw_tokens"]
     except Exception as e:
         print("Error: ", str(e))
         return jsonify({"Error": str(e)}), 500
@@ -47,12 +49,19 @@ def run_model():
         if request.method == "POST":
             text = request.json["text"]
             text = " " if text == "" else text
-            tokens = current_app.tokenizer(text, return_tensors="pt")["input_ids"]
-            logits, ckpts = current_app.model.run_with_ckpts(tokens.to(current_app.device))
-            current_app.logits = logits
-            current_app.ckpts = ckpts
-            print("Successfully ran the model on the input text.")
-            return Response(None, status=201)
+            if current_app.logits == None or current_app.ckpts == None and utils.tokenize_and_saveable(text):
+                tokens = current_app.last_input["token_ids"]
+
+                logits, ckpts = current_app.model.run_with_ckpts(tokens.to(current_app.device))
+                current_app.logits = logits
+                current_app.ckpts = ckpts
+            else:
+                print("Input text is same. using previous current_app val")
+
+            print(f"Successfully ran the model on the input: {text}")
+            return jsonify({"message": f"Successful inference over | input: {text} | tokens[{len(current_app.last_input['token_ids'][0])}] : {current_app.last_input['raw_tokens']}"}), 201
+        if request.method == "GET":
+            return jsonify({"message": "Not Implemented"}), 500
     except Exception as e:
         print("Error: ", str(e))
         return jsonify({"Error": str(e)}), 500
