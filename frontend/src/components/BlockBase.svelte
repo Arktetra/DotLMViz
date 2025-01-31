@@ -22,7 +22,7 @@
 </script>
 
 <div
-	transition:fade={{duration:300}}
+	transition:fade={{ duration: 300 }}
 	on:click={() => blockTrigger(true)}
 	style="width:{width};height:{height};"
 	class="relative m-2 flex cursor-pointer flex-col items-center justify-center rounded-md bg-theme p-2 text-theme-w transition-all duration-200 hover:scale-[102%] hover:bg-theme-alt {style}"

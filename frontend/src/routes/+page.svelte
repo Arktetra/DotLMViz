@@ -15,7 +15,6 @@
 	// let inpText: string = $state('');
 	let activeTokenInd: number = $state(0);
 
-
 	onMount(() => {
 		InitEventMap();
 		loadModel(active_model.model_name);
@@ -26,7 +25,11 @@
 <section
 	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-start pt-[12rem] font-main-a"
 >
-	<div class="flex flex-row items-start justify-evenly space-x-12 transition-all duration-300 {global_state.ouputBlockState ? "xl:pr-[25vw] pr-[20rem]" : ""}">
+	<div
+		class="flex flex-row items-start justify-evenly space-x-12 transition-all duration-300 {global_state.ouputBlockState
+			? 'pr-[20rem] xl:pr-[25vw]'
+			: ''}"
+	>
 		<TokensBlock bind:tokenInd={activeTokenInd}>
 			<span class="text-sm font-light text-theme-w">
 				Index: <span class="text-md font-bold">{activeTokenInd}</span>
@@ -40,7 +43,7 @@
 			href="/read/gpt2-small"
 			titStyle="text-xl font-bold text-black"
 			borderSize={'1px'}
-			expandCb={() => global_state.viewMode = !global_state.viewMode}
+			expandCb={() => (global_state.viewMode = !global_state.viewMode)}
 			inStyle="min-w-[50vw] h-[50vh] m-2 flex-row justify-between space-x-10"
 		>
 			{#if global_state.viewMode}
@@ -48,26 +51,39 @@
 				<TransformerBlocks />
 				<UnembeddingBlock />
 			{:else}
-				<div class="min-w-[50rem] h-[40vh] grid grid-cols-4">
-					<DottedBlockBase label="Embedding" inStyle="h-full py-20 flex flex-col justify-evenly items-center">
+				<div class="grid h-[40vh] min-w-[50rem] grid-cols-4">
+					<DottedBlockBase
+						label="Embedding"
+						inStyle="h-full py-20 flex flex-col justify-evenly items-center"
+					>
 						<h1 class="tracking-tighter">Token Embedding</h1>
-						<hr class="w-[80%] border-theme"/>
+						<hr class="w-[80%] border-theme" />
 						<h1 class="tracking-tighter">Positional Embedding</h1>
 					</DottedBlockBase>
-					<div class="w-[80%] h-[95%] mx-auto col-span-2 relative mb-20">
-						<DottedBlockBase label="Transformer Blocks" inStyle="h-full justify-evenly shadow-md shadow-theme relative bg-white rounded-xl" titStyle="w-full text-center text-md">
+					<div class="relative col-span-2 mx-auto mb-20 h-[95%] w-[80%]">
+						<DottedBlockBase
+							label="Transformer Blocks"
+							inStyle="h-full justify-evenly shadow-md shadow-theme relative bg-white rounded-xl"
+							titStyle="w-full text-center text-md"
+						>
 							<span class="text-3xl font-extrabold">x12</span>
-							<div class="absolute w-full h-full shadow-sm shadow-theme top-3 left-3 border bg-white border-theme border-dashed rounded-xl -z-10"></div>
-							<div class="absolute w-full h-full shadow-sm shadow-theme top-6 left-6 border bg-white border-theme border-dashed rounded-xl -z-20"></div>
+							<div
+								class="absolute left-3 top-3 -z-10 h-full w-full rounded-xl border border-dashed border-theme bg-white shadow-sm shadow-theme"
+							></div>
+							<div
+								class="absolute left-6 top-6 -z-20 h-full w-full rounded-xl border border-dashed border-theme bg-white shadow-sm shadow-theme"
+							></div>
 						</DottedBlockBase>
 					</div>
-					<div class="h-full grid grid-rows-2 gap-10">
-						<DottedBlockBase label="LayerNorm" inStyle="h-full py-20 flex-col justify-evenly items-center">
-
-						</DottedBlockBase>
-						<DottedBlockBase label="Unembedding" inStyle="h-full py-20 flex-col justify-evenly items-center">
-	
-						</DottedBlockBase>
+					<div class="grid h-full grid-rows-2 gap-10">
+						<DottedBlockBase
+							label="LayerNorm"
+							inStyle="h-full py-20 flex-col justify-evenly items-center"
+						></DottedBlockBase>
+						<DottedBlockBase
+							label="Unembedding"
+							inStyle="h-full py-20 flex-col justify-evenly items-center"
+						></DottedBlockBase>
 					</div>
 				</div>
 			{/if}

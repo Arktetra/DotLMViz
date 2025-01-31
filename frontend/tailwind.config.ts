@@ -8,7 +8,7 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				'theme': '#665191',
+				theme: '#665191',
 				'theme-alt': '#554080',
 				'theme-w': '#efefef',
 				'theme-w-alt': '#eaeaea',
@@ -18,11 +18,11 @@ export default {
 				'theme-r-alt': '#db1204'
 			},
 			fontSize: {
-				'ti': '0.75rem',
+				ti: '0.75rem',
 				'ti-s': '0.6rem'
 			},
 			fontFamily: {
-				'main': '"Smooch Sans", serif;',
+				main: '"Smooch Sans", serif;',
 				'main-a': '"Roboto Condensed", serif'
 			}
 		}

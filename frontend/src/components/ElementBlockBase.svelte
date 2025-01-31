@@ -7,7 +7,7 @@
 		href = '/',
 		blockStyle = '',
 		clickEventCb = null,
-        blockEle = null,
+		blockEle = null,
 		children = null
 	} = $props();
 
@@ -24,10 +24,10 @@
 	class="relative m-2 flex cursor-pointer flex-col items-center justify-center rounded-md bg-theme p-2 text-theme-w transition-all duration-200 hover:bg-theme-alt {blockStyle}"
 >
 	<QuickLink {href} />
-	
-    {#if children}
+
+	{#if children}
 		{@render children()}
-    {/if}
+	{/if}
 </div>
 
 {#if blockEle && overlayState}

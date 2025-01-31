@@ -2,12 +2,11 @@
 	import { ChevronDoubleRightOutline, ChevronDoubleLeftOutline } from 'flowbite-svelte-icons';
 
 	let { side = 'right', width = '10rem', children = null, openState = $bindable() } = $props();
-
 </script>
 
 <section
 	style="width: {width};"
-	class={'min-w-[20rem] h-screen fixed top-0 z-20 flex flex-col items-center justify-center border border-l-gray-400 border-r-gray-400 bg-theme-w p-2 transition-transform duration-500' +
+	class={'fixed top-0 z-20 flex h-screen min-w-[20rem] flex-col items-center justify-center border border-l-gray-400 border-r-gray-400 bg-theme-w p-2 transition-transform duration-500' +
 		(openState
 			? ' translate-x-0 '
 			: side === 'right'

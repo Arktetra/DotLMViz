@@ -17,12 +17,14 @@
 		inpVal = v;
 	};
 
-	const MAX_CHAR_SIZE = 6
+	const MAX_CHAR_SIZE = 6;
 </script>
 
 <div class="mb-4 grid grid-cols-4">
 	{#if label}
-		<label for={label} class="font-main-a text-ti font-bold text-theme-r" title={label}>{label.length > MAX_CHAR_SIZE ? label.slice(0, MAX_CHAR_SIZE) + "." : label}</label>
+		<label for={label} class="font-main-a text-ti font-bold text-theme-r" title={label}
+			>{label.length > MAX_CHAR_SIZE ? label.slice(0, MAX_CHAR_SIZE) + '.' : label}</label
+		>
 	{/if}
 	<div class="relative col-span-3 flex flex-row items-center justify-between text-gray-500">
 		<span class="absolute -bottom-3 -start-1 text-ti-s font-bold">{min}</span>
@@ -33,7 +35,7 @@
 			{max}
 			{step}
 			oninput={(e: any) => updateInpVal(e.target.value)}
-			class="w-full accent-theme h-[6px] cursor-pointer {inpStyle}"
+			class="h-[6px] w-full cursor-pointer accent-theme {inpStyle}"
 		/>
 		<span class="absolute -bottom-3 -end-1 text-ti-s font-bold">{max}</span>
 		<span

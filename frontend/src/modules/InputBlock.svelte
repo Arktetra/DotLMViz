@@ -15,7 +15,7 @@
 	});
 </script>
 
-<div class="flex flex-row justify-between items-center space-x-5">
+<div class="flex flex-row items-center justify-between space-x-5">
 	<ThemeInputField {inpEventCb} {value} maxlen={60} />
 	<ThemeButton label="Generate" clickEventCb={outputCallback} />
 	<ThemeButton label="Clear" clickEventCb={() => inpEventCb('')} />

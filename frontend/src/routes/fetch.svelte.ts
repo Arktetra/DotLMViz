@@ -4,10 +4,10 @@ import { data, active_model, global_state, input, activeComponent } from '../sta
 export const POST = async (api: string, body: string) => {
 	try {
 		const res = await fetch(api, {
-			method: "POST",
+			method: 'POST',
 			body: body,
 			headers: {
-				"Content-Type": "application/json"
+				'Content-Type': 'application/json'
 			}
 		});
 
@@ -20,7 +20,7 @@ export const POST = async (api: string, body: string) => {
 		console.log(error.message);
 		return;
 	}
-}
+};
 
 // This function will load the model of name passed as param, fallback is to the default model on active_model on state.svelte
 export const loadModel = async (model_name: string = active_model.model_name) => {
@@ -34,7 +34,7 @@ export const loadModel = async (model_name: string = active_model.model_name) =>
 		})
 			.then((res) => {
 				global_state.isModelLoaded = true;
-				res
+				res;
 			})
 			.catch((error) => console.log('Something not right ' + error));
 	} catch (error) {
@@ -71,7 +71,7 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 			headers: {
 				'Content-Type': 'application/json'
 			}
-		})
+		});
 
 		if (!res.ok) {
 			throw new Error(`Response status: ${res.status}`);
@@ -81,15 +81,15 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 
 		console.log(data);
 
-		if (act_name === "embed" || act_name === "pos_embed") {
+		if (act_name === 'embed' || act_name === 'pos_embed') {
 			let embedOutput: ScatterPlotData = [];
 
 			for (let i = 0; i < data.length; i++) {
-				embedOutput.push({x: data[i][0], y: data[i][1], token: global_state.tokens[i]});
+				embedOutput.push({ x: data[i][0], y: data[i][1], token: global_state.tokens[i] });
 			}
 
 			global_state.embed_output = embedOutput;
-		} else if (act_name === "pattern") {
+		} else if (act_name === 'pattern') {
 			let attnPatterns: HeatMapData[] = [];
 
 			for (let i = 0; i < data.length; i++) {
@@ -102,44 +102,44 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 							source: global_state.tokens[k],
 							destination: global_state.tokens[j],
 							score: data[i][j][k]
-						})
+						});
 					}
 				}
 				attnPatterns.push(attnPattern);
 			}
 
 			global_state.attn_patterns = attnPatterns;
-		} else if (act_name === "resid_pre") {
+		} else if (act_name === 'resid_pre') {
 			global_state.ln_pre = data;
 		} else {
 			global_state.data = data;
 		}
-
 	} catch (error: any) {
 		console.log(error.message);
 		return;
 	}
 };
 
-export const getProbDensity = async (act_name: string | null, layer_name: string | null, block: number) => {
+export const getProbDensity = async (
+	act_name: string | null,
+	layer_name: string | null,
+	block: number
+) => {
 	try {
-		const res = await POST(
-			"/ckpt/prob_density",
-			JSON.stringify({ act_name, layer_name, block })
-		);
+		const res = await POST('/ckpt/prob_density', JSON.stringify({ act_name, layer_name, block }));
 
 		let data = await res?.json();
 		console.log(data);
-		if (act_name == "resid_pre" || act_name === "resid_mid") {
+		if (act_name == 'resid_pre' || act_name === 'resid_mid') {
 			global_state.ln_pre = data;
-		} else if (act_name == "normalized") {
+		} else if (act_name == 'normalized') {
 			global_state.ln_post = data;
 		}
 	} catch (error: any) {
 		console.log(error.message);
 		return;
 	}
-}
+};
 
 // export const getAttnPattern = async () => {
 // 	if (input.isChanged === true) {
@@ -150,7 +150,12 @@ export const getProbDensity = async (act_name: string | null, layer_name: string
 // 	activeComponent.name = "attn";
 // }
 
-export const getMLPOuts = async (act_name: string, layer_name: string | null, block: number | null, neuron: number | null) => {
+export const getMLPOuts = async (
+	act_name: string,
+	layer_name: string | null,
+	block: number | null,
+	neuron: number | null
+) => {
 	try {
 		const res = await fetch('/ckpt/mlp_outs', {
 			method: 'POST',
@@ -158,7 +163,7 @@ export const getMLPOuts = async (act_name: string, layer_name: string | null, bl
 			headers: {
 				'Content-Type': 'application/json'
 			}
-		})
+		});
 
 		if (!res.ok) {
 			throw new Error(`Response status: ${res.status}`);
@@ -166,13 +171,13 @@ export const getMLPOuts = async (act_name: string, layer_name: string | null, bl
 
 		let data = await res.json();
 
-		let act = []
+		let act = [];
 
 		for (let i = 0; i < data.length; i++) {
 			act.push({
 				token: global_state.tokens[i],
 				score: data[i]
-			})
+			});
 		}
 
 		console.log(act);
@@ -202,12 +207,12 @@ export const getDist = async () => {
 export const getTokens = async (input_text: string) => {
 	try {
 		const response = await fetch('/model/tokenize', {
-			method: "POST",
+			method: 'POST',
 			body: JSON.stringify({ text: input_text }),
 			headers: {
 				'Content-Type': 'application/json'
 			}
-		})
+		});
 
 		if (!response.ok) {
 			if (response.status != 500) {
@@ -223,4 +228,4 @@ export const getTokens = async (input_text: string) => {
 
 		return;
 	}
-}
+};

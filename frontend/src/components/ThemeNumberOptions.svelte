@@ -1,9 +1,15 @@
 <script lang="ts">
-	let { count, stackAxis = 'Horizontal', style = "", activeIndex = $bindable(), clickEventCb = null } = $props();
+	let {
+		count,
+		stackAxis = 'Horizontal',
+		style = '',
+		activeIndex = $bindable(),
+		clickEventCb = null
+	} = $props();
 </script>
 
 <div
-	class="mb-6 flex items-center justify-evenly font-main-a rounded-md border border-theme bg-theme-w
+	class="mb-6 flex items-center justify-evenly rounded-md border border-theme bg-theme-w font-main-a
     {stackAxis == 'Horizontal' ? 'flex-row' : 'flex-col'} {style}"
 >
 	{#each { length: count } as i, ind}
@@ -14,7 +20,7 @@
 					clickEventCb();
 				}
 			}}
-			class="h-full text-md rounded-sm p-1 px-3 font-bold {activeIndex == ind
+			class="text-md h-full rounded-sm p-1 px-3 font-bold {activeIndex == ind
 				? ' bg-theme text-theme-w '
 				: ' bg-none text-theme '}"
 		>

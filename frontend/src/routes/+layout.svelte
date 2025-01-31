@@ -6,27 +6,24 @@
 	let { children } = $props();
 	let isSmallScreen: boolean = $state(false);
 
-	function checkWindowWidth() 
-	{
-		if(window.innerWidth < 1250) {
+	function checkWindowWidth() {
+		if (window.innerWidth < 1250) {
 			isSmallScreen = true;
-		}
-		else if(window.innerWidth > 1250) {
+		} else if (window.innerWidth > 1250) {
 			isSmallScreen = false;
 		}
 	}
 
 	onMount(() => {
-		checkWindowWidth()
-		window.addEventListener("resize", checkWindowWidth)
-	})
+		checkWindowWidth();
+		window.addEventListener('resize', checkWindowWidth);
+	});
 </script>
 
 {#if isSmallScreen}
-	<Popup onCloseCb={()=>{}}>
+	<Popup onCloseCb={() => {}}>
 		<span>Small Screen Not Supported yet! <span>Visit later</span></span>
 	</Popup>
 {:else}
 	{@render children()}
 {/if}
-
