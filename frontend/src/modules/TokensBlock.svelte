@@ -8,7 +8,7 @@
 	let popUpEnable: boolean = $state(false);
 
 	const MAX_TOKEN_SIZE = 5;
-	const MAX_TOKEN_COUNT = 10;
+	const MAX_TOKEN_COUNT = 20;
 
 	const setPopUpState = (state: boolean) => {
 		popUpEnable = state;

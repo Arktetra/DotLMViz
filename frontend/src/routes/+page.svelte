@@ -22,9 +22,9 @@
 </script>
 
 <section
-	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-evenly"
+	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-start pt-[12rem]"
 >
-	<div class="flex flex-row items-center justify-evenly space-x-10">
+	<div class="flex flex-row items-start justify-evenly space-x-12">
 		<TokensBlock bind:tokenInd={activeTokenInd}>
 			<span class="text-sm font-light text-theme-w">
 				Index: <span class="text-md font-bold">{activeTokenInd}</span>
@@ -55,11 +55,6 @@
 				</div>
 			{/if}
 		</ExpandableDottedBlock>
-		<DottedBlockBase label="Output">
-			<div class="flex min-h-[5rem] min-w-[5rem] flex-col items-center justify-evenly">
-				<span class="rounded-md bg-theme p-1 px-2 font-light text-theme-w">E</span>
-			</div>
-		</DottedBlockBase>
 	</div>
 </section>
 <OutputBlock />
