@@ -20,21 +20,22 @@
     let hoveredIndex: number | null = $state(null);
     let position: {x: number, y: number} | null = $state(null);
 
-    let minmax = extent(data, (d) => d.score) as unknown as [number, number];
-    let min = minmax[0];
-    let max = minmax[1];
+    let minmax = $derived(extent(data, (d) => d.score) as unknown as [number, number]);
+    // let min = minmax[0];
+    // let max = minmax[1];
 
-    let redScale = scaleLinear<string>()
-        .domain([min, 0])
-        .range([vmin, "white"]);
+    let redScale = $derived(scaleLinear<string>()
+        .domain([minmax[0], 0])
+        .range([vmin, "white"])
+    );
 
-    let blueScale = scaleLinear<string>()
-        .domain([0, max])
-        .range(["white", vmax]);
+    let blueScale = $derived(scaleLinear<string>()
+        .domain([0, minmax[1]])
+        .range(["white", vmax])
+    );
 
     function colorScale(val: number) {
         if (val < 0) {
-            // console.log(val);
             return redScale(val);
         } else {
             return blueScale(val);

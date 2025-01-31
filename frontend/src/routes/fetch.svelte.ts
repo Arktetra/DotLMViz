@@ -1,5 +1,26 @@
 import { data, active_model, global_state, input, activeComponent } from '../state.svelte';
 
+export const POST = async (api: string, body: string) => {
+	try {
+		const res = await fetch(api, {
+			method: "POST",
+			body: body,
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+
+		if (!res.ok) {
+			throw new Error(`Response status: ${res.status}`);
+		}
+
+		return res;
+	} catch (error: any) {
+		console.log(error.message);
+		return;
+	}
+}
+
 // This function will load the model of name passed as param, fallback is to the default model on active_model on state.svelte
 export const loadModel = async (model_name: string = active_model.model_name) => {
 	try {
@@ -99,41 +120,34 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 	}
 };
 
-export const getLN1PreAct = async (act_name: string | null, layer_name: string | null, block: number) => {
-	if (input.isChanged === true) {
-		await runModel(input.text);
-	}
-
+export const getProbDensity = async (act_name: string | null, layer_name: string | null, block: number) => {
 	try {
-		const res = await fetch('/ckpt/prob_density', {
-			method: 'POST',
-			body: JSON.stringify({ act_name, layer_name, block }),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
+		const res = await POST(
+			"/ckpt/prob_density",
+			JSON.stringify({ act_name, layer_name, block })
+		);
 
-		if (!res.ok) {
-			throw new Error(`Response status: ${res.status}`);
-		}
-
-		let data = await res.json();
-
+		let data = await res?.json();
 		console.log(data);
+		if (act_name == "resid_pre" || act_name === "resid_mid") {
+			global_state.ln_pre = data;
+		} else if (act_name == "normalized") {
+			global_state.ln_post = data;
+		}
 	} catch (error: any) {
 		console.log(error.message);
 		return;
 	}
 }
 
-export const getAttnPattern = async () => {
-	if (input.isChanged === true) {
-		await runModel(input.text);
-	}
+// export const getAttnPattern = async () => {
+// 	if (input.isChanged === true) {
+// 		await runModel(input.text);
+// 	}
 
-	await getAct("pattern", "attn", global_state.active_block);
-	activeComponent.name = "attn";
-}
+// 	await getAct("pattern", "attn", global_state.active_block);
+// 	activeComponent.name = "attn";
+// }
 
 export const getMLPOuts = async (act_name: string, layer_name: string | null, block: number | null, neuron: number | null) => {
 	try {
@@ -168,15 +182,6 @@ export const getMLPOuts = async (act_name: string, layer_name: string | null, bl
 		return;
 	}
 };
-
-export const getMLPPre = async () => {
-	if (input.isChanged === true) {
-		await runModel(input.text);
-	}
-
-	await getMLPOuts("pre", "mlp", 0, global_state.neuron);
-	activeComponent.name = "mlp_pre";
-}
 
 export const getDist = async () => {
 	try {

@@ -5,7 +5,7 @@
 	import AttentionHeads from './AttentionHeads.svelte';
 	import Mlp from './MLP.svelte';
 	import { global_state } from '../state.svelte';
-	import { getAttnPattern, getLN1PreAct } from '../routes/fetch.svelte';
+	import { attnHeadCallback, LN1Callback, LN2Callback, TransformerBlockCallback } from '../callbacks.svelte';
 
 	let pulse: boolean = $state(false);
 
@@ -20,13 +20,10 @@
 		}
 	];
 
-	const LN1Callback = async () => {
-		await getLN1PreAct("resid_pre", null, 0);
-	}
 
 	const blockChange = () => {
 		pulse = true;
-		getAttnPattern();
+		TransformerBlockCallback();
 		setTimeout(() => (pulse = false), 800);
 	}
 </script>
@@ -48,7 +45,7 @@
 				blockEle={AttentionHeads}
 				blockStyle="p-2 min-w-[12rem] min-h-[10rem]"
 				href={_transformerBlock[0].href}
-				clickEventCb={getAttnPattern}
+				clickEventCb={attnHeadCallback}
 			>
 				<span>{_transformerBlock[0].label}</span>
 			</ElementBlockBase>
@@ -60,7 +57,7 @@
 			<ElementBlockBase blockEle={Mlp} blockStyle="p-4 min-w-[12rem] min-h-[10rem]" href={_transformerBlock[1].href}>
 				<span>{_transformerBlock[1].label}</span>
 			</ElementBlockBase>
-			<ElementBlockBase blockStyle="p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'}>
+			<ElementBlockBase blockStyle="p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'} clickEventCb={LN2Callback}>
 				<span>LN</span>
 			</ElementBlockBase>
 		</div>
