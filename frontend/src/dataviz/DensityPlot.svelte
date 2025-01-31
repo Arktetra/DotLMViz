@@ -15,15 +15,15 @@
         margin = { left: 25, right: 20, top: 20, bottom: 20 },
         legendData = ["before", "after"];
 
-    let xPreMinMax = extent(pre, (d) => d[0]) as [number, number],
-        yPreMinMax = extent(pre, (d) => d[1]) as [number, number],
-        xPostMinMax = extent(post, (d) => d[0]) as [number, number],
-        yPostMinMax = extent(post, (d) => d[1]) as [number, number];
+    let xPreMinMax = $derived(extent(pre, (d) => d[0]) as [number, number]),
+        yPreMinMax = $derived(extent(pre, (d) => d[1]) as [number, number]),
+        xPostMinMax = $derived(extent(post, (d) => d[0]) as [number, number]),
+        yPostMinMax = $derived(extent(post, (d) => d[1]) as [number, number]);
 
-    let xMin = Math.min(xPreMinMax[0], xPostMinMax[0]),
-        xMax = Math.max(xPreMinMax[1], xPostMinMax[1]),
-        yMin = Math.min(yPreMinMax[0], yPostMinMax[0]),
-        yMax = Math.max(yPreMinMax[1], yPostMinMax[1]);
+    let xMin = $derived(Math.min(xPreMinMax[0], xPostMinMax[0])),
+        xMax = $derived(Math.max(xPreMinMax[1], xPostMinMax[1])),
+        yMin = $derived(Math.min(yPreMinMax[0], yPostMinMax[0])),
+        yMax = $derived(Math.max(yPreMinMax[1], yPostMinMax[1]));
 
     let xScale = $derived(
         width && pre && post
