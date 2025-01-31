@@ -5,7 +5,7 @@
 	import AttentionHeads from './AttentionHeads.svelte';
 	import Mlp from './MLP.svelte';
 	import { global_state } from '../state.svelte';
-	import { attnHeadCallback, LN1Callback, LN2Callback } from '../callbacks.svelte';
+	import { attnHeadCallback, LN1Callback, LN2Callback, TransformerBlockCallback } from '../callbacks.svelte';
 
 	const _transformerBlock = [
 		{
@@ -24,7 +24,7 @@
 	<ThemeNumberOptions
 		count={12}
 		bind:activeIndex={global_state.active_block}
-		clickEventCb={null}
+		clickEventCb={TransformerBlockCallback}
 	/>
 	<DottedBlockBase
 		label="Block: {global_state.active_block}"

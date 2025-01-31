@@ -18,7 +18,7 @@
 
 <SideDrawer width={'25rem'}>
 	<div class="flex h-full pt-12 w-full flex-col items-center justify-evenly">
-		{#if activeComponent.name === "mlp_pre"}
+		{#if activeComponent.name === "MLP (in) Pre-activation"}
 			<label for="neuron">Neuron:</label>
 			<input
 				id="neuron"
@@ -29,7 +29,7 @@
 				bind:value={global_state.neuron}
 				onchange={MLPPreCallback}
 			>
-		{:else}
+		{:else if activeComponent.name === "Output Distribution"}
 		<div class="relative w-full rounded-md bg-theme-g p-2 shadow-inner shadow-theme-g-alt">
 			<a
 				href="/read/control-parameter"
@@ -49,7 +49,7 @@
 		</div>
 		{/if}
 		<hr class="w-full border border-theme" />
-		<h1 class="text-md my-2 text-center font-extrabold uppercase text-theme">Softmax Output</h1>
+		<h1 class="text-md my-2 text-center font-extrabold uppercase text-theme">{activeComponent.name}</h1>
 		<div
 			class="flex min-h-[15rem] w-full flex-col items-center justify-evenly rounded-md bg-theme-g-alt p-3 shadow-inner shadow-theme-g-alt"
 		>
@@ -60,13 +60,13 @@
 					Enter Something.
 				{:else if activeComponent.name === "Generate" || activeComponent.name === "Output Distribution"}
 					<BarChart tokens={data.tokenProbMappings} />
-				{:else if activeComponent.name === "embed" || activeComponent.name === "pos_embed"}
+				{:else if activeComponent.name === "Token Embedding" || activeComponent.name === "Positional Embedding"}
 					<ScatterChart data={global_state.embed_output} />
-				{:else if activeComponent.name === "attn"}
+				{:else if activeComponent.name === "Attention Pattern"}
 					<HeatMap data={global_state.attn_patterns[global_state.active_head]} vmax="#03045E"/>
-				{:else if activeComponent.name === "mlp_pre"}
+				{:else if activeComponent.name === "MLP (in) Pre-activation"}
 					<MlpNeurons data={global_state.data} />
-				{:else if activeComponent.name === "ln1" || activeComponent.name === "ln2"}
+				{:else if activeComponent.name === "LN1" || activeComponent.name === "LN2"}
 					<DensityPlot pre={global_state.ln_pre} post={global_state.ln_post} />
 				{/if}
 			</div>

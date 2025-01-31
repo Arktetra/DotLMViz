@@ -1,5 +1,12 @@
-import { getAct, getMLPOuts, getProbDensity, getTokens, runModel } from "./routes/fetch.svelte";
+import { getAct, getDist, getMLPOuts, getProbDensity, getTokens, runModel } from "./routes/fetch.svelte";
 import { activeComponent, global_state, input } from "./state.svelte"
+
+const checkInputAndRunModel = async () => {
+    if (input.isChanged === true) {
+        await runModel(input.text);
+        input.isChanged = false;
+    }
+}
 
 /**
  * A callback function that is to be called each time the input is changed.
@@ -8,6 +15,20 @@ export const inputCallback = async (v: string) => {
     input.text = v;
     await getTokens(input.text);
     input.isChanged = true;
+
+    if (activeComponent.name === "Token Embedding") {
+        await embedCallback();
+    } else if (activeComponent.name === "Positional Embedding") {
+        await posEmbedCallback();
+    } else if (activeComponent.name === "LN1") {
+        await LN1Callback();
+    } else if (activeComponent.name === "Attention Pattern") {
+        await attnHeadCallback();
+    } else if (activeComponent.name === "LN2") {
+        await LN2Callback();
+    } else if (activeComponent.name === "MLP (in) Pre-activation") {
+        await MLPPreCallback();
+    }
 }
 
 /**
@@ -15,11 +36,9 @@ export const inputCallback = async (v: string) => {
  * is clicked.
  */
 export const embedCallback = async () => {
-    if (input.isChanged === true) {
-        await runModel(input.text);
-    }
+    await checkInputAndRunModel();
     await getAct("embed", null, null);
-    activeComponent.name = "embed";
+    activeComponent.name = "Token Embedding";
 }
 
 /**
@@ -27,11 +46,9 @@ export const embedCallback = async () => {
  * embedding is clicked.
  */
 export const posEmbedCallback = async () => {
-    if (input.isChanged === true) {
-        await runModel(input.text);
-    }
+    await checkInputAndRunModel();
     await getAct("pos_embed", null, null);
-    activeComponent.name = "pos_embed";
+    activeComponent.name = "Positional Embedding";
 }
 
 /**
@@ -39,11 +56,9 @@ export const posEmbedCallback = async () => {
  * are clicked.
  */
 export const attnHeadCallback = async () => {
-    if (input.isChanged === true) {
-        await runModel(input.text);
-    }
+    await checkInputAndRunModel();
     await getAct("pattern", "attn", global_state.active_block);
-    activeComponent.name = "attn";
+    activeComponent.name = "Attention Pattern";
 }
 
 /**
@@ -51,37 +66,59 @@ export const attnHeadCallback = async () => {
  * MLP is clicked.
  */
 export const MLPPreCallback = async () => {
-    if (input.isChanged === true) {
-        await runModel(input.text);
-    }
+    await checkInputAndRunModel();
     await getMLPOuts("pre", "mlp", global_state.active_block, global_state.neuron);
-    activeComponent.name = "mlp_pre";
+    activeComponent.name = "MLP (in) Pre-activation";
 }
 
 /**
  * A callback function that is to be called each time the LN1 is clicked.
  */
 export const LN1Callback = async () => {
-    if (input.isChanged === true) {
-        await runModel(input.text);
-    }
+    await checkInputAndRunModel();
 
     await getProbDensity("resid_pre", null, global_state.active_block);
     await getProbDensity("normalized", "ln1", global_state.active_block);
 
-    activeComponent.name = "ln1";
+    activeComponent.name = "LN1";
 }
 
 /**
  * A callback function that is to be called each time the LN2 is clicked.
  */
 export const LN2Callback = async () => {
-    if (input.isChanged === true) {
-        await runModel(input.text);
-    }
+    await checkInputAndRunModel();
 
     await getProbDensity("resid_mid", null, global_state.active_block);
     await getProbDensity("normalized", "ln2", global_state.active_block);
 
-    activeComponent.name = "ln2";
+    activeComponent.name = "LN2";
+}
+
+/**
+ * A callback function that is to be called when a block number is clicked.
+ */
+export const TransformerBlockCallback = async () => {
+    await checkInputAndRunModel();
+
+    if (activeComponent.name === "LN1") {
+        await LN1Callback();
+    } else if (activeComponent.name === "LN2") {
+        await LN2Callback();
+    } else if (activeComponent.name === "Attention Pattern") {
+        await attnHeadCallback();
+    } else if (activeComponent.name === "MLP (in) Pre-activation") {
+        await MLPPreCallback();
+    }
+}
+
+/**
+ * A callback function that is to be called when either generate or output
+ * is clicked.
+ */
+export const outputCallback = async () => {
+    await checkInputAndRunModel();
+    await getDist();
+
+    activeComponent.name = "Output Distribution";
 }

@@ -4,6 +4,7 @@
 	import { activeComponent, data, global_state, input } from '../state.svelte';
 	import { loadModel, runModel, getDist } from '../routes/fetch.svelte';
 	import { active } from 'd3';
+	import { outputCallback } from '../callbacks.svelte';
 
 	let { inpEventCb = null, value = $bindable() } = $props();
 
@@ -37,7 +38,7 @@
 
 <div class="flex flex-row justify-between items-center">
 	<ThemeInputField {inpEventCb} {value} maxlen={60} />
-	<ThemeButton label="Generate" clickEventCb={runAndGetDist} />
+	<ThemeButton label="Generate" clickEventCb={outputCallback} />
 	<ThemeButton label="Clear" clickEventCb={() => (value = '')} />
 	<ThemeButton label="Example" clickEventCb={randomInpText} />
 </div>
