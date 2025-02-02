@@ -20,6 +20,10 @@ export default {
 			fontSize: {
 				ti: '0.75rem',
 				'ti-s': '0.6rem'
+			},
+			fontFamily: {
+				main: '"Smooch Sans", serif;',
+				'main-a': '"Roboto Condensed", serif'
 			}
 		}
 	},

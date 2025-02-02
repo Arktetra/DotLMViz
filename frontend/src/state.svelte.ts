@@ -13,24 +13,24 @@ export const active_model = $state({
 
 export const input = $state({
 	isChanged: false,
-	text: ""
+	text: ''
 });
 
 // All the global state here
 // #note: currently this is not to be used, left to configure
 export const global_state = $state<{
-	isModelLoaded: boolean,
-	data: any[],
-	tokens: any[],
-	embed_output: ScatterPlotData,
-	ln_pre: [],
-	ln_post: [],
-	attn_patterns: HeatMapData[],	// contains attn pattern for all heads
-	active_head: number,
-	active_block: number,
-	neuron: number,
-	viewMode: boolean,
-	ouputBlockState: boolean
+	isModelLoaded: boolean;
+	data: any[];
+	tokens: any[];
+	embed_output: ScatterPlotData;
+	ln_pre: [];
+	ln_post: [];
+	attn_patterns: HeatMapData[]; // contains attn pattern for all heads
+	active_head: number;
+	active_block: number;
+	neuron: number;
+	viewMode: boolean;
+	ouputBlockState: boolean;
 }>({
 	isModelLoaded: false,
 	data: [],

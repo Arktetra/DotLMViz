@@ -1,11 +1,27 @@
 <script lang="ts">
-	import { MLPPreCallback } from "../callbacks.svelte";
+	import { ArrowRightAltOutline } from 'flowbite-svelte-icons';
+	import { MLPPreCallback } from '../callbacks.svelte';
 
-    import BlockBase from "../components/BlockBase.svelte";
+	import BlockBase from '../components/BlockBase.svelte';
 </script>
 
-<h1 class="w-full p-4 mb-5 text-2xl bg-theme-g text-theme font-bold text-center uppercase">Multi-layer Perceptron (MLP)</h1>
-<BlockBase label="Linear" href="/read/mlp-linear" clickEventCb={MLPPreCallback}/>
-<BlockBase label="new_gelu" href="/read/mlp-new-gelu" />
-<BlockBase label="Linear" href="/read/mlp-linear" />
-<br />
+<h1
+	class="mb-5 w-full bg-theme-g p-4 text-center font-main-a text-2xl font-bold uppercase text-theme"
+>
+	Multi-layer Perceptron (MLP)
+</h1>
+<div class="flex h-[15rem] flex-row items-center py-10">
+	<ArrowRightAltOutline class="h-10 w-10 animate-pulse text-theme" />
+	<BlockBase
+		label="Linear"
+		height={'75%'}
+		width={'5rem'}
+		href="/read/mlp-linear"
+		clickEventCb={MLPPreCallback}
+	/>
+	<ArrowRightAltOutline class="h-6 w-6 animate-pulse text-theme" />
+	<BlockBase label="GELU" height={'100%'} width={'7rem'} href="/read/mlp-gelu" />
+	<ArrowRightAltOutline class="h-6 w-6 animate-pulse text-theme" />
+	<BlockBase label="Linear" height={'75%'} width={'5rem'} href="/read/mlp-linear" />
+	<ArrowRightAltOutline class="h-10 w-10 animate-pulse text-theme" />
+</div>

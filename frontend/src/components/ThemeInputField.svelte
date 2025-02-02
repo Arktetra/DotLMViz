@@ -14,7 +14,7 @@
 </script>
 
 {#if label}
-	<label class="text-theme">{label}:</label>
+	<label for={label} class="text-theme">{label}:</label>
 {/if}
 <input
 	{type}
@@ -22,5 +22,5 @@
 	{placeholder}
 	maxlength={maxlen}
 	oninput={(e: any) => inpChange(e.target.value)}
-	class="m-2 min-w-[25rem] xl:min-w-[35rem] rounded-md border border-theme-g-alt focus:border-theme p-[0.25rem] text-lg text-theme outline-none"
+	class="m-2 min-w-[20rem] rounded-md border border-theme-g-alt p-[0.25rem] text-lg text-theme outline-none focus:border-theme xl:min-w-[35rem]"
 />

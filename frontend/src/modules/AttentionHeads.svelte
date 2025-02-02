@@ -1,15 +1,23 @@
 <script lang="ts">
-	import { attnHeadCallback } from "../callbacks.svelte";
-    import ThemeNumberOptions from "../components/ThemeNumberOptions.svelte";
-	import { global_state } from "../state.svelte";
+	import { attnHeadCallback } from '../callbacks.svelte';
+	import ThemeNumberOptions from '../components/ThemeNumberOptions.svelte';
+	import { global_state } from '../state.svelte';
 
+	import { ArrowRightAltOutline } from 'flowbite-svelte-icons';
 </script>
 
-<h1 class="w-full p-4 text-2xl bg-theme-g text-theme font-bold text-center uppercase">Attention Heads</h1>
-<span class="text-theme font-bold my-5">Active Head : {global_state.active_head}</span>
+<h1 class="w-full bg-theme-g p-4 text-center font-main-a text-2xl font-bold uppercase text-theme">
+	Attention Heads
+</h1>
+<span class="my-5 font-bold text-theme">Active Head : {global_state.active_head}</span>
 <ThemeNumberOptions
-    count={12}
-    bind:activeIndex={global_state.active_head}
-    style="grid grid-cols-3 gap-2 p-2"
-    clickEventCb={attnHeadCallback}
+	count={12}
+	bind:activeIndex={global_state.active_head}
+	style="flex flex-row "
+	clickEventCb={attnHeadCallback}
 />
+<div class="flex w-full flex-row items-center justify-evenly">
+	{#each { length: 2 } as ind}
+		<ArrowRightAltOutline class="h-5 w-5 animate-pulse text-theme" />
+	{/each}
+</div>

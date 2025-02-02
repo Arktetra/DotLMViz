@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { QuestionCircleSolid } from 'flowbite-svelte-icons';
 	import Popup from './Popup.svelte';
 	import { fade } from 'svelte/transition';
+	import QuickLink from './QuickLink.svelte';
 
 	const {
 		label = 'Untitled',
@@ -22,15 +22,12 @@
 </script>
 
 <div
-	transition:fade={{duration:300}}
+	transition:fade={{ duration: 300 }}
 	on:click={() => blockTrigger(true)}
 	style="width:{width};height:{height};"
 	class="relative m-2 flex cursor-pointer flex-col items-center justify-center rounded-md bg-theme p-2 text-theme-w transition-all duration-200 hover:scale-[102%] hover:bg-theme-alt {style}"
 >
-	<a {href} title={label} on:click|stopPropagation class="absolute end-1 top-1 text-theme-w">
-		<QuestionCircleSolid size={'sm'} />
-	</a>
-
+	<QuickLink {href} />
 	{label}
 </div>
 

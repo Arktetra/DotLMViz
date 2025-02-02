@@ -10,8 +10,8 @@
 
 <button
 	onclick={btnClick}
-	transition:scale={{ duration: 500 }}
-	class="m-2 min-h-[2rem] min-w-[2rem] rounded-md bg-theme p-1 px-2 text-theme-w transition-transform duration-300 hover:bg-theme-alt active:bg-theme-alt"
+	transition:scale={{ duration: 400 }}
+	class="m-2 min-h-8 min-w-8 rounded-md bg-theme p-1 px-2 text-theme-w transition-colors duration-300 hover:bg-theme-alt"
 >
 	{label}
 	{#if children}

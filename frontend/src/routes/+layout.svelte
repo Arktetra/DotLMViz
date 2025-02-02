@@ -1,9 +1,29 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import '../app.css';
-	import Navbar from '../modules/Navbar.svelte';
+	import Popup from '../components/Popup.svelte';
 
 	let { children } = $props();
+	let isSmallScreen: boolean = $state(false);
+
+	function checkWindowWidth() {
+		if (window.innerWidth < 1250) {
+			isSmallScreen = true;
+		} else if (window.innerWidth > 1250) {
+			isSmallScreen = false;
+		}
+	}
+
+	onMount(() => {
+		checkWindowWidth();
+		window.addEventListener('resize', checkWindowWidth);
+	});
 </script>
 
-<Navbar />
-{@render children()}
+{#if isSmallScreen}
+	<Popup onCloseCb={() => {}}>
+		<span>Small Screen Not Supported yet! <span>Visit later</span></span>
+	</Popup>
+{:else}
+	{@render children()}
+{/if}
