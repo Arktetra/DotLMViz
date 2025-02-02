@@ -24,7 +24,8 @@ export default {
 			fontFamily: {
 				main: '"Smooch Sans", serif;',
 				'main-a': '"Roboto Condensed", serif'
-			}
+			},
+
 		}
 	},
 

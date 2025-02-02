@@ -2,6 +2,7 @@
 	import { QuestionCircleSolid } from 'flowbite-svelte-icons';
 	import Popup from './Popup.svelte';
 	import QuickLink from './QuickLink.svelte';
+	import { global_state } from '../state.svelte';
 
 	const {
 		href = '/',
@@ -14,6 +15,7 @@
 	let overlayState: boolean = $state(false);
 
 	const blockTrigger = (newstate: boolean = false) => {
+		global_state.ouputBlockState = true;
 		overlayState = newstate;
 		if (clickEventCb) clickEventCb();
 	};

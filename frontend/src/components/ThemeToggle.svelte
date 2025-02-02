@@ -15,6 +15,7 @@
 		max={1}
 		step={1}
 		onchange={() => (state = !state)}
+		value={state ? 0 : 1}
 	/>
 	{#if rightlabel}
 		<label for={rightlabel}>{rightlabel}</label>

@@ -2,6 +2,7 @@
 	import Popup from './Popup.svelte';
 	import { fade } from 'svelte/transition';
 	import QuickLink from './QuickLink.svelte';
+	import { global_state } from '../state.svelte';
 
 	const {
 		label = 'Untitled',
@@ -16,8 +17,10 @@
 	let overlayState: boolean = $state(false);
 
 	const blockTrigger = (newstate: boolean = false) => {
+		global_state.ouputBlockState = true;
 		overlayState = newstate;
 		if (clickEventCb) clickEventCb();
+
 	};
 </script>
 

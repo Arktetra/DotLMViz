@@ -23,11 +23,11 @@
 
 <Navbar />
 <section
-	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-start pt-[12rem] font-main-a"
+	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-start pt-[10rem] font-main-a"
 >
 	<div
-		class="flex flex-row items-start justify-evenly space-x-12 transition-all duration-300 {global_state.ouputBlockState
-			? 'pr-[20rem] xl:pr-[25vw]'
+		class="w-full xl:w-[70%] flex flex-row items-start justify-evenly 2xl:space-x-12 space-x-6 transition-all duration-300 {global_state.ouputBlockState
+			? '2xl:pr-[25vw] pr-0'
 			: ''}"
 	>
 		<TokensBlock bind:tokenInd={activeTokenInd}>
@@ -44,14 +44,14 @@
 			titStyle="text-xl font-bold text-black"
 			borderSize={'1px'}
 			expandCb={() => (global_state.viewMode = !global_state.viewMode)}
-			inStyle="min-w-[50vw] h-[50vh] m-2 flex-row justify-between space-x-10"
+			inStyle="min-w-[60rem] h-[32rem] m-3 flex-row justify-between space-x-5"
 		>
 			{#if global_state.viewMode}
 				<EmbeddingBlock />
 				<TransformerBlocks />
 				<UnembeddingBlock />
 			{:else}
-				<div class="grid h-[40vh] min-w-[50rem] grid-cols-4">
+				<div class="grid h-[27rem] w-full grid-cols-4">
 					<DottedBlockBase
 						label="Embedding"
 						inStyle="h-full py-20 flex flex-col justify-evenly items-center"

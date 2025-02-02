@@ -8,7 +8,7 @@
 	let popUpEnable: boolean = $state(false);
 
 	const MAX_TOKEN_SIZE = 5;
-	const MAX_TOKEN_COUNT = 20;
+	const MAX_TOKEN_COUNT = 14;
 
 	const setPopUpState = (state: boolean) => {
 		popUpEnable = state;
@@ -20,7 +20,7 @@
 	};
 </script>
 
-<DottedBlockBase label="Tokens" inStyle="min-w-[6rem] min-h-[5rem] flex-col items-center">
+<DottedBlockBase label="Tokens" inStyle="min-w-[7rem] min-h-[5rem] flex-col items-center">
 	{#each global_state.tokens as token, ind}
 		{#if ind < MAX_TOKEN_COUNT}
 			<button

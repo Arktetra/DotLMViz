@@ -62,7 +62,7 @@
 			{activeComponent.name}
 		</h1>
 		<div
-			class="flex min-h-[15rem] w-full flex-col items-center justify-evenly rounded-md bg-theme-g-alt p-3 shadow-inner shadow-theme-g-alt"
+			class="flex min-h-[22rem] w-full flex-col items-center justify-evenly bg-theme-g rounded-md p-3 shadow-inner shadow-gray-400 border"
 		>
 			<div class="chart-container w-full text-right text-ti font-light">
 				{#if input.text === ''}

@@ -15,7 +15,7 @@
 
 	let width = $state(500),
 		height = $state(266),
-		margin = { left: 25, right: 20, top: 20, bottom: 20 },
+		margin = { left: 30, right: 20, top: 20, bottom: 20 },
 		legendData = ['before', 'after'];
 
 	let xPreMinMax = $derived(extent(pre, (d) => d[0]) as [number, number]),
@@ -55,20 +55,38 @@
 			: null
 	);
 
+	let stLineGenerator = $derived(
+		xScale && yScale
+			? line()
+				.x((d) => xScale(d[0]))
+				.y((d) => yScale(d[1]))
+			: null
+	);
+
 	onMount(() => {
 		const chart = document.querySelector('.chart');
 
 		if (chart) {
 			height = chart.clientHeight;
 		}
+		console.log(pre)
 	});
 </script>
 
 <div class="chart" bind:clientWidth={width}>
-	{#if pre && post && xScale && yScale && lineGenerator}
+	{#if pre && post && xScale && yScale && lineGenerator && stLineGenerator}
 		<svg {width} {height}>
 			<Axis {xScale} {yScale} {margin} {width} {height} />
 
+
+			<path
+				d={lineGenerator(post)}
+				fill="#aaaaff"
+				opacity="0.5"
+				stroke="#0000ff"
+				stroke-width="1"
+				stroke-linejoin="round"
+			/>
 			<path
 				d={lineGenerator(pre)}
 				fill="#ffaaaa"
@@ -78,13 +96,22 @@
 				stroke-linejoin="round"
 			/>
 			<path
-				d={lineGenerator(post)}
-				fill="#aaaaff"
+				d={stLineGenerator([[pre[0][0], 0], [pre[0][0], pre[0][1]], [pre[pre.length - 1][0], pre[pre.length - 1][1]], [pre[pre.length-1][0], 0]])}
+				fill="#ffaaaa"
 				opacity="0.5"
-				stroke="#0000ff"
-				stroke-width="1"
+				stroke="#ff0000"
+				stroke-width="0"
 				stroke-linejoin="round"
 			/>
+
+			<!-- <rect
+				x={xScale(pre[0][0])}
+				y={yScale(pre[0][1])}
+				width={xScale(pre[pre.length - 1][0]) - margin.right}
+				height={yScale(pre[0][1])}
+				fill="#ffaaaa"
+				opacity="0.5"
+			/> -->
 
 			<g transform="translate({width - margin.right - 50}, {0})">
 				<CategoryLegend {legendData} legendColorFunction={colorScale} />

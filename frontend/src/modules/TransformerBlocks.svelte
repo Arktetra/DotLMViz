@@ -32,7 +32,7 @@
 	};
 </script>
 
-<DottedBlockBase label="Transformer Blocks" inStyle="flex-col p-4">
+<DottedBlockBase label="Transformer Blocks" inStyle="h-full p-2 py-4 flex-col justify-center">
 	<ThemeNumberOptions
 		count={12}
 		bind:activeIndex={global_state.active_block}

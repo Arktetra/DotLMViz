@@ -7,9 +7,9 @@
 	let isSmallScreen: boolean = $state(false);
 
 	function checkWindowWidth() {
-		if (window.innerWidth < 1250) {
+		if (window.innerWidth < 780) {
 			isSmallScreen = true;
-		} else if (window.innerWidth > 1250) {
+		} else if (window.innerWidth > 780) {
 			isSmallScreen = false;
 		}
 	}
