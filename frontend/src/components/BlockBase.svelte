@@ -20,7 +20,6 @@
 		global_state.ouputBlockState = true;
 		overlayState = newstate;
 		if (clickEventCb) clickEventCb();
-
 	};
 </script>
 

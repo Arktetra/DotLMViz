@@ -58,8 +58,8 @@
 	let stLineGenerator = $derived(
 		xScale && yScale
 			? line()
-				.x((d) => xScale(d[0]))
-				.y((d) => yScale(d[1]))
+					.x((d) => xScale(d[0]))
+					.y((d) => yScale(d[1]))
 			: null
 	);
 
@@ -69,7 +69,7 @@
 		if (chart) {
 			height = chart.clientHeight;
 		}
-		console.log(pre)
+		console.log(pre);
 	});
 </script>
 
@@ -77,7 +77,6 @@
 	{#if pre && post && xScale && yScale && lineGenerator && stLineGenerator}
 		<svg {width} {height}>
 			<Axis {xScale} {yScale} {margin} {width} {height} />
-
 
 			<path
 				d={lineGenerator(post)}
@@ -96,7 +95,12 @@
 				stroke-linejoin="round"
 			/>
 			<path
-				d={stLineGenerator([[pre[0][0], 0], [pre[0][0], pre[0][1]], [pre[pre.length - 1][0], pre[pre.length - 1][1]], [pre[pre.length-1][0], 0]])}
+				d={stLineGenerator([
+					[pre[0][0], 0],
+					[pre[0][0], pre[0][1]],
+					[pre[pre.length - 1][0], pre[pre.length - 1][1]],
+					[pre[pre.length - 1][0], 0]
+				])}
 				fill="#ffaaaa"
 				opacity="0.5"
 				stroke="#ff0000"

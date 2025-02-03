@@ -5,7 +5,11 @@
 	import ElementBlockBase from '../components/ElementBlockBase.svelte';
 </script>
 
-<DottedBlockBase label="Language Modeling Head" titStyle="w-full text-center" inStyle="flex-col justify-evenly items-center h-full">
+<DottedBlockBase
+	label="Language Modeling Head"
+	titStyle="w-full text-center"
+	inStyle="flex-col justify-evenly items-center h-full"
+>
 	{#if global_state.active_block == 11}
 		<ElementBlockBase blockStyle="w-[12rem] p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'}>
 			<span>LayerNorm</span>

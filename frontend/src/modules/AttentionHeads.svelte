@@ -18,6 +18,6 @@
 />
 <div class="flex w-full flex-row items-center justify-evenly">
 	{#each { length: 2 } as ind}
-		<ArrowRightAltOutline class="h-5 w-5 animate-pulse text-theme -rotate-90" />
+		<ArrowRightAltOutline class="h-5 w-5 -rotate-90 animate-pulse text-theme" />
 	{/each}
 </div>

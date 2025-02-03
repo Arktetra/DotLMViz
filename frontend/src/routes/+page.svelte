@@ -26,8 +26,8 @@
 	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-start pt-[10rem] font-main-a"
 >
 	<div
-		class="w-full xl:min-w-[70%] flex flex-row items-start justify-evenly space-x-6 transition-all duration-300 {global_state.ouputBlockState
-			? 'xl:pr-[27rem] pr-0'
+		class="flex w-full flex-row items-start justify-evenly space-x-6 transition-all duration-300 xl:min-w-[70%] {global_state.ouputBlockState
+			? 'pr-0 xl:pr-[27rem]'
 			: ''}"
 	>
 		<TokensBlock bind:tokenInd={activeTokenInd}>
