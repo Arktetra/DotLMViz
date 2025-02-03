@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import BlockBase from '../components/BlockBase.svelte';
-	import { global_state } from '../state.svelte';
+	import { global_state, activeComponent } from '../state.svelte';
 	import ElementBlockBase from '../components/ElementBlockBase.svelte';
 </script>
 
@@ -20,5 +20,6 @@
 		width={'12rem'}
 		height={global_state.active_block == 11 ? '18rem' : '25rem'}
 		href={'/read/unembedding'}
+		clickEventCb = {() => activeComponent.name = 'Output Distribution'}
 	></BlockBase>
 </DottedBlockBase>
