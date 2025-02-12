@@ -9,10 +9,6 @@
 	const randomInpText = () => {
 		inpEventCb('alpha beta gamma delta eta zeta epsilon');
 	};
-
-	$effect(() => {
-		$inspect(data.tokenProbMappings);
-	});
 </script>
 
 <div class="flex flex-row items-center justify-between space-x-2 xl:space-x-6">

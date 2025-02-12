@@ -9,7 +9,7 @@
 	import HeatMap from '../dataviz/HeatMap.svelte';
 	import MlpNeurons from '../dataviz/MLPNeurons.svelte';
 	import DensityPlot from '../dataviz/DensityPlot.svelte';
-	import { MLPPreCallback } from '../callbacks.svelte';
+	import { kSliderCallback, MLPPreCallback, pSliderCallback, temperatureSliderCallback } from '../callbacks.svelte';
 	import ThemeInputField from '../components/ThemeInputField.svelte';
 
 	$effect(() => {
@@ -50,11 +50,11 @@
 				<span class="mb-4 block text-center text-sm font-extrabold uppercase text-theme underline"
 					>Control Parameters</span
 				>
-				<ThemeInputSlider label={'Temperature'} min={-2} max={2} step={0.1} />
+				<ThemeInputSlider label={'Temperature'} min={-2} max={2} step={0.1} changeEventCb={temperatureSliderCallback}/>
 				<hr class="my-1 border border-theme-w" />
-				<ThemeInputSlider label={'Top K'} min={1} max={10} step={1} />
+				<ThemeInputSlider label={'Top K'} min={1} max={10} step={1} changeEventCb={kSliderCallback}/>
 				<hr class="my-1 border border-theme-w" />
-				<ThemeInputSlider label={'Top P'} min={0} max={1} step={0.05} />
+				<ThemeInputSlider label={'Top P'} min={0} max={1} step={0.05} changeEventCb={pSliderCallback}/>
 			</div>
 		{/if}
 		<hr class="w-full border border-theme" />

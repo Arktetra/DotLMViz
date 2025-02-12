@@ -2,11 +2,12 @@ import {
 	getAct,
 	getDist,
 	getMLPOuts,
+	getNextToken,
 	getProbDensity,
 	getTokens,
 	runModel
 } from './routes/fetch.svelte';
-import { activeComponent, global_state, input } from './state.svelte';
+import { activeComponent, global_state, input, params } from './state.svelte';
 
 const checkInputAndRunModel = async () => {
 	if (input.isChanged === true) {
@@ -126,6 +127,27 @@ export const TransformerBlockCallback = async () => {
 export const outputCallback = async () => {
 	await checkInputAndRunModel();
 	await getDist();
+	await getNextToken();
 
 	activeComponent.name = 'Output Distribution';
 };
+
+export const temperatureSliderCallback = async (v: number) => {
+	params.temperature = +v;
+	console.log(v);
+
+	await outputCallback();
+}
+
+export const kSliderCallback = async (v: number) => {
+	params.top_k = +v;
+	console.log(v);
+
+	await outputCallback();
+}
+
+export const pSliderCallback = async (v: number) => {
+	params.top_p = +v;
+
+	await outputCallback();
+}

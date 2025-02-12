@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { data, active_model, global_state, input, activeComponent } from '../state.svelte';
+import { data, active_model, global_state, input, activeComponent, params } from '../state.svelte';
 
 // This function will load the model of name passed as param, fallback is to the default model on active_model on state.svelte
 export const loadModel = async (model_name: string = active_model.model_name) => {
@@ -121,12 +121,22 @@ export const getMLPOuts = async (
 
 export const getDist = async () => {
 	const res = await axios
-		.get('/model/dist')
+		.post('/model/dist', {temperature: params.temperature})
 		.then((res) => res.data)
 		.catch((error) => console.log(error));
 
 	data.tokenProbMappings = res;
 };
+
+export const getNextToken = async () => {
+	const res = await axios
+		.post("/model/sample", { temperature: params.temperature, p: params.top_p, k: params.top_k })
+		.then((res) => res.data["next_token"])
+		.catch((error) => console.log(error));
+
+	console.log(res);
+	global_state.next_token_id = res;
+}
 
 export const getTokens = async (input_text: string) => {
 	const res = await axios
