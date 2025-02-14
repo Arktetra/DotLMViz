@@ -11,10 +11,14 @@
 	import DensityPlot from '../dataviz/DensityPlot.svelte';
 	import { kSliderCallback, MLPPreCallback, pSliderCallback, temperatureSliderCallback } from '../callbacks.svelte';
 	import ThemeInputField from '../components/ThemeInputField.svelte';
+	import ThemeToggle from '../components/ThemeToggle.svelte';
 
 	$effect(() => {
 		$inspect(activeComponent);
 	});
+
+	// here true represent the top p and false mean k 
+	let topPorK = $state(false)
 </script>
 
 <SideDrawer bind:openState={global_state.ouputBlockState} width={'25vw'}>
@@ -47,14 +51,22 @@
 				>
 					<QuestionCircleSolid size={'sm'} />
 				</a>
-				<span class="mb-4 block text-center text-sm font-extrabold uppercase text-theme underline"
-					>Control Parameters</span
-				>
+				<span class="mb-4 flex flex-row justify-around text-center text-sm font-extrabold uppercase text-theme underline">
+					Control Parameters
+						<ThemeToggle
+							bind:state={topPorK}
+							style="z-50 text-ti-s"
+							leftlabel="Top k"
+							rightlabel="Top p"
+						/>
+				</span>
 				<ThemeInputSlider label={'Temperature'} min={-2} max={2} step={0.1} changeEventCb={temperatureSliderCallback}/>
 				<hr class="my-1 border border-theme-w" />
-				<ThemeInputSlider label={'Top K'} min={1} max={10} step={1} changeEventCb={kSliderCallback}/>
-				<hr class="my-1 border border-theme-w" />
-				<ThemeInputSlider label={'Top P'} min={0} max={1} step={0.05} changeEventCb={pSliderCallback}/>
+				{#if topPorK}
+					<ThemeInputSlider label={'Top K'} min={1} max={10} step={1} changeEventCb={kSliderCallback}/>
+				{:else}
+					<ThemeInputSlider label={'Top P'} min={0} max={1} step={0.05} changeEventCb={pSliderCallback}/>
+				{/if}
 			</div>
 		{/if}
 		<hr class="w-full border border-theme" />
