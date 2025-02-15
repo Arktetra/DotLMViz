@@ -24,18 +24,21 @@ export const inputCallback = async (v: string) => {
 	await getTokens(input.text);
 	input.isChanged = true;
 
-	if (activeComponent.name === 'Token Embedding') {
-		await embedCallback();
-	} else if (activeComponent.name === 'Positional Embedding') {
-		await posEmbedCallback();
-	} else if (activeComponent.name === 'LN1') {
-		await LN1Callback();
-	} else if (activeComponent.name === 'Attention Pattern') {
-		await attnHeadCallback();
-	} else if (activeComponent.name === 'LN2') {
-		await LN2Callback();
-	} else if (activeComponent.name === 'MLP (in) Pre-activation') {
-		await MLPPreCallback();
+	switch(activeComponent.name) {
+		case 'Token Embedding':
+			return await embedCallback()
+		case 'Positional Embedding':
+			return await posEmbedCallback()
+		case 'LN1':
+			return await LN1Callback()
+		case 'Attention Pattern':
+			return await attnHeadCallback()
+		case 'LN2':
+			return await LN2Callback()
+		case 'MLP (in) Pre-activation':
+			return await MLPPreCallback()
+		default:
+			return;
 	}
 };
 
