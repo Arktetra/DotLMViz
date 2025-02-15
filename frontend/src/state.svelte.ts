@@ -41,7 +41,8 @@ export const global_state = $state<{
 	neuron: number;
 	viewMode: boolean;
 	ouputBlockState: boolean;
-	next_token_id: number | undefined
+	next_token_id: number | undefined,
+	info: any
 }>({
 	isModelLoaded: false,
 	data: [],
@@ -55,5 +56,6 @@ export const global_state = $state<{
 	neuron: 0,
 	viewMode: false,
 	ouputBlockState: false, // this stores the side drawer state i.e open or closed
-	next_token_id: undefined
+	next_token_id: undefined,
+	info: null
 });

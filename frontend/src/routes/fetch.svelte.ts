@@ -9,21 +9,21 @@ export const loadModel = async (model_name: string = active_model.model_name) =>
 			global_state.isModelLoaded = true;
 			return res.data;
 		})
-		.catch((error) => console.log(error));
+		.catch(error => {global_state.info = error; console.log(error) });
 };
 
 export const runModel = async (input_text: string) => {
 	return await axios
 		.post('/model/run', { text: input_text })
 		.then((res) => res.data)
-		.catch((error) => console.log(error));
+		.catch(error => {global_state.info = error; console.log(error) });
 };
 
 export const getAct = async (act_name: string, layer_name: string | null, block: number | null) => {
 	const res = await axios
 		.post('/ckpt/act', { act_name, layer_name, block })
 		.then((res) => res.data)
-		.catch((error) => console.log(error));
+		.catch(error => {global_state.info = error; console.log(error) });
 
 	const data = res;
 	console.log(data);
@@ -71,7 +71,7 @@ export const getProbDensity = async (
 	const res = await axios
 		.post('/ckpt/prob_density', { act_name, layer_name, block })
 		.then((res) => res.data)
-		.catch((error) => console.log(error));
+		.catch(error => {global_state.info = error; console.log(error) });
 
 	const data = res;
 	console.log(data);
@@ -101,7 +101,7 @@ export const getMLPOuts = async (
 	const res = await axios
 		.post('/ckpt/mlp_outs', { act_name, layer_name, block, neuron })
 		.then((res) => res.data)
-		.catch((error) => console.log(error));
+		.catch(error => {global_state.info = error; console.log(error) });
 
 	const data = res;
 	console.log(data);
@@ -123,7 +123,7 @@ export const getDist = async () => {
 	const res = await axios
 		.post('/model/dist', {temperature: params.temperature})
 		.then((res) => res.data)
-		.catch((error) => console.log(error));
+		.catch(error => {global_state.info = error; console.log(error) });
 
 	data.tokenProbMappings = res;
 };
@@ -132,7 +132,7 @@ export const getNextToken = async () => {
 	const res = await axios
 		.post("/model/sample", { temperature: params.temperature, p: params.top_p, k: params.top_k })
 		.then((res) => res.data["next_token"])
-		.catch((error) => console.log(error));
+		.catch(error => {global_state.info = error; console.log(error) });
 
 	console.log(res);
 	global_state.next_token_id = res;
@@ -142,7 +142,7 @@ export const getTokens = async (input_text: string) => {
 	const res = await axios
 		.post('/model/tokenize', { text: input_text })
 		.then((res) => res.data)
-		.catch((error) => console.log(error));
+		.catch(error => {global_state.info = error; console.log(error) });
 
 	global_state.tokens = res;
 };
