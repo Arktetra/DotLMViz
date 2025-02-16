@@ -5,12 +5,13 @@
 	import { global_state } from '../state.svelte';
 
 	const {
-		label = 'Untitled',
+		label = '',
 		href = '/',
 		width = '12rem',
 		height = '5rem',
 		style = '',
 		clickEventCb = null,
+		blockContent = null,
 		children = null
 	} = $props();
 
@@ -27,14 +28,17 @@
 	transition:fade={{ duration: 300 }}
 	on:click={() => blockTrigger(true)}
 	style="width:{width};height:{height};"
-	class="relative m-2 flex cursor-pointer flex-col items-center justify-center rounded-md bg-theme p-2 text-theme-w transition-all duration-200 hover:scale-[102%] hover:bg-theme-alt {style}"
+	class="relative p-2 m-2 flex justify-center items-center cursor-pointer rounded-md  bg-theme/95 hover:bg-theme-alt hover:tracking-wide text-theme-w transition-all duration-200 {style}"
 >
 	<QuickLink {href} />
 	{label}
+	{#if children}
+		{@render children()}
+	{/if}
 </div>
 
-{#if children && overlayState}
+{#if blockContent && overlayState}
 	<Popup onCloseCb={() => blockTrigger(false)}>
-		{@render children()}
+		{@render blockContent()}
 	</Popup>
 {/if}

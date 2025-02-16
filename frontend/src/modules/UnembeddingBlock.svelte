@@ -2,24 +2,35 @@
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import BlockBase from '../components/BlockBase.svelte';
 	import { global_state, activeComponent } from '../state.svelte';
-	import ElementBlockBase from '../components/ElementBlockBase.svelte';
 </script>
 
+{#if global_state.viewMode}
 <DottedBlockBase
 	label="Language Modeling Head"
 	titStyle="w-full text-center"
-	inStyle="flex-col justify-evenly items-center h-full"
+	inStyle="flex-col justify-evenly items-center"
 >
 	{#if global_state.active_block == 11}
-		<ElementBlockBase blockStyle="w-[12rem] p-2 min-w-[4rem] min-h-[4rem]" href={'/read/layernorm'}>
+		<BlockBase href={'/read/layernorm'}>
 			<span>LayerNorm</span>
-		</ElementBlockBase>
+		</BlockBase>
 	{/if}
 	<BlockBase
 		label="Unembedding"
 		width={'12rem'}
-		height={global_state.active_block == 11 ? '18rem' : '25rem'}
+		height={'100%'}
 		href={'/read/unembedding'}
 		clickEventCb = {() => activeComponent.name = 'Output Distribution'}
 	></BlockBase>
 </DottedBlockBase>
+{:else} 
+<DottedBlockBase
+	label="Language Modeling Head"
+	titStyle="w-full text-center"
+	inStyle="w-[20%] p-8 flex flex-col justify-evenly items-center"
+>
+	<h1 class="tracking-tighter">LayerNorm</h1>
+	<hr class="w-[80%] border-theme" />
+	<h1 class="tracking-tighter">Unembedding</h1>
+</DottedBlockBase>
+{/if}

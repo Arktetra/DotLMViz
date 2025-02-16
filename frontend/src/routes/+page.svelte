@@ -43,7 +43,7 @@
 	<div
 		class="flex w-full flex-row items-start justify-evenly space-x-6 transition-all duration-300 xl:min-w-[70%] {global_state.ouputBlockState
 			? 'pr-0 xl:pr-[27rem]'
-			: ''}"
+			: 'pr-[5rem]'}"
 	>
 		<TokensBlock bind:tokenInd={activeTokenInd}>
 			<span class="text-sm font-light text-theme-w">
@@ -59,49 +59,11 @@
 			titStyle="text-xl font-bold text-black"
 			borderSize={'1px'}
 			bind:expanded={global_state.viewMode}
-			inStyle="min-w-[60rem] h-[32rem] m-3 flex-row justify-between space-x-5"
+			inStyle="min-w-[65rem] h-[35rem] p-4 pt-14 flex flex-row justify-between items-center"
 		>
-			{#if global_state.viewMode}
-				<EmbeddingBlock />
-				<TransformerBlocks />
-				<UnembeddingBlock />
-			{:else}
-				<div class="grid h-[27rem] w-full grid-cols-4">
-					<DottedBlockBase
-						label="Embedding"
-						inStyle="h-full py-20 flex flex-col justify-evenly items-center"
-					>
-						<h1 class="tracking-tighter">Token Embedding</h1>
-						<hr class="w-[80%] border-theme" />
-						<h1 class="tracking-tighter">Positional Embedding</h1>
-					</DottedBlockBase>
-					<div class="relative col-span-2 mx-auto mb-20 h-[95%] w-[80%]">
-						<DottedBlockBase
-							label="Transformer Blocks"
-							inStyle="h-full justify-evenly shadow-md shadow-theme relative bg-white rounded-xl"
-							titStyle="w-full text-center text-md"
-						>
-							<span class="text-3xl font-extrabold">x12</span>
-							<div
-								class="absolute left-3 top-3 -z-10 h-full w-full rounded-xl border border-dashed border-theme bg-white shadow-sm shadow-theme"
-							></div>
-							<div
-								class="absolute left-6 top-6 -z-20 h-full w-full rounded-xl border border-dashed border-theme bg-white shadow-sm shadow-theme"
-							></div>
-						</DottedBlockBase>
-					</div>
-					<div class="grid h-full grid-rows-2 gap-10">
-						<DottedBlockBase
-							label="LayerNorm"
-							inStyle="h-full py-20 flex-col justify-evenly items-center"
-						></DottedBlockBase>
-						<DottedBlockBase
-							label="Unembedding"
-							inStyle="h-full py-20 flex-col justify-evenly items-center"
-						></DottedBlockBase>
-					</div>
-				</div>
-			{/if}
+			<EmbeddingBlock />
+			<TransformerBlocks />
+			<UnembeddingBlock />
 		</ExpandableDottedBlock>
 	</div>
 </section>
