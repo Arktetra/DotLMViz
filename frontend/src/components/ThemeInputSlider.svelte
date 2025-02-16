@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+
 	const {
 		min = 0,
 		max = 1,
@@ -8,9 +10,7 @@
 		inpStyle = ''
 	} = $props();
 
-	let inpVal: number = $state(
-		step % 1 === 0 ? Math.floor((max - min) / 2 + min) : (max - min) / 2 + min
-	);
+	let inpVal: number = $state(0);
 
 	const updateInpVal = (v: number) => {
 		if (changeEventCb) changeEventCb(v);
@@ -18,22 +18,28 @@
 	};
 
 	const MAX_CHAR_SIZE = 6;
+
+	onMount(() => {
+		inpVal = step % 1 === 0 ? Math.floor((max - min) / 2 + min) : (max - min) / 2 + min;
+	})
 </script>
 
 <div class="mb-4 grid grid-cols-4">
 	{#if label}
-		<label for={label} class="font-main-a text-ti font-bold text-theme-r" title={label}
-			>{label.length > MAX_CHAR_SIZE ? label.slice(0, MAX_CHAR_SIZE) + '.' : label}</label
+		<label 
+			for={label} 
+			title={label}
+			class="font-main-a text-ti font-bold text-theme-r" 
 		>
+			{label.length > MAX_CHAR_SIZE ? label.slice(0, MAX_CHAR_SIZE) + '.' : label}
+		</label>
 	{/if}
 	<div class="relative col-span-3 flex flex-row items-center justify-between text-gray-500">
 		<span class="absolute -bottom-3 -start-1 text-ti-s font-bold">{min}</span>
 		<input
 			type="range"
 			value={inpVal}
-			{min}
-			{max}
-			{step}
+			{min} {max} {step}
 			oninput={(e: any) => updateInpVal(e.target.value)}
 			class="h-[6px] w-full cursor-pointer accent-theme {inpStyle}"
 		/>

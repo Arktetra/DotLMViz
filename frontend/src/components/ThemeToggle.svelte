@@ -10,11 +10,11 @@
 	{/if}
 	<input
 		type="range"
-		class="inline-block w-7 cursor-pointer rounded-md accent-theme transition-all duration-200"
+		class="inline-block w-7 cursor-pointer rounded-md accent-theme transition-all duration-400"
 		min={0}
 		max={1}
 		step={1}
-		onchange={() => (state = !state)}
+		onclick={() => (state = !state)}
 		value={state ? 0 : 1}
 	/>
 	{#if rightlabel}

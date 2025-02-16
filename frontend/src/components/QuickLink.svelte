@@ -8,7 +8,7 @@
 	title={href}
 	target="_blank"
 	on:click|stopPropagation
-	class="absolute end-1 top-1 text-theme-w {ostyle}"
+	class="absolute end-1 top-1 text-theme-w hover:scale-105 {ostyle}"
 >
 	<QuestionCircleSolid size={'sm'} />
 </a>

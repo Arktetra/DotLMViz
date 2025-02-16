@@ -6,8 +6,20 @@
 
 	let { inpEventCb = null, value = $bindable() } = $props();
 
+	let typing: any = null;
+
 	const randomInpText = () => {
-		inpEventCb('alpha beta gamma delta eta zeta epsilon');
+		const ex1 = 'alpha beta gamma delta eta zeta epsilon'
+		let textlen = 1
+		if(typing) return
+		typing = setInterval(() => {
+			if(textlen > ex1.length) {
+				clearInt();
+			}
+			console.log(textlen)
+			inpEventCb(ex1.slice(0, textlen++))
+		}, 100)
+		const clearInt = () => {clearInterval(typing); typing = null}
 	};
 </script>
 

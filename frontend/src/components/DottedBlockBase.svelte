@@ -2,7 +2,7 @@
 	import { scale } from 'svelte/transition';
 
 	const {
-		label = 'Untitled',
+		label = '',
 		borderSize = '1.5px',
 		inStyle = '',
 		titStyle = '',
@@ -11,18 +11,15 @@
 </script>
 
 <div
-	in:scale={{ duration: 200 }}
+	in:scale={{ duration: 300 }}
 	style="border-width: {borderSize};"
-	class="relative m-2 h-full rounded-xl border-dashed border-theme transition-colors duration-200"
+	class="relative h-full rounded-lg border-dashed border-theme transition-all duration-200 flex justify-center items-center {inStyle}"
 >
-	<span
-		class="absolute left-[50%] top-[-1.8rem] translate-x-[-50%] font-main text-lg uppercase text-gray-500 {titStyle}"
-		>{label}</span
-	>
+	<span class="absolute left-[50%] top-[-1.5rem] translate-x-[-50%] uppercase font-light text-sm tracking-tighter {titStyle}">
+		{label}
+	</span>
 
 	{#if children}
-		<div in:scale={{ duration: 200 }} class="flex items-center {inStyle}">
-			{@render children()}
-		</div>
+		{@render children()}
 	{/if}
 </div>

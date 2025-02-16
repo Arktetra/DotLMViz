@@ -12,7 +12,7 @@
 <FullScreenOverlay clickEvent={onCloseCb}>
 	<div
 		on:click|stopPropagation
-		class="relative z-20 flex min-h-[15rem] min-w-[15rem] flex-col items-center justify-center rounded-md bg-theme p-2 text-theme-w {style}"
+		class="relative z-20 flex min-h-[15rem] min-w-[15rem] flex-col items-center justify-center rounded-md {style}"
 	>
 		<button
 			on:click={() => onClose()}

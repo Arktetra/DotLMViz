@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import ThemeNumberOptions from '../components/ThemeNumberOptions.svelte';
-	import ElementBlockBase from '../components/ElementBlockBase.svelte';
+	import BlockBase from '../components/BlockBase.svelte';
 	import AttentionHeads from './AttentionHeads.svelte';
 	import Mlp from './MLP.svelte';
 	import { global_state } from '../state.svelte';
@@ -16,7 +16,7 @@
 
 	const _transformerBlock = [
 		{
-			label: 'Attention Head',
+			label: 'Attention Heads',
 			href: '/read/attention-head'
 		},
 		{
@@ -32,7 +32,8 @@
 	};
 </script>
 
-<DottedBlockBase label="Transformer Blocks" inStyle="h-full p-2 py-4 flex-col justify-center">
+{#if global_state.viewMode}
+<DottedBlockBase label="Transformer Blocks" inStyle="p-2 py-4 flex-col">
 	<ThemeNumberOptions
 		count={12}
 		bind:activeIndex={global_state.active_block}
@@ -42,42 +43,58 @@
 		label="Block: '{global_state.active_block}'"
 		borderSize={'1px'}
 		titStyle="text-md top-[-1.35rem]"
-		inStyle="w-[30rem] h-[20rem] flex-row justify-between transition-all duration-200 {pulse
-			? 'animate-pulse scale-75'
+		inStyle="m-2 mt-10 !max-h-full flex flex-row transition-all duration-200  {pulse
+			? 'animate-pulse [transform:rotateX(90deg)]'
 			: ''}"
 	>
-		<div class="flex h-full flex-col items-start justify-evenly">
-			<ElementBlockBase
-				blockEle={AttentionHeads}
-				blockStyle="p-2 min-w-[12rem] min-h-[10rem]"
+		<div class="flex flex-col items-start justify-evenly space-y-10">
+			<BlockBase
+				blockContent={AttentionHeads}
+				style="p-2 min-w-[12rem] min-h-[10rem]"
 				href={_transformerBlock[0].href}
 				clickEventCb={attnHeadCallback}
 			>
 				<span>{_transformerBlock[0].label}</span>
-			</ElementBlockBase>
-			<ElementBlockBase
-				blockStyle="p-2 min-w-[4rem] min-h-[4rem]"
+			</BlockBase>
+			<BlockBase
+				width={"4rem"}
+				height={"4rem"}
 				href={'/read/layernorm'}
 				clickEventCb={LN1Callback}
 			>
 				<span>LN1</span>
-			</ElementBlockBase>
+			</BlockBase>
 		</div>
-		<div class="flex h-full flex-col items-start justify-evenly">
-			<ElementBlockBase
-				blockEle={Mlp}
-				blockStyle="p-4 min-w-[12rem] min-h-[10rem]"
+		<div class="ml-10 flex flex-col items-start justify-evenly space-y-10">
+			<BlockBase
+				blockContent={Mlp}
+				style="p-4 min-w-[12rem] min-h-[10rem]"
 				href={_transformerBlock[1].href}
 			>
 				<span>{_transformerBlock[1].label}</span>
-			</ElementBlockBase>
-			<ElementBlockBase
-				blockStyle="p-2 min-w-[4rem] min-h-[4rem]"
+			</BlockBase>
+			<BlockBase
+				width={"4rem"}
+				height={"4rem"}
 				href={'/read/layernorm'}
 				clickEventCb={LN2Callback}
 			>
 				<span>LN2</span>
-			</ElementBlockBase>
+			</BlockBase>
 		</div>
 	</DottedBlockBase>
 </DottedBlockBase>
+{:else}
+<DottedBlockBase
+	label="Transformer Blocks"
+	inStyle="h-[80%] w-[40%] justify-evenly shadow-lg z-10 relative bg-white rounded-xl"
+>
+	<span class="text-3xl font-extrabold">x12</span>
+	<div
+		class="absolute left-3 top-3 -z-10 h-full w-full rounded-xl border border-dashed border-theme bg-white shadow-sm shadow-theme"
+	></div>
+	<div
+		class="absolute left-6 top-6 -z-20 h-full w-full rounded-xl border border-dashed border-theme bg-white shadow-sm shadow-theme"
+	></div>
+</DottedBlockBase>
+{/if}

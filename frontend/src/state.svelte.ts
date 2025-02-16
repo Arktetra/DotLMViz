@@ -29,19 +29,20 @@ export const params = $state<{
 // All the global state here
 // #note: currently this is not to be used, left to configure
 export const global_state = $state<{
-	isModelLoaded: boolean;
-	data: any[];
-	tokens: any[];
-	embed_output: ScatterPlotData;
-	ln_pre: [];
-	ln_post: [];
-	attn_patterns: HeatMapData[]; // contains attn pattern for all heads
-	active_head: number;
-	active_block: number;
-	neuron: number;
-	viewMode: boolean;
-	ouputBlockState: boolean;
-	next_token: string
+	isModelLoaded: boolean,
+	data: any[],
+	tokens: any[],
+	embed_output: ScatterPlotData,
+	ln_pre: [],
+	ln_post: [],
+	attn_patterns: HeatMapData[], // contains attn pattern for all heads
+	active_head: number,
+	active_block: number,
+	neuron: number,
+	viewMode: boolean,
+	ouputBlockState: boolean,
+	next_token: string,
+	info: any
 }>({
 	isModelLoaded: false,
 	data: [],
@@ -55,5 +56,6 @@ export const global_state = $state<{
 	neuron: 0,
 	viewMode: false,
 	ouputBlockState: false, // this stores the side drawer state i.e open or closed
-	next_token: ""
+	next_token: "",
+	info: null
 });
