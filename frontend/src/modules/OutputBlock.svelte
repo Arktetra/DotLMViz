@@ -11,9 +11,11 @@
 	import DensityPlot from '../dataviz/DensityPlot.svelte';
 	import { kSliderCallback, MLPPreCallback, pSliderCallback, temperatureSliderCallback } from '../callbacks.svelte';
 	import ThemeInputField from '../components/ThemeInputField.svelte';
+	import { text } from 'd3';
 
 	$effect(() => {
 		$inspect(activeComponent);
+		$inspect(data.tokenProbMappings);
 	});
 </script>
 
@@ -81,7 +83,7 @@
 			</div>
 		</div>
 		<span class="my-2 font-bold text-theme"
-			>Next Token : <span class="rounded-md bg-theme p-1 px-2 font-light text-theme-w">{'is'}</span
+			>Next Token : <span class="rounded-md bg-theme p-1 px-2 font-light text-theme-w">{global_state.next_token}</span
 			></span
 		>
 	</div>

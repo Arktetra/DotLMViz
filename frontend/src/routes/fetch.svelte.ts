@@ -135,7 +135,7 @@ export const getNextToken = async () => {
 		.catch((error) => console.log(error));
 
 	console.log(res);
-	global_state.next_token_id = res;
+	global_state.next_token = res;
 }
 
 export const getTokens = async (input_text: string) => {
