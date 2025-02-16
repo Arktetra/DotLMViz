@@ -58,7 +58,7 @@
 			href="/read/gpt2-small"
 			titStyle="text-xl font-bold text-black"
 			borderSize={'1px'}
-			expandCb={() => (global_state.viewMode = !global_state.viewMode)}
+			bind:expanded={global_state.viewMode}
 			inStyle="min-w-[60rem] h-[32rem] m-3 flex-row justify-between space-x-5"
 		>
 			{#if global_state.viewMode}

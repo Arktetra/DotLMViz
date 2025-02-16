@@ -3,22 +3,16 @@
 	import { fade } from 'svelte/transition';
 	import QuickLink from './QuickLink.svelte';
 
-	const {
+	let {
 		label = 'Untitled',
 		href = '/',
-		expandCb = null,
+		expanded = $bindable<boolean>(),
 		borderSize = '1.5px',
 		inStyle = '',
 		titStyle = '',
 		children = null
 	} = $props();
 
-	const registerExpand = () => {
-		if (expandCb) expandCb();
-		expanded = !expanded;
-	};
-
-	let expanded: boolean = $state(false);
 </script>
 
 <div
@@ -28,7 +22,7 @@
 	<div class="absolute end-1 top-[0.2rem] flex flex-row items-center justify-evenly text-theme">
 		<QuickLink {href} ostyle="!relative !text-theme" />
 
-		<button on:click|stopPropagation={registerExpand}>
+		<button onclick={() => (expanded = !expanded)}>
 			{#if expanded}
 				<MinimizeOutline size={'md'} />
 			{:else}
