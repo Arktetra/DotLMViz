@@ -111,7 +111,7 @@ def get_next_token():
                 seed=None,
             )
 
-            return {"next_token": next_token_id}
+            return {"next_token": current_app.tokenizer.convert_ids_to_tokens(next_token_id)}
     except Exception as e:
         print("Error: ", str(e))
         return jsonify({"Error": str(e)}), 500
