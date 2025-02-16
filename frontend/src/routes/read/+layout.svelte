@@ -1,7 +1,7 @@
 <script lang="ts">
     const { children } = $props()
     import { content } from '$lib/content';
-	import { ArrowRightOutline } from 'flowbite-svelte-icons';
+	import { ArrowRightOutline, WandMagicSparklesSolid } from 'flowbite-svelte-icons';
     import { fly } from 'svelte/transition';
 
     const getTitle = () => {
@@ -42,6 +42,7 @@
             {ind+1 + ". " + c}
         </a>
     {/each}
+    <a href="/" class="w-full p-4 hover:px-6 text-theme-w  hover:bg-theme-alt capitalize transition-all duration-300"><WandMagicSparklesSolid class="inline-block"/> Lets Rock</a>
 </nav>
 {/if}
 <section class="w-full min-h-screen flex flex-col justify-start items-center bg-theme-w transition-all duration-300 {navState ? "pl-[20rem]" : "p-0"}">
