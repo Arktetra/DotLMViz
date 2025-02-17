@@ -59,7 +59,7 @@
 			titStyle="text-xl font-bold text-black"
 			borderSize={'1px'}
 			bind:expanded={global_state.viewMode}
-			inStyle="min-w-[65rem] h-[35rem] p-4 pt-14 flex flex-row justify-between items-center"
+			inStyle="min-w-[65rem] !h-[35rem] p-4 pt-14 flex flex-row justify-between items-center"
 		>
 			<EmbeddingBlock />
 			<TransformerBlocks />
