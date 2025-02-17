@@ -24,6 +24,18 @@ export default {
 			fontFamily: {
 				main: '"Smooch Sans", serif;',
 				'main-a': '"Roboto Condensed", serif'
+			},
+			keyframes: {
+				flow: {
+					'0%': {transform: 'translate(0, 0)', opacity: '0%'},
+					'10%': {opacity: '30%'},
+					'50%': {transform: 'translate(300%, 0)', opacity: '100%'},
+					'90%': {opacity: '30%'},
+					'100%': {transform: 'translate(600%, 0)', opacity: '0%'}
+				}
+			},
+			animation: {
+				'flow': 'flow 3s linear infinite'
 			}
 		}
 	},

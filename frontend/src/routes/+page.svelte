@@ -11,6 +11,7 @@
 	import ExpandableDottedBlock from '../components/ExpandableDottedBlock.svelte';
 	import Navbar from '../modules/Navbar.svelte';
 	import Message from '../components/Message.svelte';
+	import { ArrowRightAltOutline } from 'flowbite-svelte-icons';
 
 	// let inpText: string = $state('');
 	let activeTokenInd: number = $state(0);
@@ -21,6 +22,7 @@
 	});
 
 	let showRead = $state(true);
+	let flowArrowCount = 5;
 </script>
 
 {#if showRead}
@@ -36,7 +38,7 @@
 
 <Navbar />
 <section
-	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-start pt-[10rem] font-main-a"
+	class="flex max-h-screen min-h-[900px] min-w-[1500px] flex-col items-center justify-between pt-[10rem] font-main-a"
 >
 	<div
 		class="flex w-full flex-row items-start justify-evenly space-x-6 transition-all duration-300 xl:min-w-[70%] {global_state.ouputBlockState
@@ -63,6 +65,11 @@
 			<TransformerBlocks />
 			<UnembeddingBlock />
 		</ExpandableDottedBlock>
+	</div>
+	<div class="mb-10 px-10 flex w-full flex-row items-center justify-evenly">
+		{#each { length: flowArrowCount } as i}
+			<ArrowRightAltOutline class="animate-flow text-theme"/>
+		{/each}
 	</div>
 </section>
 <OutputBlock />
