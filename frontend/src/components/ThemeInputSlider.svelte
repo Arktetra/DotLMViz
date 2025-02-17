@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { onMount } from 'svelte';
 
 	const {
 		min = 0,
@@ -21,16 +21,12 @@
 
 	onMount(() => {
 		inpVal = step % 1 === 0 ? Math.floor((max - min) / 2 + min) : (max - min) / 2 + min;
-	})
+	});
 </script>
 
 <div class="mb-4 grid grid-cols-4">
 	{#if label}
-		<label 
-			for={label} 
-			title={label}
-			class="font-main-a text-ti font-bold text-theme-r" 
-		>
+		<label for={label} title={label} class="font-main-a text-ti font-bold text-theme-r">
 			{label.length > MAX_CHAR_SIZE ? label.slice(0, MAX_CHAR_SIZE) + '.' : label}
 		</label>
 	{/if}
@@ -39,7 +35,9 @@
 		<input
 			type="range"
 			value={inpVal}
-			{min} {max} {step}
+			{min}
+			{max}
+			{step}
 			oninput={(e: any) => updateInpVal(e.target.value)}
 			class="h-[6px] w-full cursor-pointer accent-theme {inpStyle}"
 		/>

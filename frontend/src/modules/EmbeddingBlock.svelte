@@ -19,18 +19,15 @@
 </script>
 
 {#if global_state.viewMode}
-<DottedBlockBase label="Embeddings" inStyle="flex-col justify-center items-center">
-	{#each _embeddings as item}
-		<BlockBase label={item.label} href={item.href} clickEventCb={item.callback}></BlockBase>
-	{/each}
-</DottedBlockBase>
+	<DottedBlockBase label="Embeddings" inStyle="flex-col justify-center items-center">
+		{#each _embeddings as item}
+			<BlockBase label={item.label} href={item.href} clickEventCb={item.callback}></BlockBase>
+		{/each}
+	</DottedBlockBase>
 {:else}
-<DottedBlockBase
-	label="Embedding"
-	inStyle="p-8 flex flex-col justify-evenly items-center"
->
-	<h1 class="tracking-tighter">Token Embedding</h1>
-	<hr class="w-[80%] border-theme" />
-	<h1 class="tracking-tighter">Positional Embedding</h1>
-</DottedBlockBase>
+	<DottedBlockBase label="Embedding" inStyle="p-8 flex flex-col justify-evenly items-center">
+		<h1 class="tracking-tighter">Token Embedding</h1>
+		<hr class="w-[80%] border-theme" />
+		<h1 class="tracking-tighter">Positional Embedding</h1>
+	</DottedBlockBase>
 {/if}

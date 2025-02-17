@@ -28,7 +28,7 @@
 	transition:fade={{ duration: 300 }}
 	on:click={() => blockTrigger(true)}
 	style="width:{width};height:{height};"
-	class="relative p-2 m-2 flex justify-center items-center cursor-pointer rounded-md  bg-theme/95 hover:bg-theme-alt hover:tracking-wide text-theme-w transition-all duration-200 {style}"
+	class="relative m-2 flex cursor-pointer items-center justify-center rounded-md bg-theme/95 p-2 text-theme-w transition-all duration-200 hover:bg-theme-alt hover:tracking-wide {style}"
 >
 	<QuickLink {href} />
 	{label}

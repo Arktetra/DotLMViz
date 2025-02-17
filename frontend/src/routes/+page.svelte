@@ -20,19 +20,18 @@
 		loadModel(active_model.model_name);
 	});
 
-	let showRead = $state(true)
-
+	let showRead = $state(true);
 </script>
 
 {#if showRead}
-<Message 
-	type="info" 
-	ostyle="bg-theme bottom-10 right-[50%] translate-x-[50%] !text-sm"
-	message="Recomendation: Please visit reading section first to understand the basic theories" 
->
-	<a href={'/read'} class="hover:underline ml-5">Visit Now</a>
-	<button onclick={() => showRead = false} class="ml-5 hover:scale-125">X</button>
-</Message>
+	<Message
+		type="info"
+		ostyle="bg-theme bottom-10 right-[50%] translate-x-[50%] !text-sm"
+		message="Recomendation: Please visit reading section first to understand the basic theories"
+	>
+		<a href={'/read'} class="ml-5 hover:underline">Visit Now</a>
+		<button onclick={() => (showRead = false)} class="ml-5 hover:scale-125">X</button>
+	</Message>
 {/if}
 
 <Navbar />

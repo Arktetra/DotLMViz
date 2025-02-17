@@ -12,7 +12,6 @@
 		titStyle = '',
 		children = null
 	} = $props();
-
 </script>
 
 <DottedBlockBase {label} {borderSize} {inStyle} {titStyle}>
@@ -31,4 +30,3 @@
 		{@render children()}
 	{/if}
 </DottedBlockBase>
-

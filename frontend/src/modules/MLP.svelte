@@ -5,8 +5,10 @@
 	import BlockBase from '../components/BlockBase.svelte';
 </script>
 
-<div class="h-full w-full p-5 rounded-lg bg-theme-w flex flex-col justify-between items-center">
-	<h1 class="mb-5 w-full bg-theme-g-alt p-4 text-center font-main-a text-2xl font-bold uppercase text-theme">
+<div class="flex h-full w-full flex-col items-center justify-between rounded-lg bg-theme-w p-5">
+	<h1
+		class="mb-5 w-full bg-theme-g-alt p-4 text-center font-main-a text-2xl font-bold uppercase text-theme"
+	>
 		Multi-layer Perceptron (MLP)
 	</h1>
 	<div class="flex h-[15rem] flex-row items-center py-10">

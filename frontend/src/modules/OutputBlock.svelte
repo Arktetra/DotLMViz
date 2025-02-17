@@ -9,7 +9,12 @@
 	import HeatMap from '../dataviz/HeatMap.svelte';
 	import MlpNeurons from '../dataviz/MLPNeurons.svelte';
 	import DensityPlot from '../dataviz/DensityPlot.svelte';
-	import { kSliderCallback, MLPPreCallback, pSliderCallback, temperatureSliderCallback } from '../callbacks.svelte';
+	import {
+		kSliderCallback,
+		MLPPreCallback,
+		pSliderCallback,
+		temperatureSliderCallback
+	} from '../callbacks.svelte';
 	import ThemeToggle from '../components/ThemeToggle.svelte';
 
 	$effect(() => {
@@ -18,7 +23,7 @@
 	});
 
 	// here true represent the top p and false mean k
-	let topPorK = $state(false)
+	let topPorK = $state(false);
 </script>
 
 <SideDrawer bind:openState={global_state.ouputBlockState} width={'25vw'}>
@@ -51,21 +56,41 @@
 				>
 					<QuestionCircleSolid size={'sm'} />
 				</a>
-				<span class="mb-4 flex flex-row justify-around text-center text-sm font-extrabold uppercase text-theme underline">
+				<span
+					class="mb-4 flex flex-row justify-around text-center text-sm font-extrabold uppercase text-theme underline"
+				>
 					Control Parameters
-						<ThemeToggle
-							bind:state={topPorK}
-							style="z-50 text-ti-s"
-							leftlabel="Top k"
-							rightlabel="Top p"
-						/>
+					<ThemeToggle
+						bind:state={topPorK}
+						style="z-50 text-ti-s"
+						leftlabel="Top k"
+						rightlabel="Top p"
+					/>
 				</span>
-				<ThemeInputSlider label={'Temperature'} min={-2} max={2} step={0.1} changeEventCb={temperatureSliderCallback}/>
+				<ThemeInputSlider
+					label={'Temperature'}
+					min={-2}
+					max={2}
+					step={0.1}
+					changeEventCb={temperatureSliderCallback}
+				/>
 				<hr class="my-1 border border-theme-w" />
 				{#if topPorK}
-					<ThemeInputSlider label={'Top K'} min={1} max={10} step={1} changeEventCb={kSliderCallback}/>
+					<ThemeInputSlider
+						label={'Top K'}
+						min={1}
+						max={10}
+						step={1}
+						changeEventCb={kSliderCallback}
+					/>
 				{:else}
-					<ThemeInputSlider label={'Top P'} min={0} max={1} step={0.05} changeEventCb={pSliderCallback}/>
+					<ThemeInputSlider
+						label={'Top P'}
+						min={0}
+						max={1}
+						step={0.05}
+						changeEventCb={pSliderCallback}
+					/>
 				{/if}
 			</div>
 		{/if}
@@ -93,7 +118,8 @@
 			</div>
 		</div>
 		<span class="my-2 font-bold text-theme"
-			>Next Token : <span class="rounded-md bg-theme p-1 px-2 font-light text-theme-w">{global_state.next_token}</span
+			>Next Token : <span class="rounded-md bg-theme p-1 px-2 font-light text-theme-w"
+				>{global_state.next_token}</span
 			></span
 		>
 	</div>

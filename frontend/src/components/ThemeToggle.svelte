@@ -10,7 +10,7 @@
 	{/if}
 	<input
 		type="range"
-		class="inline-block w-7 cursor-pointer rounded-md accent-theme transition-all duration-400"
+		class="duration-400 inline-block w-7 cursor-pointer rounded-md accent-theme transition-all"
 		min={0}
 		max={1}
 		step={1}

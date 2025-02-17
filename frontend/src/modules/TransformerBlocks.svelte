@@ -33,68 +33,68 @@
 </script>
 
 {#if global_state.viewMode}
-<DottedBlockBase label="Transformer Blocks" inStyle="p-2 py-4 flex-col">
-	<ThemeNumberOptions
-		count={12}
-		bind:activeIndex={global_state.active_block}
-		clickEventCb={blockChange}
-	/>
-	<DottedBlockBase
-		label="Block: '{global_state.active_block}'"
-		borderSize={'1px'}
-		titStyle="text-md top-[-1.35rem]"
-		inStyle="m-2 mt-10 !max-h-full flex flex-row transition-all duration-200  {pulse
-			? 'animate-pulse [transform:rotateX(90deg)]'
-			: ''}"
-	>
-		<div class="flex flex-col items-start justify-evenly space-y-10">
-			<BlockBase
-				blockContent={AttentionHeads}
-				style="p-2 min-w-[12rem] min-h-[10rem]"
-				href={_transformerBlock[0].href}
-				clickEventCb={attnHeadCallback}
-			>
-				<span>{_transformerBlock[0].label}</span>
-			</BlockBase>
-			<BlockBase
-				width={"4rem"}
-				height={"4rem"}
-				href={'/read/layernorm'}
-				clickEventCb={LN1Callback}
-			>
-				<span>LN1</span>
-			</BlockBase>
-		</div>
-		<div class="ml-10 flex flex-col items-start justify-evenly space-y-10">
-			<BlockBase
-				blockContent={Mlp}
-				style="p-4 min-w-[12rem] min-h-[10rem]"
-				href={_transformerBlock[1].href}
-			>
-				<span>{_transformerBlock[1].label}</span>
-			</BlockBase>
-			<BlockBase
-				width={"4rem"}
-				height={"4rem"}
-				href={'/read/layernorm'}
-				clickEventCb={LN2Callback}
-			>
-				<span>LN2</span>
-			</BlockBase>
-		</div>
+	<DottedBlockBase label="Transformer Blocks" inStyle="p-2 py-4 flex-col">
+		<ThemeNumberOptions
+			count={12}
+			bind:activeIndex={global_state.active_block}
+			clickEventCb={blockChange}
+		/>
+		<DottedBlockBase
+			label="Block: '{global_state.active_block}'"
+			borderSize={'1px'}
+			titStyle="text-md top-[-1.35rem]"
+			inStyle="m-2 mt-10 !max-h-full flex flex-row transition-all duration-200  {pulse
+				? 'animate-pulse [transform:rotateX(90deg)]'
+				: ''}"
+		>
+			<div class="flex flex-col items-start justify-evenly space-y-10">
+				<BlockBase
+					blockContent={AttentionHeads}
+					style="p-2 min-w-[12rem] min-h-[10rem]"
+					href={_transformerBlock[0].href}
+					clickEventCb={attnHeadCallback}
+				>
+					<span>{_transformerBlock[0].label}</span>
+				</BlockBase>
+				<BlockBase
+					width={'4rem'}
+					height={'4rem'}
+					href={'/read/layernorm'}
+					clickEventCb={LN1Callback}
+				>
+					<span>LN1</span>
+				</BlockBase>
+			</div>
+			<div class="ml-10 flex flex-col items-start justify-evenly space-y-10">
+				<BlockBase
+					blockContent={Mlp}
+					style="p-4 min-w-[12rem] min-h-[10rem]"
+					href={_transformerBlock[1].href}
+				>
+					<span>{_transformerBlock[1].label}</span>
+				</BlockBase>
+				<BlockBase
+					width={'4rem'}
+					height={'4rem'}
+					href={'/read/layernorm'}
+					clickEventCb={LN2Callback}
+				>
+					<span>LN2</span>
+				</BlockBase>
+			</div>
+		</DottedBlockBase>
 	</DottedBlockBase>
-</DottedBlockBase>
 {:else}
-<DottedBlockBase
-	label="Transformer Blocks"
-	inStyle="!h-[80%] w-[40%] justify-evenly shadow-lg z-10 relative bg-white rounded-xl"
->
-	<span class="text-3xl font-extrabold">x12</span>
-	<div
-		class="absolute left-3 top-3 -z-10 h-full w-full rounded-xl border border-dashed border-theme bg-white shadow-sm shadow-theme"
-	></div>
-	<div
-		class="absolute left-6 top-6 -z-20 h-full w-full rounded-xl border border-dashed border-theme bg-white shadow-sm shadow-theme"
-	></div>
-</DottedBlockBase>
+	<DottedBlockBase
+		label="Transformer Blocks"
+		inStyle="!h-[80%] w-[40%] justify-evenly shadow-lg z-10 relative bg-white rounded-xl"
+	>
+		<span class="text-3xl font-extrabold">x12</span>
+		<div
+			class="absolute left-3 top-3 -z-10 h-full w-full rounded-xl border border-dashed border-theme bg-white shadow-sm shadow-theme"
+		></div>
+		<div
+			class="absolute left-6 top-6 -z-20 h-full w-full rounded-xl border border-dashed border-theme bg-white shadow-sm shadow-theme"
+		></div>
+	</DottedBlockBase>
 {/if}

@@ -24,19 +24,19 @@ export const inputCallback = async (v: string) => {
 	await getTokens(input.text);
 	input.isChanged = true;
 
-	switch(activeComponent.name) {
+	switch (activeComponent.name) {
 		case 'Token Embedding':
-			return await embedCallback()
+			return await embedCallback();
 		case 'Positional Embedding':
-			return await posEmbedCallback()
+			return await posEmbedCallback();
 		case 'LN1':
-			return await LN1Callback()
+			return await LN1Callback();
 		case 'Attention Pattern':
-			return await attnHeadCallback()
+			return await attnHeadCallback();
 		case 'LN2':
-			return await LN2Callback()
+			return await LN2Callback();
 		case 'MLP (in) Pre-activation':
-			return await MLPPreCallback()
+			return await MLPPreCallback();
 		default:
 			return;
 	}
@@ -140,17 +140,17 @@ export const temperatureSliderCallback = async (v: number) => {
 	console.log(v);
 
 	await outputCallback();
-}
+};
 
 export const kSliderCallback = async (v: number) => {
 	params.top_k = +v;
 	console.log(v);
 
 	await outputCallback();
-}
+};
 
 export const pSliderCallback = async (v: number) => {
 	params.top_p = +v;
 
 	await outputCallback();
-}
+};
