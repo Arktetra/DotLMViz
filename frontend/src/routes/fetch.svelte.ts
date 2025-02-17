@@ -44,7 +44,7 @@ abstract class _Axios {
 
 // This function will load the model of name passed as param, fallback is to the default model on active_model on state.svelte
 export const loadModel = async (model_name: string = active_model.model_name) => {
-	
+
 	return _Axios.Post('/model/load', { model_name }, (d) => {
 		global_state.isModelLoaded = true;
 	})
@@ -140,7 +140,7 @@ export const getDist = async () => {
 export const getNextToken = async () => {
 	const res = await _Axios.Post('/model/sample', { temperature: params.temperature, p: params.top_p, k: params.top_k })
 	console.log(res["next_token"]);
-	global_state.next_token_id = res["next_token"];
+	global_state.next_token = res["next_token"];
 }
 
 export const getTokens = async (input_text: string) => {
