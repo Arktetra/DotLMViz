@@ -10,7 +10,6 @@
 	import MlpNeurons from '../dataviz/MLPNeurons.svelte';
 	import DensityPlot from '../dataviz/DensityPlot.svelte';
 	import { kSliderCallback, MLPPreCallback, pSliderCallback, temperatureSliderCallback } from '../callbacks.svelte';
-	import ThemeInputField from '../components/ThemeInputField.svelte';
 	import ThemeToggle from '../components/ThemeToggle.svelte';
 
 	$effect(() => {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ThemeInputField from '../components/ThemeInputField.svelte';
 	import ThemeButton from '../components/ThemeButton.svelte';
-	import { data, global_state } from '../state.svelte';
+	import { global_state } from '../state.svelte';
 	import { outputCallback } from '../callbacks.svelte';
 
 	let { inpEventCb = null, value = $bindable() } = $props();

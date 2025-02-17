@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { data, active_model, global_state, input, activeComponent, params } from '../state.svelte';
+import { data, active_model, global_state, params } from '../state.svelte';
 
 type ICallback = (d: any) => void;
 

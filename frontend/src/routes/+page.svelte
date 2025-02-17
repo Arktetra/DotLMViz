@@ -4,7 +4,6 @@
 	import UnembeddingBlock from '../modules/UnembeddingBlock.svelte';
 	import EmbeddingBlock from '../modules/EmbeddingBlock.svelte';
 	import TokensBlock from '../modules/TokensBlock.svelte';
-	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import { onMount } from 'svelte';
 	import { loadModel } from './fetch.svelte';
 	import { InitEventMap } from '../eventstate.svelte';

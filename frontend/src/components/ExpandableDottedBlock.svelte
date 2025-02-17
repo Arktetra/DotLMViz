@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { ExpandOutline, MinimizeOutline } from 'flowbite-svelte-icons';
-	import { fade } from 'svelte/transition';
 	import QuickLink from './QuickLink.svelte';
 	import DottedBlockBase from './DottedBlockBase.svelte';
 
