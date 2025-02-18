@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ArrowRightAltOutline } from 'flowbite-svelte-icons';
-	import { MLPPreCallback } from '../callbacks.svelte';
+	import { MLPPostCallback, MLPPreCallback } from '../callbacks.svelte';
 
 	import BlockBase from '../components/BlockBase.svelte';
 </script>
@@ -21,7 +21,13 @@
 			clickEventCb={MLPPreCallback}
 		/>
 		<ArrowRightAltOutline class="h-6 w-6 animate-pulse text-theme" />
-		<BlockBase label="GELU" height={'100%'} width={'7rem'} href="/read/mlp-gelu" />
+		<BlockBase
+			label="GELU"
+			height={'100%'}
+			width={'7rem'}
+			href="/read/mlp-gelu"
+			clickEventCb={MLPPostCallback}
+		/>
 		<ArrowRightAltOutline class="h-6 w-6 animate-pulse text-theme" />
 		<BlockBase label="Linear" height={'75%'} width={'5rem'} href="/read/mlp-linear" />
 		<ArrowRightAltOutline class="h-10 w-10 animate-pulse text-theme" />
