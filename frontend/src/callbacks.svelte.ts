@@ -82,6 +82,10 @@ export const MLPPreCallback = async () => {
 	activeComponent.name = 'MLP (in) Pre-activation';
 };
 
+/**
+ * A callback function that is to be called each time the GELU activation
+ * layer of the MLP is clicked.
+ */
 export const MLPPostCallback = async () => {
 	await checkInputAndRunModel();
 	await getMLPOuts('post', 'mlp', global_state.active_block, global_state.neuron);
@@ -111,6 +115,19 @@ export const LN2Callback = async () => {
 
 	activeComponent.name = 'LN2';
 };
+
+/**
+ * A callback function that is to be called each time the final LN is
+ * clicked.
+ */
+export const LNFinalCallback = async () => {
+	await checkInputAndRunModel();
+
+	await getProbDensity('resid_post', null, global_state.active_block);
+	await getProbDensity('normalized', 'ln_final', null);
+
+	activeComponent.name = 'LN Final';
+}
 
 /**
  * A callback function that is to be called when a block number is clicked.

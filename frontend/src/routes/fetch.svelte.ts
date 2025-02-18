@@ -105,12 +105,12 @@ export const getAct = async (act_name: string, layer_name: string | null, block:
 export const getProbDensity = async (
 	act_name: string | null,
 	layer_name: string | null,
-	block: number
+	block: number | null
 ) => {
 	const data = await _Axios.Post('/ckpt/prob_density', { act_name, layer_name, block });
 	console.log(data);
 
-	if (act_name == 'resid_pre' || act_name === 'resid_mid') {
+	if (act_name == 'resid_pre' || act_name === 'resid_mid' || act_name === 'resid_post') {
 		global_state.ln_pre = data;
 	} else if (act_name == 'normalized') {
 		global_state.ln_post = data;

@@ -2,6 +2,7 @@
 	import DottedBlockBase from '../components/DottedBlockBase.svelte';
 	import BlockBase from '../components/BlockBase.svelte';
 	import { global_state, activeComponent } from '../state.svelte';
+	import { LNFinalCallback } from '../callbacks.svelte';
 </script>
 
 {#if global_state.viewMode}
@@ -11,7 +12,10 @@
 		inStyle="flex-col justify-evenly items-center"
 	>
 		{#if global_state.active_block == 11}
-			<BlockBase href={'/read/layernorm'}>
+			<BlockBase
+				href={'/read/layernorm'}
+				clickEventCb={LNFinalCallback}
+			>
 				<span>LayerNorm</span>
 			</BlockBase>
 		{/if}

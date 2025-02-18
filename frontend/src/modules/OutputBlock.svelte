@@ -120,7 +120,7 @@
 					<HeatMap data={global_state.attn_patterns[global_state.active_head]} vmax="#03045E" />
 				{:else if activeComponent.name === 'MLP (in) Pre-activation' || activeComponent.name === 'GELU Activation'}
 					<MlpNeurons data={global_state.data} />
-				{:else if activeComponent.name === 'LN1' || activeComponent.name === 'LN2'}
+				{:else if activeComponent.name === 'LN1' || activeComponent.name === 'LN2' || activeComponent.name === 'LN Final'}
 					<DensityPlot pre={global_state.ln_pre} post={global_state.ln_post} />
 				{/if}
 			</div>
