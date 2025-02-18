@@ -82,6 +82,12 @@ export const MLPPreCallback = async () => {
 	activeComponent.name = 'MLP (in) Pre-activation';
 };
 
+export const MLPPostCallback = async () => {
+	await checkInputAndRunModel();
+	await getMLPOuts('post', 'mlp', global_state.active_block, global_state.neuron);
+	activeComponent.name = 'GELU Activation';
+}
+
 /**
  * A callback function that is to be called each time the LN1 is clicked.
  */
