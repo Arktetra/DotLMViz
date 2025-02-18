@@ -11,11 +11,13 @@
 	import DensityPlot from '../dataviz/DensityPlot.svelte';
 	import {
 		kSliderCallback,
+		MLPPostCallback,
 		MLPPreCallback,
 		pSliderCallback,
 		temperatureSliderCallback
 	} from '../callbacks.svelte';
 	import ThemeToggle from '../components/ThemeToggle.svelte';
+	import { active } from 'd3';
 
 	$effect(() => {
 		$inspect(activeComponent);
@@ -28,7 +30,7 @@
 
 <SideDrawer bind:openState={global_state.ouputBlockState} width={'25vw'}>
 	<div class="flex h-full w-full flex-col items-center justify-evenly pt-12 font-main-a">
-		{#if activeComponent.name === 'MLP (in) Pre-activation'}
+		{#if activeComponent.name === 'MLP (in) Pre-activation' || activeComponent.name === 'GELU Activation'}
 			<div class="flex flex-row items-center justify-evenly space-x-4">
 				<label for="neuron">Neuron:</label>
 				<input
@@ -38,7 +40,13 @@
 					min="0"
 					max="3072"
 					bind:value={global_state.neuron}
-					onchange={MLPPreCallback}
+					onchange={() => {
+						if (activeComponent.name === "MLP (in) Pre-activation") {
+							return MLPPreCallback();
+						} else {
+							return MLPPostCallback();
+						}
+					}}
 					class="rounded-md border border-theme px-1 text-lg text-theme outline-none"
 				/>
 				<div class="flex flex-col">
@@ -110,7 +118,7 @@
 					<ScatterChart data={global_state.embed_output} />
 				{:else if activeComponent.name === 'Attention Pattern'}
 					<HeatMap data={global_state.attn_patterns[global_state.active_head]} vmax="#03045E" />
-				{:else if activeComponent.name === 'MLP (in) Pre-activation'}
+				{:else if activeComponent.name === 'MLP (in) Pre-activation' || activeComponent.name === 'GELU Activation'}
 					<MlpNeurons data={global_state.data} />
 				{:else if activeComponent.name === 'LN1' || activeComponent.name === 'LN2'}
 					<DensityPlot pre={global_state.ln_pre} post={global_state.ln_post} />
